@@ -1,0 +1,97 @@
+.NFTTabs_box{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    line-height: 0;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--shadow-dark-color);
+}
+.NFTTabs_box_img{
+    border-radius: 50%;
+}
+.NFTTabs_box_info{
+    display: grid;
+    align-self: flex-start;
+    line-height: 1;
+    margin-top: 6px;
+    color: black;
+}
+.NFTTabs_box_info span{
+    font-weight: 700;
+}
+.NFTTabs_box_info small{
+    margin-top: .2rem;
+}
+.NFTTabs_box {
+    display: flex;
+    justify-content: space-between;
+}
+
+.NFTTabs_box_info {
+    flex: 1; /* This will make the info take up the available space */
+}
+
+.button {
+    font-size: 1rem;
+    padding: 1rem 1.2rem;
+}
+
+.confirmationDialog {
+    background-color: #f8f9fa;
+    border: 2px solid var(--icons-bg-color);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    text-align: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    max-width: 500px; /* Set a maximum width for better readability */
+  }
+  
+  .confirmationDialog h2 {
+    font-size: 1.8rem;
+    color: var(--icons-color);
+    margin-bottom: 20px;
+  }
+  
+  .confirmationDialog p {
+    font-size: 1.2rem;
+    color: #495057;
+    margin-bottom: 15px;
+    text-align: center; /* Center-align the text */
+    display: flex; /* Add display flex */
+    align-items: center; /* Align items in the center */
+    justify-content: center; /* Center the content horizontally */
+  }
+  
+  
+  .confirmationDialog button {
+    font-size: 1rem;
+    padding: 0.8rem 1.2rem;
+    margin: 5px;
+  }
+  
+  /* Style for Yes button */
+  .confirmationDialog button.btnYes {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    margin-right: 5px;
+  }
+  
+  /* Style for No button */
+  .confirmationDialog button.btnNo {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    margin-left: 5px;
+  }
+  .confirmationDialog .buttonContainer {
+    display: flex;
+    justify-content: center;
+  }
+  
+  

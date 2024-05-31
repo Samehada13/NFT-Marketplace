@@ -1,0 +1,21 @@
+.loader{
+    width: 100%;
+    margin-block: 4rem;
+}
+.loader_box{
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+}
+.loader_box_img{
+    margin-bottom: 14rem;
+    margin-top: -2rem;
+    animation: anim 4s infinite;
+}
+
+@keyframes anim {
+    50% {transform: rotate(360deg);}
+}
+.loader_box_img_img{
+    border-radius: 50%;
+}

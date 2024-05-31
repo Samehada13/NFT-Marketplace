@@ -1,0 +1,84 @@
+.subscription {
+    width: 100%;
+  }
+  
+  .subscription_box {
+    width: 80%;
+    margin: 0 auto;
+    padding: 8rem;
+  }
+  
+  .subscription_box_info {
+    text-align: left;
+    line-height: 1.5;
+  }
+  
+  .subscription_box_info h1 {
+    font-size: 4rem;
+    line-height: 1.5;
+    text-align: center;
+  }
+  
+  .subscription_box_info h2 {
+    font-size: 2rem;
+    line-height: 2;
+  }
+  
+  .subscription_box_info p {
+    font-size: 1.6rem;
+    margin: 1rem 0;
+  }
+  
+  .subscription_box_info ul {
+    margin: 1rem 0;
+    padding-left: 2rem;
+  }
+  
+  .subscription_box_info li {
+    font-size: 1.6rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .buttonRight {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  @media screen and (max-width: 35em) {
+    .subscription_box {
+      width: 90%;
+    }
+  
+    .subscription {
+      margin-block: 4rem;
+    }
+  
+    .subscription_box_info h1 {
+      font-size: 2rem;
+    }
+  
+    .subscription_box_info p,
+    .subscription_box_info li {
+      font-size: 1rem;
+    }
+  }
+  
+  @media screen and (min-width: 455px) and (max-width: 1024px) {
+    .subscription_box {
+      width: 90%;
+    }
+  
+    .subscription {
+      margin-block: 4rem;
+    }
+  
+    .subscription_box_info h1 {
+      font-size: 2rem;
+    }
+  
+    .subscription_box_info p,
+    .subscription_box_info li {
+      font-size: 1rem;
+    }
+  }
+  
