@@ -85,7 +85,7 @@ export const NFTMarketplaceProvider = ({ children }) => {
 
                 const response = await axios({
                     method: "post",
-                    // url: "https://api.gateway.cloud/pinning/pinFileToIPFS",
+                    // url: "https://api.pinata.cloud/pinning/pinFileToIPFS",
                     url: "https://api.coral-elderly-takin-229.mypinata.cloud/pinning/pinFileToIPFS",
                     data: formData,
                     headers: {
