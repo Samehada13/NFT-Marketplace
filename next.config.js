@@ -2,8 +2,7 @@
 module.exports = {
   reactStrictMode: true,
   images: {
-    // domains: ["gateway.pinata.cloud"],
-    domains: ["cloudflare-ipfs.com"],
+    domains: ["gateway.pinata.cloud"],
     formats: ["image/webp"],
   }
 };
