@@ -93,8 +93,7 @@ export const NFTMarketplaceProvider = ({ children }) => {
                         "Content-Type": "multipart/form-data",
                     },
                 });
-                // const ImgHash = `https://gateway.pinata.cloud/ipfs/${response.data.IpfsHash}`;
-                const ImgHash = `https://ipfs.io/ipfs/${response.data.IpfsHash}`;
+                const ImgHash = `https://gateway.pinata.cloud/ipfs/${response.data.IpfsHash}`;
                 console.log("Successfully uploaded");
                     
                 return ImgHash;
