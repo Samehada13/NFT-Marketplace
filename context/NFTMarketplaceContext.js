@@ -93,7 +93,8 @@ export const NFTMarketplaceProvider = ({ children }) => {
                         "Content-Type": "multipart/form-data",
                     },
                 });
-                const ImgHash = `https://gateway.pinata.cloud/ipfs/${response.data.IpfsHash}`;
+                // const ImgHash = `https://gateway.pinata.cloud/ipfs/${response.data.IpfsHash}`;
+                const ImgHash = `https:/coral-elderly-takin-229.mypinata.cloud/ipfs/${response.data.IpfsHash}`;
                 console.log("Successfully uploaded");
                     
                 return ImgHash;
@@ -157,7 +158,8 @@ export const NFTMarketplaceProvider = ({ children }) => {
             },
           });
       
-          const url = `https://gateway.pinata.cloud/ipfs/${response.data.IpfsHash}`;
+          // const url = `https://gateway.pinata.cloud/ipfs/${response.data.IpfsHash}`;
+            const url = `https://coral-elderly-takin-229.mypinata.cloud/ipfs/${response.data.IpfsHash}`;
           console.log(url);
       
           await createSale(url, price);
