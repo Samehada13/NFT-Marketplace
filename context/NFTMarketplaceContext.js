@@ -158,7 +158,8 @@ export const NFTMarketplaceProvider = ({ children }) => {
             },
           });
       
-          const url = `https://gateway.pinata.cloud/ipfs/${response.data.IpfsHash}`;
+          // const url = `https://gateway.pinata.cloud/ipfs/${response.data.IpfsHash}`;
+            const url = `https://cloudflare-ipfs.com/ipfs/${response.data.IpfsHash}`;
           console.log(url);
       
           await createSale(url, price);
