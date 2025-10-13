@@ -94,7 +94,7 @@ export const NFTMarketplaceProvider = ({ children }) => {
                     },
                 });
                 // const ImgHash = `https://gateway.pinata.cloud/ipfs/${response.data.IpfsHash}`;
-                const ImgHash = `https://cloudflare-ipfs.com/ipfs/${response.data.IpfsHash}`;
+                const ImgHash = `https://ipfs.io/ipfs/${response.data.IpfsHash}`;
                 console.log("Successfully uploaded");
                     
                 return ImgHash;
