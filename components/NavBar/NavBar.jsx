@@ -95,7 +95,6 @@ const NavBar = () => {
           <div className={image.logo}>
             <a href='/'>
               <Image src={image.logo} alt="GABR NFT Marketplace" width={100} height={100}/>
-              xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
             </a>
           </div>
           <div className={Style.navbar_container_left_box_input}>
