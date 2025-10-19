@@ -9,9 +9,9 @@ const MyApp = ({ Component, pageProps }) => (
   <div>
     <I18nextProvider i18n={i18n}>
       <NFTMarketplaceProvider>
-        <NavBar />
+        <NavBar/>
         <Component {...pageProps} />
-        <Footer />
+        <Footer/>
       </NFTMarketplaceProvider>
     </I18nextProvider>
   </div>
