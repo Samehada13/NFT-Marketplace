@@ -1,18 +1,17 @@
-import "../styles/globals.css";
-import { NavBar, Footer } from "../components/componentIndex";
+import '../styles/globals.css';
+import '../sass/main.scss';
+import { NavBar, Footer } from '../components/componentIndex';
 import { NFTMarketplaceProvider } from '../context/NFTMarketplaceContext';
-
-import { I18nextProvider } from "react-i18next";
-import i18n from "../language/i18n";
-
-
+import { I18nextProvider } from 'react-i18next';
+import i18n from '../language/i18n';
+import 'material-symbols';
 const MyApp = ({ Component, pageProps }) => (
   <div>
     <I18nextProvider i18n={i18n}>
       <NFTMarketplaceProvider>
-        <NavBar/>
+        <NavBar />
         <Component {...pageProps} />
-        <Footer/>
+        <Footer />
       </NFTMarketplaceProvider>
     </I18nextProvider>
   </div>
