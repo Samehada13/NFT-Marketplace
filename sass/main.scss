@@ -1,0 +1,22 @@
+// 1. Base and variables
+//@use 'base/variables' as *;
+//@use 'base/mixins' as *;
+
+// 2. Reset and base styles
+//@use 'base/reset';
+//@use 'base/typography';
+//@use 'base/utilities';
+//@use 'base/base';
+
+// 3. Components
+@use 'components/hover.scss';
+@use 'components/icons.scss';
+@use 'components/buttons.scss';
+
+// 4. Layout
+// @use 'layout/header';
+// @use 'layout/footer';
+
+// 5. Pages
+// @use 'pages/home';
+// @use 'pages/about';

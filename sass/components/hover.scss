@@ -1,0 +1,50 @@
+/* Global menu item styles */
+.menu-item {
+  display: block;
+  width: 100%;
+  transition: all 0.3s ease-in;
+  white-space: nowrap; 
+  min-width: 150px; 
+
+  a {
+    display: block;
+    width: 100%;
+    padding: 4px 16px;
+    color: inherit;
+    text-decoration: none;
+    white-space: nowrap; 
+    border-radius: .5rem;
+    &:hover {
+      background-color: var(--icons-opacity-light);
+    }
+  }
+  border-radius: .5rem;
+}
+
+/* Specific styles for dropdown menu items */
+[role='menu'] .menu-item {
+  display: block;
+  width: 100%;
+
+  a {
+    padding: 4px 16px;
+    color: #374151;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+    border-radius:.5rem;
+    &:hover {
+      background-color: var(--icons-opacity-light);
+      color: #111827;
+    }
+  }
+  border-radius: .5rem;
+}
+
+.profile-menu-item {
+  @extend .menu-item; 
+  
+  &:hover {
+    background-color:var(--icons-opacity-light); 
+  }
+  
+}
