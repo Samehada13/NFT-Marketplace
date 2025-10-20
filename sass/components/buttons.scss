@@ -1,0 +1,13 @@
+.button-primary {
+  background-color: var(--icons-color);
+  padding: 8px 20px;
+  border-radius: 6px;
+}
+.button-primary:hover {
+  cursor: pointer;
+  -webkit-transform: translateY(-1px);
+  -ms-transform: translateY(-1px);
+  transform: translateY(-1px);
+  transition: all 0.3s ease-in-out;
+  background-color: var(--icons-bg-color);
+}
