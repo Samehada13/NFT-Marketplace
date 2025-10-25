@@ -1,13 +1,64 @@
-.button-primary {
-  background-color: var(--icons-color);
-  padding: 8px 20px;
-  border-radius: 6px;
-}
-.button-primary:hover {
-  cursor: pointer;
-  -webkit-transform: translateY(-1px);
-  -ms-transform: translateY(-1px);
-  transform: translateY(-1px);
+// Base button styles
+.button {
+  border-radius: 24px;
+  font-weight: 500;
+  text-align: center;
   transition: all 0.3s ease-in-out;
-  background-color: var(--icons-bg-color);
+  padding: 8px 20px;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-1px);
+  }
+
+  // Primary variant (default)
+  &-primary {
+    background-color: var(--primary-color);
+    color: white;
+
+    &:hover {
+      background-color: var(--icons-bg-color);
+    }
+  }
+
+  // Accent variant
+  &-accent {
+    background-color: var(--primary-accent);
+    color: var(--text-color);
+
+    &:hover {
+      background-color: darken(#fddd95, 10%);
+    }
+  }
+
+  // Outline variant
+  &-outline {
+    background-color: transparent;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+
+    &:hover {
+      background-color: rgba(var(--primary-color-rgb), 0.1);
+    }
+  }
+
+  &-danger {
+    background-color: #ef4444;
+    color: white;
+
+    &:hover {
+      background-color: #dc2626;
+    }
+  }
+
+  &-sm {
+    padding: 6px 16px;
+    font-size: 0.85rem;
+  }
+
+  &-lg {
+    padding: 12px 28px;
+    font-size: 1.1rem;
+  }
 }
