@@ -6,11 +6,13 @@ import { I18nextProvider } from 'react-i18next';
 import i18n from '../language/i18n';
 import 'material-symbols';
 const MyApp = ({ Component, pageProps }) => (
-  <div>
+  <div className="min-h-screen flex flex-col overflow-visible">
     <I18nextProvider i18n={i18n}>
       <NFTMarketplaceProvider>
         <NavBar/>
-        <Component {...pageProps} />
+        <div className="flex-grow pt-16">
+          <Component {...pageProps} />
+        </div>
         <Footer/>
       </NFTMarketplaceProvider>
     </I18nextProvider>

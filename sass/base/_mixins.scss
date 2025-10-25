@@ -1,0 +1,199 @@
+// Media Query Mixins
+@mixin screen($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media (min-width: map-get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  } @else {
+    @warn "Breakpoint `#{$breakpoint}` not found in $breakpoints map.";
+  }
+}
+
+// Flexbox Mixins
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@mixin flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin flex-col-center {
+  @include flex-col;
+  align-items: center;
+  justify-content: center;
+}
+
+// Position Mixins
+@mixin position($position, $top: null, $right: null, $bottom: null, $left: null) {
+  position: $position;
+  top: $top;
+  right: $right;
+  bottom: $bottom;
+  left: $left;
+}
+
+@mixin absolute($args...) {
+  @include position(absolute, $args...);
+}
+
+@mixin fixed($args...) {
+  @include position(fixed, $args...);
+}
+
+@mixin sticky($args...) {
+  position: sticky;
+  @include position(sticky, $args...);
+}
+
+// Size Mixins
+@mixin size($width, $height: $width) {
+  width: $width;
+  height: $height;
+}
+
+@mixin square($size) {
+  @include size($size);
+}
+
+@mixin circle($size) {
+  @include size($size);
+  border-radius: 50%;
+}
+
+// Text Mixins
+@mixin text-ellipsis($lines: 1) {
+  @if $lines == 1 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  } @else {
+    display: -webkit-box;
+    -webkit-line-clamp: $lines;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+@mixin font-smoothing($value: antialiased) {
+  @if $value == antialiased {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  } @else {
+    -webkit-font-smoothing: subpixel-antialiased;
+    -moz-osx-font-smoothing: auto;
+  }
+}
+
+// Visual Effects
+@mixin overlay($color: $black, $opacity: 0.5) {
+  content: '';
+  @include absolute(0, 0, 0, 0);
+  background: rgba($color, $opacity);
+  z-index: 1;
+}
+
+@mixin gradient($direction, $colors...) {
+  background: linear-gradient($direction, $colors);
+}
+
+// Animation Mixins
+@mixin transition($properties...) {
+  $transition: ();
+  
+  @each $property in $properties {
+    $transition: append($transition, #{$property} transition('DEFAULT'), $separator: comma);
+  }
+  
+  transition: $transition;
+}
+
+@mixin keyframes($name) {
+  @keyframes #{$name} {
+    @content;
+  }
+}
+
+// Button Mixins
+@mixin button-variant($bg, $color: color('white'), $hover-bg: darken($bg, 10%)) {
+  background-color: $bg;
+  color: $color;
+  transition: transition('DEFAULT');
+  
+  &:hover, &:focus {
+    background-color: $hover-bg;
+  }
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+// Grid Mixins
+@mixin grid($columns, $gap: spacing('4')) {
+  display: grid;
+  grid-template-columns: repeat($columns, 1fr);
+  gap: $gap;
+}
+
+@mixin grid-responsive($min-width, $gap: spacing('4')) {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax($min-width, 1fr));
+  gap: $gap;
+}
+
+// Aspect Ratio
+@mixin aspect-ratio($width, $height) {
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    display: block;
+    padding-top: ($height / $width) * 100%;
+  }
+  
+  > * {
+    @include absolute(0, 0, 0, 0);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+// Pseudo Elements
+@mixin pseudo($display: block, $pos: absolute, $content: '') {
+  content: $content;
+  display: $display;
+  position: $pos;
+  @content;
+}
+
+// Accessibility
+@mixin sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+@mixin sr-only-focusable {
+  &:not(:focus, :focus-within) {
+    @include sr-only;
+  }
+}

@@ -59,18 +59,16 @@ const index = () => {
         <HeroSection/>
         <Service/>
         {/* <BigNFTSlider nftData={nfts}/> */}
-        <Title 
+        {/* <Title 
           heading={t('pages.home.title')} 
           // paragraph={t('pages.home.subtitle')} 
-        /> 
+        /> */} 
         
         {/* <Filter onCategoryFilter={handleCategoryFilter}/>
         {nfts.length == 0 ? <Loader/> : <NFTCard nftData={nfts}/>}} */}
 
         {creators.length == 0 ? <Loader/> : <FollowerTab TopCreators={creators}/>}
-        <Title heading={t('pages.home.price.title')} paragraph={t('pages.home.price.subtitle')} />
         <BTC />
-        <Title heading={"Polygon Scan"} paragraph={"Click the contract address to view the transactions in blockchain"} />
         {/* <div style={{ fontSize: '1.5em', margin: '10%', marginTop: '2%', marginBottom: '5%' }}>
           NFT Marketplace Contract Address: 
           <a href="https://amoy.polygonscan.com/address/0xfab46273936c613e8c1a0dda75f82dcb1d154c9b" target="_blank" rel="noopener noreferrer">

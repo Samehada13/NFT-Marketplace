@@ -148,7 +148,7 @@ const BigNFTSlider = ({ nftData }) => {
   };
 
   return (
-    <div className={Style.bigNFTSlider}>
+    <div className="">
       <div className={Style.bigNFTSlider_box}>
         <div className={Style.bigNFTSlider_box_left}>
           <h2>{currentNFT.name}</h2>

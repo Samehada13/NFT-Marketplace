@@ -1,182 +1,348 @@
-
-import React, {useState,useEffect, useContext} from 'react';
-import Image from "next/image";
-import Link from "next/link";
+import { useState, useContext, Fragment } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
-
-import {MdNotifications} from "react-icons/md";
-import {BsSearch} from "react-icons/bs";
-import {CgMenuLeft, CgMenuRight} from "react-icons/cg";
-
-import Style from "./NavBar.module.css";
-import {Discover,HelpCenter,Notification,Profile,SideBar} from "./index";
-import {Button, Error} from "../componentIndex";
-import image from "../../img";
+import { BsSearch } from 'react-icons/bs';
+import { CgMenuRight } from 'react-icons/cg';
+import { MdClose } from 'react-icons/md';
+import { Discover, HelpCenter, Notification, Profile } from './index';
+import { Button, Error } from '../componentIndex';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from './LanguageSwitcher';
-
 import { NFTMarketplaceContext } from '../../context/NFTMarketplaceContext';
-
-const NavBar = () => {  
-  const [discover, setDiscover] = useState(false);
-  const [help, setHelp] = useState(false);
+import { Menu, Disclosure, Transition } from '@headlessui/react';
+import { ChevronDownIcon } from '@heroicons/react/20/solid';
+import image from '../../img';
+import logo from '../../public/GABR-Logo.png';
+const NavBar = () => {
   const [notification, setNotification] = useState(false);
   const [profile, setProfile] = useState(false);
-  const [openSideMenu, setOpenSideMenu] = useState(false);
-
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const router = useRouter();
-
-  const openMenu = (e) => {
-    const btnText = e.target.innerText;
-  
-    // Check if the clicked menu is already open, if yes, close it
-    if ((btnText === t('navbar.discover') && discover) || (btnText === t('navbar.helpCenter') && help)) {
-      setDiscover(false);
-      setHelp(false);
-    } else {
-      // Open the clicked menu
-      if (btnText === t('navbar.discover')) {
-        setDiscover(true);
-        setHelp(false);
-        setNotification(false);
-        setProfile(false);
-      } else if (btnText === t('navbar.helpCenter')) {
-        setDiscover(false);
-        setHelp(true);
-        setNotification(false);
-        setProfile(false);
-      } else {
-        setDiscover(false);
-        setHelp(false);
-        setNotification(false);
-        setProfile(false);
-      }
-    }
-  };
-  
-  const openNotification = ()=> {
-    if(!notification){
-      setNotification(true);
-      setDiscover(false);
-      setHelp(false);
-      setProfile(false);
-    }else{
-      setNotification(false);
-    }
-  }
-
-  const openProfile = ()=>{
-    if(!profile){
-      setProfile(true);
-      setHelp(false);
-      setDiscover(false);
-      setNotification(false);
-    }else{
-      setProfile(false);
-    }
-  }
-
-  const openSideBar = () => {
-    if(!openSideMenu){
-      setOpenSideMenu(true);
-    }else{
-      setOpenSideMenu(false);
-    }
-  }
-
-  const {currentAccount, connectWallet, openError} = useContext(NFTMarketplaceContext);
-
+  const { currentAccount, connectWallet, openError } = useContext(
+    NFTMarketplaceContext
+  );
   const { t } = useTranslation();
 
+  const openNotification = () => {
+    setNotification(!notification);
+    setProfile(false);
+  };
+
+  const openProfile = () => {
+    setProfile(!profile);
+    setNotification(false);
+  };
+
   return (
-    <div className={Style.navbar}>
-      <div className={Style.navbar_container}>
-        <div className={Style.navbar_container_left}>
-          <div className={image.logo}>
-            <a href='/'>
-              <Image src={image.logo} alt="GABR NFT Marketplace" width={100} height={100}/>
-            </a>
-          </div>
-          <div className={Style.navbar_container_left_box_input}>
-            <div className={Style.navbar_container_left_box_input_box}>
-              <input type='text' placeholder={t('navbar.searchPlaceholder')}/>
-              <BsSearch onClick={() => {}} className={Style.search_icon}/>
+    <div className='w-full fixed top-0 left-0 right-0 z-50'>
+      <nav className='bg-white shadow-sm'>
+        <div className=' mx-auto px-4 sm:px-6'>
+          <div className='flex justify-between items-center h-16'>
+            {/* Left side - Logo and Desktop Menu */}
+            <div className='flex items-center space-x-4'>
+              {/* Logo */}
+              <Link
+                href='/'
+                className='flex-shrink-0 flex items-center space-x-2'
+              >
+                <Image
+                  src={logo}
+                  alt='logo'
+                  width={120}
+                  height={40}
+                />
+              </Link>
+
+              {/* Desktop Navigation */}
+              <div className='hidden md:flex md:space-x-4'>
+                {/* Discover Dropdown */}
+                <Menu
+                  as='div'
+                  className='relative'
+                >
+                  {({ open }) => (
+                    <>
+                      <Menu.Button className='inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-md transition-colors'>
+                        {t('navbar.discover')}
+                        <ChevronDownIcon
+                          className={`ml-1 h-4 w-4 transition-transform ${
+                            open ? 'rotate-180' : ''
+                          }`}
+                        />
+                      </Menu.Button>
+                      <Transition
+                        as={Fragment}
+                        enter='transition ease-out duration-100'
+                        enterFrom='transform opacity-0 scale-95'
+                        enterTo='transform opacity-100 scale-100'
+                        leave='transition ease-in duration-75'
+                        leaveFrom='transform opacity-100 scale-100'
+                        leaveTo='transform opacity-0 scale-95'
+                      >
+                        <Menu.Items className='absolute left-0 mt-2 origin-top-left rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50'>
+                          <div className='p-2'>
+                            <Discover />
+                          </div>
+                        </Menu.Items>
+                      </Transition>
+                    </>
+                  )}
+                </Menu>
+
+                {/* Help Center Dropdown */}
+                <Menu
+                  as='div'
+                  className='relative'
+                >
+                  {({ open }) => (
+                    <>
+                      <Menu.Button className='inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-md transition-colors'>
+                        {t('navbar.helpCenter')}
+                        <ChevronDownIcon
+                          className={`ml-1 h-4 w-4 transition-transform ${
+                            open ? 'rotate-180' : ''
+                          }`}
+                        />
+                      </Menu.Button>
+                      <Transition
+                        as={Fragment}
+                        enter='transition ease-out duration-100'
+                        enterFrom='transform opacity-0 scale-95'
+                        enterTo='transform opacity-100 scale-100'
+                        leave='transition ease-in duration-75'
+                        leaveFrom='transform opacity-100 scale-100'
+                        leaveTo='transform opacity-0 scale-95'
+                      >
+                        <Menu.Items className='absolute left-0 mt-2 origin-top-left rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50'>
+                          <div className='p-2'>
+                            <HelpCenter />
+                          </div>
+                        </Menu.Items>
+                      </Transition>
+                    </>
+                  )}
+                </Menu>
+              </div>
+            </div>
+
+            {/* Right side - Desktop */}
+            <div className='hidden md:flex md:items-center md:space-x-4'>
+              {/* Search Bar */}
+              <div className='relative'>
+                <input
+                  type='text'
+                  placeholder={t('navbar.searchPlaceholder')}
+                  className='w-64 px-4 py-2 pr-10 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
+                />
+                <BsSearch className='absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400' />
+              </div>
+
+              {/* Connect/Mint Button 
+               {/*<div>
+                {currentAccount == '' ? (
+                  <Button
+                    btnName={t('navbar.connect')}
+                    handleClick={() => connectWallet()}
+                  />
+                ) : (
+                  <Button
+                    btnName={t('navbar.mint')}
+                    handleClick={() => router.push('/uploadNFT')}
+                  />
+                )}
+              </div>*/}
+
+              {/* Profile Dropdown */}
+              <Menu
+                as='div'
+                className='relative'
+              >
+                <Menu.Button className='flex items-center'>
+                  <span className='material-symbols-rounded'>
+                    account_circle
+                  </span>
+                </Menu.Button>
+                <Transition
+                  as={Fragment}
+                  enter='transition ease-out duration-100'
+                  enterFrom='transform opacity-0 scale-95'
+                  enterTo='transform opacity-100 scale-100'
+                  leave='transition ease-in duration-75'
+                  leaveFrom='transform opacity-100 scale-100'
+                  leaveTo='transform opacity-0 scale-95'
+                >
+                  <Menu.Items className='absolute right-0 mt-2 w-64 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50'>
+                    <div className=''>
+                      <Profile currentAccount={currentAccount} />
+                    </div>
+                  </Menu.Items>
+                </Transition>
+              </Menu>
+
+              {/* Language Switcher */}
+              <div>
+                <LanguageSwitcher />
+              </div>
+            </div>
+
+            {/* Mobile menu button */}
+            <div className='md:hidden'>
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className='inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:bg-gray-100 focus:outline-none'
+              >
+                {mobileMenuOpen ? (
+                  <MdClose className='h-6 w-6' />
+                ) : (
+                  <CgMenuRight className='h-6 w-6' />
+                )}
+              </button>
             </div>
           </div>
         </div>
-        {/* //end of left section */}
-        <div className={Style.navbar_container_right}>
-          <div className={Style.navbar_container_right_discover}>
-            {/* Discover Menu */}
-            <p onClick={(e) => openMenu(e)}>{t('navbar.discover')}</p>
-            {discover && (
-              <div className={Style.navbar_container_right_discover_box}>
-                <Discover />
+
+        {/* Mobile menu */}
+        <Transition
+          show={mobileMenuOpen}
+          as={Fragment}
+          enter='transition ease-out duration-200'
+          enterFrom='transform opacity-0 scale-95'
+          enterTo='transform opacity-100 scale-100'
+          leave='transition ease-in duration-150'
+          leaveFrom='transform opacity-100 scale-100'
+          leaveTo='transform opacity-0 scale-95'
+        >
+          <div className='md:hidden border-t border-gray-200'>
+            <div className='px-4 pt-4 pb-3 space-y-3'>
+              {/* Search Bar Mobile */}
+              <div className='relative'>
+                <input
+                  type='text'
+                  placeholder={t('navbar.searchPlaceholder')}
+                  className='w-full px-4 py-2 pr-10 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
+                />
+                <BsSearch className='absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400' />
               </div>
-            )}
-          </div>
 
-          {/* Help Center */}
-          <div className={Style.navbar_container_right_help}>
-            <p onClick={(e) => openMenu(e)}>{t('navbar.helpCenter')}</p>
-            {help && (
-              <div className={Style.navbar_container_right_help_box}>
-                <HelpCenter />
+              {/* Discover Disclosure */}
+              <Disclosure>
+                {({ open }) => (
+                  <>
+                    <Disclosure.Button className='flex justify-between w-auto px-4 py-2 text-sm font-medium text-left text-gray-700 bg-gray-50 rounded-lg hover:bg-gray-100'>
+                      <span>{t('navbar.discover')}</span>
+                      <ChevronDownIcon
+                        className={`${
+                          open ? 'rotate-180 transform' : ''
+                        } h-5 w-5 text-gray-500`}
+                      />
+                    </Disclosure.Button>
+                    <Transition
+                      enter='transition duration-100 ease-out'
+                      enterFrom='transform scale-95 opacity-0'
+                      enterTo='transform scale-100 opacity-100'
+                      leave='transition duration-75 ease-out'
+                      leaveFrom='transform scale-100 opacity-100'
+                      leaveTo='transform scale-95 opacity-0'
+                    >
+                      <Disclosure.Panel
+                        className='absolute left-0 z-50 mt-1 bg-white rounded-md shadow-lg'
+                        role='menu'
+                      >
+                        <div className='py-1'>
+                          <Discover />
+                        </div>
+                      </Disclosure.Panel>
+                    </Transition>
+                  </>
+                )}
+              </Disclosure>
+
+              {/* Help Center Disclosure */}
+              <Disclosure>
+                {({ open }) => (
+                  <>
+                    <Disclosure.Button className='flex justify-between w-auto px-4 py-2 text-sm font-medium text-left text-gray-700 bg-gray-50 rounded-lg hover:bg-gray-100'>
+                      <span>{t('navbar.helpCenter')}</span>
+                      <ChevronDownIcon
+                        className={`${
+                          open ? 'rotate-180 transform' : ''
+                        } h-5 w-5 text-gray-500`}
+                      />
+                    </Disclosure.Button>
+                    <Transition
+                      enter='transition duration-100 ease-out'
+                      enterFrom='transform scale-95 opacity-0'
+                      enterTo='transform scale-100 opacity-100'
+                      leave='transition duration-75 ease-out'
+                      leaveFrom='transform scale-100 opacity-100'
+                      leaveTo='transform scale-95 opacity-0'
+                    >
+                      <Disclosure.Panel
+                        className='absolute left-0 z-50 mt-1 w-48 bg-white rounded-md shadow-lg'
+                        role='menu'
+                      >
+                        <div className='py-1'>
+                          <HelpCenter />
+                        </div>
+                      </Disclosure.Panel>
+                    </Transition>
+                  </>
+                )}
+              </Disclosure>
+
+              {/* Profile Section Mobile */}
+              <div className='border-t border-gray-200 pt-3 mt-3'>
+                <div className='flex items-center'>
+                  <div className='hidden md:block'>
+                    <Image
+                      src={image.user1}
+                      alt='Profile'
+                      width={40}
+                      height={40}
+                      className='rounded-full'
+                    />
+                  </div>
+                  <div className='flex-1'>
+                    <Profile currentAccount={currentAccount} />
+                  </div>
+                </div>
               </div>
-            )}
-          </div>
 
-          {/* Notification */}
-          {/* <div className={Style.navbar_container_right_notify}>
-            <MdNotifications className={Style.notify} onClick={() => openNotification()} />
-            {notification && <Notification />}
-          </div> */}
+              {/* Connect/Mint Button Mobile */}
+              <div className='px-4 py-2'>
+                {currentAccount == '' ? (
+                  <Button
+                    btnName={t('navbar.connect')}
+                    handleClick={() => {
+                      connectWallet();
+                      setMobileMenuOpen(false);
+                    }}
+                  />
+                ) : (
+                  <Button
+                    btnName={t('navbar.mint')}
+                    handleClick={() => {
+                      router.push('/uploadNFT');
+                      setMobileMenuOpen(false);
+                    }}
+                  />
+                )}
+              </div>
 
-          {/* create button section */}
-          <div className={Style.navbar_container_right_button}>
-            {currentAccount == "" ? (
-              <Button btnName={t('navbar.connect')} handleClick={() => connectWallet()} />
-            ) : (
-              <Button btnName={t('navbar.mint')} handleClick={() => router.push("/uploadNFT")} />
-            )}
-          </div>
-
-          {/* user profile */}
-          <div className={Style.navbar_container_right_profile_box}>
-            <div className={Style.navbar_container_right_profile}>
-              <Image src={image.user1} alt="Profile" width={40} height={40} onClick={() => openProfile()} className={Style.navbar_container_right_profile} />
-              {profile && <Profile currentAccount={currentAccount} />}
+              {/* Language Switcher Mobile */}
+              <div className='px-4 py-2'>
+                <LanguageSwitcher />
+              </div>
             </div>
           </div>
+        </Transition>
+      </nav>
 
-          {/* Language Switcher */}
-          <div className={Style.languageSwitcher}>
-            <LanguageSwitcher />
-          </div>
-
-          {/* Menu Button */}
-          <div className={Style.navbar_container_right_menuBtn}>
-            <CgMenuRight className={Style.menuIcon} onClick={() => openSideBar()} />
-          </div>
-        </div>
-
-      </div>
-
-      {/* sidebar component  */}
-      {
-        openSideMenu && (
-          <div className={Style.sideBar}>
-            <SideBar setOpenSideMenu={setOpenSideMenu}
-            currentAccount={currentAccount} 
-            connectWallet={connectWallet}
-            />
-            
-          </div>
-        )
-      }
-      {openError && <Error/>}
+      {/* Error Modal */}
+      {openError && <Error />}
     </div>
-  )
-}
+  );
+};
 
 export default NavBar;
