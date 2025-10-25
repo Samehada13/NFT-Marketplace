@@ -1,70 +1,99 @@
-import React from 'react'
-import Image from 'next/image';
-import {FaUserAlt,FaRegImage,FaUserEdit} from 'react-icons/fa';
-import { MdArrowBack, MdArrowDownward, MdArrowDropDown, MdArrowOutward, MdHeight, MdHelpCenter } from 'react-icons/md';
-import {TbDownloadOff,TbDownload} from 'react-icons/tb';
+import { FaUserAlt, FaRegImage, FaUserEdit } from 'react-icons/fa';
+import { MdHelpCenter } from 'react-icons/md';
 import Link from 'next/link';
 import { MdVerified } from 'react-icons/md';
-
 import { useTranslation } from 'react-i18next';
+import { Menu } from '@headlessui/react';
+import { Fragment } from 'react';
+import { InformationCircleIcon } from '@heroicons/react/20/solid';
 
-import Style from './Profile.module.css';
-import image from '../../../img';
+const Profile = ({ currentAccount }) => {
+  const { t } = useTranslation();
 
-const Profile = ({currentAccount}) => {
-
-const { t } = useTranslation();
+  const menuItems = [
+    {
+      icon: (
+        <span className='material-symbol material-symbol--md material-symbol-filled'>
+          person
+        </span>
+      ),
+      text: t('navbar.profile.creator.myProfile'),
+      href: '/author',
+    },
+    {
+      icon: (
+        <span className='material-symbol material-symbol--md material-symbol-filled '>
+          image
+        </span>
+      ),
+      text: t('navbar.profile.creator.myNfts'),
+      href: '/author',
+    },
+    {
+      icon: (
+        <span className='material-symbol material-symbol--md'>person_edit</span>
+      ),
+      text: t('navbar.profile.creator.editProfile'),
+      href: '/account',
+    },
+    { type: 'divider' },
+    {
+      icon: <span className='material-symbol material-symbol--md'>help</span>,
+      text: t('navbar.profile.creator.help'),
+      href: '/contactUs',
+    },
+    {
+      icon: <span className='material-symbol material-symbol--md'>info</span>,
+      text: t('navbar.profile.creator.aboutUs'),
+      href: '/aboutUs',
+    },
+  ];
 
   return (
-    <div className={Style.profile}>
-      <div className={Style.profile_account}>
-        <Image src={image.user1} alt="User Profile" width={50} height={50} className={Style.profile_account_img}/>
-        <div className={Style.profile_account_info}>
-          <p>{t('navbar.profile.creator.paragraph')}</p>
-          <small><span><b>
-                {currentAccount.slice(0, 8)}{" "}...{" "}
-                {currentAccount.slice(-6)} <MdVerified/>
-                </b></span></small>
+    <div className='w-64'>
+      <div className='flex flex-row items-center gap-3 px-4 py-3 border-b border-gray-200 dark:border-gray-700'>
+        <span
+          className='material-symbols-rounded'
+          style={{ fontSize: '40px', width: '40px', height: '40px' }}
+        >
+          account_circle
+        </span>
+        <div className='flex-1 min-w-0'>
+          <p className='text-sm font-medium text-gray-900 dark:text-white truncate'>
+            {t('navbar.profile.creator.paragraph')}
+          </p>
+          <div className='flex items-center gap-1'>
+            <span className='text-xs text-gray-500 dark:text-gray-400 truncate'>
+              {currentAccount.slice(0, 8)}...{currentAccount.slice(-6)}
+            </span>
+            <MdVerified className='ml-1 w-4 h-4 flex-shrink-0' />
+          </div>
         </div>
       </div>
-      <div className={Style.profile_menu}>
-        <div className={Style.profile_menu_one}>
-          <div className={Style.profile_menu_one_item}>
-            <FaUserAlt/>
-            <p>
-              <Link href={{pathname: '/author'}}>{t('navbar.profile.creator.myProfile')}</Link>
-            </p>
-          </div>
-          <div className={Style.profile_menu_one_item}>
-            <FaRegImage/>
-            <p>
-              <Link href={{pathname: '/author'}}>{t('navbar.profile.creator.myNfts')}</Link>
-            </p>
-          </div>
-          <div className={Style.profile_menu_one_item}>
-            <FaUserEdit/>
-            <p>
-              <Link href={{pathname: '/account'}}>{t('navbar.profile.creator.editProfile')}</Link>
-            </p>
-          </div>
-        </div>
-        <div className={Style.profile_menu_two}>
-          <div className={Style.profile_menu_one_item}>
-            <MdHelpCenter/>
-            <p>
-              <Link href={{pathname: "/contactUs"}}>{t('navbar.profile.creator.help')}</Link>
-            </p>
-          </div>
-          <div className={Style.profile_menu_one_item}>
-            <TbDownload/>
-            <p>
-              <Link href={{pathname: "/aboutUs"}}>{t('navbar.profile.creator.aboutUs')}</Link>
-            </p>
-          </div>
-        </div>
+
+      <div className='p-2'>
+        {menuItems.map((item, index) => (
+          <Fragment key={index}>
+            {item.type === 'divider' ? (
+              <div className='border-t border-gray-200 my-1' />
+            ) : (
+              <Link
+                href={item.href}
+                className='menu-item'
+              >
+                <span className='flex items-center rounded-md hover:bg-indigo-100 px-4 py-2 text-sm h-[40px] space-x-3 text-gray-700'>
+                  <span className='flex items-center justify-center'>
+                    {item.icon}
+                  </span>
+                  <span className='text-base font-medium'>{item.text}</span>
+                </span>
+              </Link>
+            )}
+          </Fragment>
+        ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Profile;

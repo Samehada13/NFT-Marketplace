@@ -1,0 +1,27 @@
+.primary-bg {
+  background-color: var(--primary-color);
+}
+.primary-bg-hover {
+  background-color: var(--primary-color-hover);
+}
+.primary-accent {
+  background-color: var(--primary-accent);
+}
+.primary-accent-opacity {
+  background-color: var(--primary-accent-opacity);
+}
+.primary-text {
+  color: var(--primary-color);
+}
+.primary-text-hover {
+  color: var(--primary-color-hover) !important;
+}
+.primary-text-opacity {
+  color: var(--icons-opacity-light);
+}
+.accent-text {
+  color: var(--primary-accent);
+}
+.accent-text-opacity-light {
+  color: var(--primary-accent-opacity);
+}
