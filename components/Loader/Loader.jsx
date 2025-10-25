@@ -6,7 +6,7 @@ import image from '../../img'
 
 const Loader = () => {
   return (
-    <div className={Style.loader}>
+    <div className="primary-bg">
         <div className={Style.loader_box}>
             <div className={Style.loader_box_img}>
                 <Image src={image.Loader} alt='Loader' width={200} height={200} 

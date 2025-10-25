@@ -6,21 +6,25 @@
 /* Import SASS f  ile in _app.js instead */
 
 :root {
-  /* --icons-color: #4c5773;
+  /* --primary-color: #4c5773;
   --icons-light-color: #4c577341;
   --icons-bg-color: #e2e6e9;
   --shadow-dark-color: #d3dae7;
   --bg-shadow-dark-color: #6e7b921e;
   --shadow-light-color: #fff;
   --main-bg-color: #ecf0f3; */
-  --icons-color: oklch(51.1% 0.262 276.966);
+  --primary-color: #9565e8;
+  --primary-color-hover: rgba(149, 101, 232, 0.5);
+  --primary-accent: #fbc64c;
+  --primary-accent-hover: darken(#fddd95, 10%);
+  --primary-accent-opacity: #fddd95cc;
   --icons-opacity-light: oklch(93% 0.034 272.788);
   --icons-light-color: #fdf5df;
-  --icons-bg-color: #5ebec4;
+  --icons-bg-color: #9565e8cc;
   --shadow-dark-color: #8c877a;
   --bg-shadow-dark-color: #6e7b921e;
   --shadow-light-color: #f4f2ed;
-  --main-bg-color: #abe8ec;
+  --main-bg-color:  #fbc64c;
   --overlay: rgba(51, 56, 56, 0.225);
 
   --box-shadow: 1rem 1rem 1rem var(--shadow-dark-color),
@@ -39,7 +43,7 @@ body {
   font-family: 'Poppins', sans-serif;
   font-size: 14px;
   background-color: var(--main-bg-color);
-  color: var(--icons-color);
+  color: var(--primary-color);
 }
 
 a {
@@ -54,7 +58,7 @@ a {
 
 ::selection {
   color: var(--shadow-dark-color);
-  background: var(--icons-color);
+  background: var(--primary-color);
 }
 
 ::-webkit-scrollbar {
@@ -69,7 +73,7 @@ a {
 
 ::-webkit-scrollbar-thumb {
   border-radius: 2rem;
-  background: var(--icons-color);
+  background: var(--primary-color);
   width: 0.5rem;
 }
 @media (prefers-color-scheme: dark) {

@@ -1,73 +1,60 @@
-// ... (your existing imports)
-import React, { useState } from 'react';
+import { Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
-import i18n from '../../language/i18n';
+import { Menu, Transition } from '@headlessui/react';
 
 const LanguageSwitcher = () => {
-  const { i18n } = useTranslation();
-  const [showOptions, setShowOptions] = useState(false);
+  const { i18n, t } = useTranslation();
 
-  const changeLanguage = (language) => {
-    console.log('Changing language to:', language);
-    i18n.changeLanguage(language);
-    setShowOptions(false);
-  };
+  const languages = [
+    { code: 'en', name: 'English' },
+    { code: 'tag', name: 'Tagalog' },
+    { code: 'bik', name: 'Bikol' },
+  ];
 
-  const styles = {
-    languageSwitcher: {
-      position: 'relative',
-      display: 'inline-block',
-    },
-    languageSwitcherButton: {
-      cursor: 'pointer',
-      fontSize: '24px',
-      color: 'pink',
-    },
-    languageOptions: {
-      position: 'absolute',
-      top: '100%',
-      left: 0,
-      backgroundColor: 'white',
-      border: '1px solid #ccc',
-      padding: '5px',
-      boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.1)',
-      display: 'flex',
-      flexDirection: 'column',
-    },
-    languageOption: {
-      cursor: 'pointer',
-      padding: '5px',
-    },
-    chineseOption: {
-      display: 'flex',
-      alignItems: 'center',
-      marginLeft: '5px',
-      lineHeight: '1.2',
-    },
-  };
+  const currentLanguage = languages.find(lang => lang.code === i18n.language) || languages[0];
 
   return (
-    <div style={styles.languageSwitcher}>
-      <div
-        style={styles.languageSwitcherButton}
-        onClick={() => setShowOptions(!showOptions)}
-      >
-        🌐
-      </div>
-      {showOptions && (
-        <div style={styles.languageOptions}>
-          <div style={styles.languageOption} onClick={() => changeLanguage('en')}>
-            English
-          </div>
-          <div style={styles.languageOption} onClick={() => changeLanguage('tag')}>
-            Tagalog
-          </div>
-          <div style={styles.languageOption} onClick={() => changeLanguage('bik')}>
-            Bikol
-          </div>
-        </div>
+    <Menu as="div" className="relative">
+      {({ open }) => (
+        <>
+          <Menu.Button className="inline-flex items-center justify-center w-10 h-10 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+            <span className='material-symbols-rounded'>language</span>
+          </Menu.Button>
+          <Transition
+            as={Fragment}
+            enter="transition ease-out duration-100"
+            enterFrom="transform opacity-0 scale-95"
+            enterTo="transform opacity-100 scale-100"
+            leave="transition ease-in duration-75"
+            leaveFrom="transform opacity-100 scale-100"
+            leaveTo="transform opacity-0 scale-95"
+          >
+            <Menu.Items className="absolute rounded-sm right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white dark:bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+              <div className="p-2 ">
+                {languages.map((lang) => (
+                  <Menu.Item key={lang.code}>
+                    {({ active }) => (
+                      <button
+                        onClick={() => i18n.changeLanguage(lang.code)}
+                        className={`${
+                          i18n.language === lang.code
+                            ? 'bg-indigo-100 rounded-md dark:bg-gray-700 text-gray-900 dark:text-white'
+                            : 'text-gray-700 dark:text-gray-300'
+                        } ${
+                          active ? 'bg-indigo-100 rounded-md dark:bg-gray-700' : ''
+                        } block w-full text-left px-4 py-2 text-sm`}
+                      >
+                        {lang.name}
+                      </button>
+                    )}
+                  </Menu.Item>
+                ))}
+              </div>
+            </Menu.Items>
+          </Transition>
+        </>
       )}
-    </div>
+    </Menu>
   );
 };
 

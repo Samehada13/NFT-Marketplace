@@ -1,152 +1,145 @@
-.nftCardTwo{
-    width: 80%;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 3rem;
-    margin-bottom: 4rem;
+.nftCardTwo {
+  width: 80%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3rem;
+  margin-bottom: 4rem;
 }
-.nftCardTwo_box{
-    display: grid;
-    cursor: pointer;
-    transition: all .3s ease-in;
-    border-radius: 1rem;
+.nftCardTwo_box {
+  display: grid;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+  border-radius: 1rem;
 }
 .extraSmall {
-    font-size: 0.8rem; /* You can adjust the value to make it smaller or larger */
-    color: #888; /* Optional: You can adjust the color */
-    /* Add any additional styling you desire */
-  }
-.nftCardTwo_box:hover{
-    box-shadow: var(--box-shadow);
+  font-size: 0.8rem; /* You can adjust the value to make it smaller or larger */
+  color: #888; /* Optional: You can adjust the color */
+  /* Add any additional styling you desire */
 }
-.nftCardTwo_box_like{
-    padding: 1rem;
-    grid-column: 1 / -1;
-    grid-row: 1 / -1;
-    z-index: 111111;
+.nftCardTwo_box:hover {
+  box-shadow: var(--box-shadow);
 }
-.nftCardTwo_box_like_box_box{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.nftCardTwo_box_like {
+  padding: 1rem;
+  grid-column: 1 / -1;
+  grid-row: 1 / -1;
+  z-index: 111111;
 }
-.nftCardTwo_box_like_box_box_icon{
-    color: var(--icons-color);
-    font-size: 2rem;
+.nftCardTwo_box_like_box_box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
-.nftCardTwo_box_like_box_box p{
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    font-size: 1.2rem;
-    background-color: var(--icons-color);
-    color: var(--main-bg-color);
-    border-radius: 2rem;
-    padding: 0 .5rem;
+.nftCardTwo_box_like_box_box_icon {
+  color: var(--primary-color);
+  font-size: 2rem;
 }
-.nftCardTwo_box_img{
-    grid-column: 1 / -1;
-    grid-row: 1 / -1;
+.nftCardTwo_box_like_box_box p {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1.2rem;
+  background-color: var(--primary-color);
+  color: var(--main-bg-color);
+  border-radius: 2rem;
+  padding: 0 0.5rem;
 }
-.nftCardTwo_box_img_img{
-    border-radius: 1rem;
+.nftCardTwo_box_img {
+  grid-column: 1 / -1;
+  grid-row: 1 / -1;
 }
-.nftCardTwo_box_info{
-    display: flex;
-    justify-content: space-between;
-    padding: 1rem;
+.nftCardTwo_box_img_img {
+  border-radius: 1rem;
 }
-.nftCardTwo_box_info_left{
-    line-height: 0;
+.nftCardTwo_box_info {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
 }
-.nftCardTwo_box_info small{
-    font-size: 1rem;
+.nftCardTwo_box_info_left {
+  line-height: 0;
 }
-.nftCardTwo_box_info_left p{
-    font-size: 2rem;
-    font-weight: 900;
+.nftCardTwo_box_info small {
+  font-size: 1rem;
 }
-.nftCardTwo_box_price{
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    line-height: 0;
-    padding: 1rem;
+.nftCardTwo_box_info_left p {
+  font-size: 2rem;
+  font-weight: 900;
 }
-.nftCardTwo_box_price_box p{
-    border: 1px solid var(--icons-color);
-    padding: 1.5rem 1rem 1rem 1rem;
-    font-size: 1.4rem;
-    margin-top: .5rem;
-    border-radius: .3rem;
+.nftCardTwo_box_price {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  line-height: 0;
+  padding: 1rem;
 }
-.nftCardTwo_box_price_box small{
-    background-color: var(--icons-color);
-    color: var(--main-bg-color);
-    padding: .3rem;
-    border-radius: .3rem;
-    margin-left: 1rem;
+.nftCardTwo_box_price_box p {
+  border: 1px solid var(--primary-color);
+  padding: 1.5rem 1rem 1rem 1rem;
+  font-size: 1.4rem;
+  margin-top: 0.5rem;
+  border-radius: 0.3rem;
 }
-.nftCardTwo_box_price_stock{
-    display: flex;
-    align-items: center;
-    gap: .5rem;
-    font-size: 1.1rem;
+.nftCardTwo_box_price_box small {
+  background-color: var(--primary-color);
+  color: var(--main-bg-color);
+  padding: 0.3rem;
+  border-radius: 0.3rem;
+  margin-left: 1rem;
+}
+.nftCardTwo_box_price_stock {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.1rem;
 }
 @media screen and (max-width: 35em) {
-    .nftCardTwo{
-        width: 90%;
-        grid-template-columns: 1fr;
-    }
+  .nftCardTwo {
+    width: 90%;
+    grid-template-columns: 1fr;
+  }
 }
 @media screen and (min-width: 768px) and (max-width: 1024px) {
-    .nftCardTwo{
-        width: 90%;
-        grid-template-columns: repeat(2, 1fr);
-    }
+  .nftCardTwo {
+    width: 90%;
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 .pagination {
-    display: flex;
-    align-items: center;
-    justify-content: center; /* Align buttons to the center */
-    margin-bottom: 20px; /* Add margin to separate from content */
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Align buttons to the center */
+  margin-bottom: 20px; /* Add margin to separate from content */
 }
 
 .pagination button {
-    padding: 8px 16px;
-    margin: 0 4px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: #fff;
-    color: #333; /* Button text color */
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  padding: 8px 16px;
+  margin: 0 4px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #333; /* Button text color */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .pagination button:hover {
-    background-color: #f0f0f0; /* Hover color */
+  background-color: #f0f0f0; /* Hover color */
 }
 
 /* Additional styles for the disabled state */
 .pagination button[disabled] {
-    background-color: #ccc;
-    cursor: not-allowed;
+  background-color: #ccc;
+  cursor: not-allowed;
 }
 
 /* Style for the current page number */
 .pagination span {
-    padding: 8px 16px;
-    margin: 0 4px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: #f0f0f0;
-    color: #333; /* Text color */
+  padding: 8px 16px;
+  margin: 0 4px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f0f0f0;
+  color: #333; /* Text color */
 }
-
-
-
-
-
-
-

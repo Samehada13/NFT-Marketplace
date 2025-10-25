@@ -20,7 +20,7 @@ const StyledNFTReviewDialogConfirmation = styled.div`
 
   h2 {
     font-size: 1.5rem;
-    color: var(--icons-color);
+    color: var(--primary-color);
     margin-bottom: 20px;
   }
 
@@ -49,17 +49,17 @@ const StyledNFTReviewDialogConfirmation = styled.div`
     font-size: 1rem;
     padding: 0.8rem 1.2rem;
     margin: 5px;
-    background-color: var(--icons-color);
+    background-color: var(--primary-color);
     color: white;
     border: none;
     border-radius: 2rem;
     cursor: pointer;
     font-weight: 600;
-  
+
     &:hover {
       background-color: var(--icons-bg-color);
     }
-  }  
+  }
 
   button.btnNo {
     background-color: #dc3545;
@@ -75,17 +75,17 @@ const StyledNFTReviewDialogConfirmation = styled.div`
   }
 `;
 
-const NFTReviewDialogConfirmation = ({ 
-    open, 
-    handleClose, 
-    handleReview, 
-    seller, 
-    leaveSellerReview,
-    setError,
-    setOpenError,
-    tokenId,
-    buyer
-  }) => {
+const NFTReviewDialogConfirmation = ({
+  open,
+  handleClose,
+  handleReview,
+  seller,
+  leaveSellerReview,
+  setError,
+  setOpenError,
+  tokenId,
+  buyer,
+}) => {
   const [review, setReview] = useState('');
   const [isOpen, setIsOpen] = useState(false);
 
@@ -113,47 +113,53 @@ const NFTReviewDialogConfirmation = ({
 
   const handleSubmit = async () => {
     try {
-        console.log("Submitting review...");
-        const success = await leaveSellerReview(seller, review); // Use reviewer address instead of buyer address
-        console.log("Review submission result:", success);
-        if (success) {
-            handleClose();
-            setReview('');
-        } else {
-            setError("Error adding seller review");
-            setOpenError(true);
-        }
-    } catch (error) {
-        console.error("Error adding seller review", error);
-        setError("Error adding seller review");
+      console.log('Submitting review...');
+      const success = await leaveSellerReview(seller, review); // Use reviewer address instead of buyer address
+      console.log('Review submission result:', success);
+      if (success) {
+        handleClose();
+        setReview('');
+      } else {
+        setError('Error adding seller review');
         setOpenError(true);
+      }
+    } catch (error) {
+      console.error('Error adding seller review', error);
+      setError('Error adding seller review');
+      setOpenError(true);
     }
-};
-
-
-  
+  };
 
   const handleCancel = () => {
     handleClose();
   };
 
   return (
-    <StyledNFTReviewDialogConfirmation style={{ display: open ? 'block' : 'none' }}>
+    <StyledNFTReviewDialogConfirmation
+      style={{ display: open ? 'block' : 'none' }}
+    >
       <div>
         <h2>Successfully purchased !</h2>
         <h2>Would you like to leave a review for the seller?</h2>
         <span>
-          <p><b>Seller address</b></p>
+          <p>
+            <b>Seller address</b>
+          </p>
           <p>{seller}</p>
         </span>
         <textarea
           value={review}
           onChange={handleChange}
-          placeholder="Write your review..."
+          placeholder='Write your review...'
         />
-        <div className="buttonContainer">
+        <div className='buttonContainer'>
           <button onClick={handleSubmit}>Submit</button>
-          <button className="btnNo" onClick={handleClose}>Cancel</button>
+          <button
+            className='btnNo'
+            onClick={handleClose}
+          >
+            Cancel
+          </button>
         </div>
       </div>
     </StyledNFTReviewDialogConfirmation>

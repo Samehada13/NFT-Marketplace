@@ -1,334 +1,332 @@
-.NFTDescription{
-    width: 100%;
+.NFTDescription {
+  width: 100%;
 }
-.NFTDescription_box{
-    width: 100%;
-    margin: 0 auto;
+.NFTDescription_box {
+  width: 100%;
+  margin: 0 auto;
 }
 /* Add this to your CSS or CSS module */
 .cantBuyContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Center items horizontally */
-    text-align: center; /* Center text within the container */
-    margin-bottom: 0px; /* Add margin for separation */
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center items horizontally */
+  text-align: center; /* Center text within the container */
+  margin-bottom: 0px; /* Add margin for separation */
+}
 /* Add this to your CSS or CSS module */
 
 .formatModal {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: var(--main-bg-color);
-    box-shadow: var(--box-shadow);
-    border-radius: 0.5rem;
-    padding: 2rem;
-    z-index: 1000;
-  }
-  
-  .formatModal p {
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-bottom: 1.5rem;
-  }
-  
-  .formatModal button {
-    font-size: 1rem;
-    padding: 1rem 1.2rem;
-    border: 0;
-    background-color: var(--icons-color);
-    color: var(--main-bg-color);
-    border-radius: 2rem;
-    cursor: pointer;
-    font-weight: 600;
-    margin-right: 1rem;
-  }
-  
-  .formatModal button:last-child {
-    margin-right: 0;
-  }
-  
-  .formatModal button:hover {
-    background-color: var(--icons-bg-color);
-    color: var(--icons-color);
-    border: 1px solid var(--icons-color); /* Add this line for the border */
-    border-radius: 2rem;
-    padding: 1rem 1.2rem;
-  }
-  
-.NFTDescription_box_share{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: relative;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--main-bg-color);
+  box-shadow: var(--box-shadow);
+  border-radius: 0.5rem;
+  padding: 2rem;
+  z-index: 1000;
 }
-.NFTDescription_box_share_box_icon{
-    cursor: pointer;
+
+.formatModal p {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
 }
-.NFTDescription_box_share_box_social{
-    position: absolute;
-    top: 5rem;
-    left: 65%;
-    width: 14rem;
-    background-color: var(--main-bg-color);
-    box-shadow: var(--box-shadow);
-    border-radius: .5rem;
-    padding: 1rem;
+
+.formatModal button {
+  font-size: 1rem;
+  padding: 1rem 1.2rem;
+  border: 0;
+  background-color: var(--primary-color);
+  color: var(--main-bg-color);
+  border-radius: 2rem;
+  cursor: pointer;
+  font-weight: 600;
+  margin-right: 1rem;
 }
-.NFTDescription_box_share_box_social a{
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    transition: all .3s ease-in;
-    padding: .5rem 0;
+
+.formatModal button:last-child {
+  margin-right: 0;
 }
-.NFTDescription_box_share_box_social a:hover{
-    background-color: var(--icons-color);
-    color: var(--main-bg-color);
-    border-radius: .5rem;
-    padding: .5rem .5rem;
+
+.formatModal button:hover {
+  background-color: var(--icons-bg-color);
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color); /* Add this line for the border */
+  border-radius: 2rem;
+  padding: 1rem 1.2rem;
 }
-.NFTDescription_box_share p{
-    background-color: var(--icons-color);
-    color: var(--main-bg-color);
-    padding: .2rem .8rem;
-    border-radius: 2rem;
+
+.NFTDescription_box_share {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
 }
-.NFTDescription_box_share_box{
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    font-size: 1.3rem;
+.NFTDescription_box_share_box_icon {
+  cursor: pointer;
 }
-.NFTDescription_box_profile h1{
-    font-size: 3.2rem;
-    line-height: 1;
+.NFTDescription_box_share_box_social {
+  position: absolute;
+  top: 5rem;
+  left: 65%;
+  width: 14rem;
+  background-color: var(--main-bg-color);
+  box-shadow: var(--box-shadow);
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+.NFTDescription_box_share_box_social a {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: all 0.3s ease-in;
+  padding: 0.5rem 0;
+}
+.NFTDescription_box_share_box_social a:hover {
+  background-color: var(--primary-color);
+  color: var(--main-bg-color);
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.5rem;
+}
+.NFTDescription_box_share p {
+  background-color: var(--primary-color);
+  color: var(--main-bg-color);
+  padding: 0.2rem 0.8rem;
+  border-radius: 2rem;
+}
+.NFTDescription_box_share_box {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  font-size: 1.3rem;
+}
+.NFTDescription_box_profile h1 {
+  font-size: 3.2rem;
+  line-height: 1;
 }
 .nftName {
-    max-width: 500px; 
-    overflow: hidden;
-    white-space: pre-wrap;
-  }
-
-.NFTDescription_box_profile_box{
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    padding-bottom: 1.5rem;
+  max-width: 500px;
+  overflow: hidden;
+  white-space: pre-wrap;
 }
-.NFTDescription_box_profile_box_left{
-    display: flex;
-    align-items: center;
-    align-self: center;
-    gap: 1rem;
-    line-height: 1;
+
+.NFTDescription_box_profile_box {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding-bottom: 1.5rem;
+}
+.NFTDescription_box_profile_box_left {
+  display: flex;
+  align-items: center;
+  align-self: center;
+  gap: 1rem;
+  line-height: 1;
 }
 .NFTDescription_box_profile_box_right_info small,
-.NFTDescription_box_profile_box_left_info small{
-    font-weight: 500;
-    cursor: pointer;
+.NFTDescription_box_profile_box_left_info small {
+  font-weight: 500;
+  cursor: pointer;
 }
 .NFTDescription_box_profile_box_right_info span,
-.NFTDescription_box_profile_box_left_info span{
-    font-weight: 800;
-    cursor: pointer;
+.NFTDescription_box_profile_box_left_info span {
+  font-weight: 800;
+  cursor: pointer;
 }
-.NFTDescription_box_profile_box_left_img{
-    border-radius: 50%;
+.NFTDescription_box_profile_box_left_img {
+  border-radius: 50%;
 }
-.NFTDescription_box_profile_box_right{
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    line-height: 1;
-    border-left: 1px solid var(--icons-color);
-    padding-left: 2rem;
+.NFTDescription_box_profile_box_right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  line-height: 1;
+  border-left: 1px solid var(--primary-color);
+  padding-left: 2rem;
 }
-.NFTDescription_box_profile_biding{
-    margin-block: 1rem;
+.NFTDescription_box_profile_biding {
+  margin-block: 1rem;
 }
-.NFTDescription_box_profile_biding p{
-    display: flex;
-    align-items: center;
-    font-size: 1.5rem;
-    gap: 1rem;
+.NFTDescription_box_profile_biding p {
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  gap: 1rem;
 }
-.NFTDescription_box_profile_biding_box_timer{
-    display: flex;
-    gap: 3rem;
-    align-items: center;
+.NFTDescription_box_profile_biding_box_timer {
+  display: flex;
+  gap: 3rem;
+  align-items: center;
 }
-.NFTDescription_box_profile_biding_box_timer_item p{
-    font-size: 3rem;
-    line-height: 0;
-    font-weight: 900;
+.NFTDescription_box_profile_biding_box_timer_item p {
+  font-size: 3rem;
+  line-height: 0;
+  font-weight: 900;
 }
-.NFTDescription_box_profile_biding_box_timer_item span{
-    font-weight: 600;
+.NFTDescription_box_profile_biding_box_timer_item span {
+  font-weight: 600;
 }
-.NFTDescription_box_profile_biding_box_price{
-    line-height: 0;
-    margin-top: 2rem;
-    display: grid;
-    grid-template-columns: 4fr 1fr;
-    gap: 3rem;
-    align-items: flex-end;
-    justify-content: space-between;
+.NFTDescription_box_profile_biding_box_price {
+  line-height: 0;
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  gap: 3rem;
+  align-items: flex-end;
+  justify-content: space-between;
 }
-.NFTDescription_box_profile_biding_box_price_bid{
-    border: 2px solid var(--icons-color);
-    border-radius: .5rem;
+.NFTDescription_box_profile_biding_box_price_bid {
+  border: 2px solid var(--primary-color);
+  border-radius: 0.5rem;
 }
-.NFTDescription_box_profile_biding_box_price_bid small{
-    font-size: 1.2rem;
-    background-color: var(--icons-color);
-    color: var(--main-bg-color);
-    padding: .5rem 1rem;
-    border-radius: .5rem;
-    margin-left: 2rem;
+.NFTDescription_box_profile_biding_box_price_bid small {
+  font-size: 1.2rem;
+  background-color: var(--primary-color);
+  color: var(--main-bg-color);
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  margin-left: 2rem;
 }
-.NFTDescription_box_profile_biding_box_price_bid p{
-    padding: 1rem;
-    font-size: 1.5rem;
-    font-weight: 900;
+.NFTDescription_box_profile_biding_box_price_bid p {
+  padding: 1rem;
+  font-size: 1.5rem;
+  font-weight: 900;
 }
-.NFTDescription_box_profile_biding_box_button{
-    margin-top: 1cm;
-    display: flex;
-    align-items: center;
-    gap: 3rem;
+.NFTDescription_box_profile_biding_box_button {
+  margin-top: 1cm;
+  display: flex;
+  align-items: center;
+  gap: 3rem;
 }
-.NFTDescription_box_profile_biding_box_tabs{
-    margin-top: 2rem;
-    display: flex;
-    gap: 1rem;
+.NFTDescription_box_profile_biding_box_tabs {
+  margin-top: 2rem;
+  display: flex;
+  gap: 1rem;
 }
-.NFTDescription_box_profile_biding_box_tabs button{
-    font-size: 1rem;
-    padding: 1rem 2rem;
-    border: 0;
-    background-color: var(--icons-color);
-    color: white;
-    border-radius: 2rem;
-    cursor: pointer;
-    font-weight: 600;
+.NFTDescription_box_profile_biding_box_tabs button {
+  font-size: 1rem;
+  padding: 1rem 2rem;
+  border: 0;
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 2rem;
+  cursor: pointer;
+  font-weight: 600;
 }
-.NFTDescription_box_profile_biding_box_card{
-    margin-top: 2rem;
-    padding: 1rem;
-    color: var(--icons-color);
+.NFTDescription_box_profile_biding_box_card {
+  margin-top: 2rem;
+  padding: 1rem;
+  color: var(--primary-color);
 }
 .NFTDescription_box_profile_biding_box_bidForm {
-    margin-top: 20px; /* Adjust the margin based on your design */
-  }
-  
-  /* Style for the bid amount label */
-  .NFTDescription_box_profile_biding_box_bidForm label {
-    display: block;
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 8px; /* Adjust the margin based on your design */
-  }
-  
-  /* Style for the bid amount input */
-  .NFTDescription_box_profile_biding_box_bidForm input {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    margin-bottom: 20px;
-    outline-color: pink;
-  }
-@media screen and (max-width: 35em) {
-    .NFTDescription_box_share_box_social{
-        left: 35%;
-    }
-    .NFTDescription_box_profile_box{
-        display: grid;
-    }
-    .NFTDescription_box_profile_box_right{
-        border-left: 0;
-        padding-left: 0;
-    }
-    .NFTDescription_box_profile_biding_box_price{
-        gap: 1rem;
-        grid-template-columns: 2fr 1fr;
-    }
-    .NFTDescription_box_profile_biding_box_price_bid p{
-        font-size: 1rem;
-    }
-    .NFTDescription_box_profile_biding_box_button{
-        gap: 2rem;
-    }
-    .NFTDescription_box_profile_biding_box_tabs button{
-        font-size: 1rem;
-        padding: .5rem 1rem;
-        font-weight: 500;
-        color: white;
+  margin-top: 20px; /* Adjust the margin based on your design */
+}
 
-    }
-    .button{
-        font-size: 1rem;
-        padding: 1rem 1.2rem;
-    }
+/* Style for the bid amount label */
+.NFTDescription_box_profile_biding_box_bidForm label {
+  display: block;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px; /* Adjust the margin based on your design */
+}
+
+/* Style for the bid amount input */
+.NFTDescription_box_profile_biding_box_bidForm input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+  outline-color: pink;
+}
+@media screen and (max-width: 35em) {
+  .NFTDescription_box_share_box_social {
+    left: 35%;
+  }
+  .NFTDescription_box_profile_box {
+    display: grid;
+  }
+  .NFTDescription_box_profile_box_right {
+    border-left: 0;
+    padding-left: 0;
+  }
+  .NFTDescription_box_profile_biding_box_price {
+    gap: 1rem;
+    grid-template-columns: 2fr 1fr;
+  }
+  .NFTDescription_box_profile_biding_box_price_bid p {
+    font-size: 1rem;
+  }
+  .NFTDescription_box_profile_biding_box_button {
+    gap: 2rem;
+  }
+  .NFTDescription_box_profile_biding_box_tabs button {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+    color: white;
+  }
+  .button {
+    font-size: 1rem;
+    padding: 1rem 1.2rem;
+  }
 }
 .confirmationDialog {
-    background-color: #f8f9fa;
-    border: 2px solid var(--icons-bg-color);
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    padding: 20px;
-    text-align: center;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1000;
-    max-width: 500px; /* Set a maximum width for better readability */
-  }
-  
-  .confirmationDialog h2 {
-    font-size: 1.8rem;
-    color: var(--icons-color);
-    margin-bottom: 20px;
-  }
-  
-  .confirmationDialog p {
-    font-size: 1.2rem;
-    color: #495057;
-    margin-bottom: 15px;
-    text-align: center; /* Center-align the text */
-    display: flex; /* Add display flex */
-    align-items: center; /* Align items in the center */
-    justify-content: center; /* Center the content horizontally */
-  }
-  
-  
-  .confirmationDialog button {
-    font-size: 1rem;
-    padding: 0.8rem 1.2rem;
-    margin: 5px;
-  }
-  
-  /* Style for Yes button */
-  .confirmationDialog button.btnYes {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    margin-right: 5px;
-  }
-  
-  /* Style for No button */
-  .confirmationDialog button.btnNo {
-    background-color: #dc3545;
-    color: white;
-    border: none;
-    margin-left: 5px;
-  }
-  .confirmationDialog .buttonContainer {
-    display: flex;
-    justify-content: center;
-  }
+  background-color: #f8f9fa;
+  border: 2px solid var(--icons-bg-color);
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  text-align: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  max-width: 500px; /* Set a maximum width for better readability */
+}
+
+.confirmationDialog h2 {
+  font-size: 1.8rem;
+  color: var(--primary-color);
+  margin-bottom: 20px;
+}
+
+.confirmationDialog p {
+  font-size: 1.2rem;
+  color: #495057;
+  margin-bottom: 15px;
+  text-align: center; /* Center-align the text */
+  display: flex; /* Add display flex */
+  align-items: center; /* Align items in the center */
+  justify-content: center; /* Center the content horizontally */
+}
+
+.confirmationDialog button {
+  font-size: 1rem;
+  padding: 0.8rem 1.2rem;
+  margin: 5px;
+}
+
+/* Style for Yes button */
+.confirmationDialog button.btnYes {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  margin-right: 5px;
+}
+
+/* Style for No button */
+.confirmationDialog button.btnNo {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  margin-left: 5px;
+}
+.confirmationDialog .buttonContainer {
+  display: flex;
+  justify-content: center;
+}
