@@ -70,16 +70,23 @@ const searchPage = () => {
 
   return (
     <div className={Style.searchPage}>
-      <Banner bannerImage={images.creatorbackground8}/>
-      <SearchBar onHandleSearch={onHandleSearch} onClearSearch={onClearSearch}/>
+      {/*<Banner bannerImage={images.creatorbackground8}/>*/}
+      {/* <SearchBar onHandleSearch={onHandleSearch} onClearSearch={onClearSearch}/> */}
+      {/* Header Section */}
+        <div className="mb-12">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-1 h-12 bg-gradient-to-b from-purple-500 to-pink-500 rounded-full" />
+            <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+              Featured Collections
+            </h1>
+          </div>
+          <p className="text-gray-400 text-lg ml-4">
+            Discover this week's curated collections
+          </p>
+        </div>
       <Filter onCategoryFilter={handleCategoryFilter} />
-      {nfts.length == 0 ? <Loader/> : <NFTCardTwo NFTData={nfts}/>}
-      <Title 
-        heading={t('pages.searchPage.cryptoPrice.heading')} 
-        paragraph={t('pages.searchPage.cryptoPrice.paragraph')} 
-      />
+      <NFTCardTwo NFTData={nfts}/>
       <BTC />
-
       <Brand />
     </div>
   )
