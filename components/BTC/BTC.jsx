@@ -18,9 +18,12 @@ const CryptoTracker = () => {
   return (
     <div className='p-6 overflow-x'>
       <div className=''>
-        <h1 className='text-3xl sm:text-4xl font-bold text-[var(--primary-color)] text-center mb-8'>
-          Crypto Price Tracker
-        </h1>
+        <div className='flex items-start gap-3'>
+          <div className='w-1 h-12 bg-gradient-to-b from-violet-500 to-pink-500 rounded-full' />
+          <h1 className='text-3xl sm:text-4xl font-bold text-[var(--primary-color)] text-center mb-8'>
+            Crypto Price Tracker
+          </h1>
+        </div>
 
         <div className='flex gap-4 sm:gap-6 overflow-x-auto pb-4 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]'>
           {/* Bitcoin */}

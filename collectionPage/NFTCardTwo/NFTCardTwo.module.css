@@ -1,145 +1,393 @@
-.nftCardTwo {
-  width: 80%;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 3rem;
-  margin-bottom: 4rem;
+.nftGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
 }
-.nftCardTwo_box {
-  display: grid;
-  cursor: pointer;
-  transition: all 0.3s ease-in;
-  border-radius: 1rem;
+
+/* Container */
+.container {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0rem 1.5rem;
 }
-.extraSmall {
-  font-size: 0.8rem; /* You can adjust the value to make it smaller or larger */
-  color: #888; /* Optional: You can adjust the color */
-  /* Add any additional styling you desire */
+
+/* Grid Layout */
+.gridContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
 }
-.nftCardTwo_box:hover {
-  box-shadow: var(--box-shadow);
+
+.gridItem {
+    width: 100%;
+    transition: transform 0.2s ease-in-out;
 }
-.nftCardTwo_box_like {
-  padding: 1rem;
-  grid-column: 1 / -1;
-  grid-row: 1 / -1;
-  z-index: 111111;
+
+.gridItem:hover {
+    transform: translateY(-4px);
 }
-.nftCardTwo_box_like_box_box {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+
+/* NFT Card */
+.nftCard {
+    background: #1a1a2e;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(128, 128, 128, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
-.nftCardTwo_box_like_box_box_icon {
-  color: var(--primary-color);
-  font-size: 2rem;
+
+.nftCard:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    border-color: rgba(168, 85, 247, 0.5);
 }
-.nftCardTwo_box_like_box_box p {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  font-size: 1.2rem;
-  background-color: var(--primary-color);
-  color: var(--main-bg-color);
-  border-radius: 2rem;
-  padding: 0 0.5rem;
+
+/* Image Container */
+.imageContainer {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1/1;
+    overflow: hidden;
+    background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+    display: flex;
+    flex-direction: column;
 }
-.nftCardTwo_box_img {
-  grid-column: 1 / -1;
-  grid-row: 1 / -1;
+
+.nftImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s ease;
 }
-.nftCardTwo_box_img_img {
-  border-radius: 1rem;
+
+.nftCard:hover .nftImage {
+    transform: scale(1.05);
 }
-.nftCardTwo_box_info {
-  display: flex;
-  justify-content: space-between;
-  padding: 1rem;
+
+/* Gradient Overlay */
+.gradientOverlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.6) 50%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 1;
 }
-.nftCardTwo_box_info_left {
-  line-height: 0;
+
+.nftCard:hover .gradientOverlay {
+    opacity: 1;
 }
-.nftCardTwo_box_info small {
-  font-size: 1rem;
+
+/* Like Button */
+.likeButtonContainer {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    z-index: 10;
 }
-.nftCardTwo_box_info_left p {
-  font-size: 2rem;
-  font-weight: 900;
+
+.likeButton {
+    padding: 0.5rem;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-.nftCardTwo_box_price {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  line-height: 0;
-  padding: 1rem;
+
+.likeButton:hover {
+    background: rgba(0, 0, 0, 0.7);
+    transform: scale(1.1);
 }
-.nftCardTwo_box_price_box p {
-  border: 1px solid var(--primary-color);
-  padding: 1.5rem 1rem 1rem 1rem;
-  font-size: 1.4rem;
-  margin-top: 0.5rem;
-  border-radius: 0.3rem;
+
+.likeIcon {
+    font-size: 1rem;
+    color: white;
 }
-.nftCardTwo_box_price_box small {
-  background-color: var(--primary-color);
-  color: var(--main-bg-color);
-  padding: 0.3rem;
-  border-radius: 0.3rem;
-  margin-left: 1rem;
+
+.likeIcon[fill] {
+    fill: #ef4444;
 }
-.nftCardTwo_box_price_stock {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 1.1rem;
+
+/* Category Badge */
+.categoryBadge {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    z-index: 10;
 }
-@media screen and (max-width: 35em) {
-  .nftCardTwo {
-    width: 90%;
-    grid-template-columns: 1fr;
-  }
+
+.categoryContent {
+    padding: 0.25rem 0.75rem;
+    background: rgba(147, 51, 234, 0.8);
+    backdrop-filter: blur(4px);
+    border-radius: 6px;
 }
-@media screen and (min-width: 768px) and (max-width: 1024px) {
-  .nftCardTwo {
-    width: 90%;
-    grid-template-columns: repeat(2, 1fr);
-  }
+
+.categoryText {
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
 }
+
+.nftCard:hover .categoryText {
+    color: #f0f9ff;
+    letter-spacing: 0.1em;
+}
+
+/* Card Info */
+.cardInfo {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1.5rem 1.25rem 1.25rem;
+    background: linear-gradient(0deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.7) 50%, rgba(0,0,0,0) 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 2;
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+.nftCard:hover .cardInfo {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.nftName {
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    letter-spacing: 0.02em;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    transform: translateY(10px);
+    opacity: 0;
+    transition: all 0.4s ease 0.1s;
+}
+
+.nftCard:hover .nftName {
+    color: white;
+    transform: translateY(0);
+    opacity: 1;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+/* Price Section */
+.priceSection {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.5rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    transform: translateY(10px);
+    opacity: 0;
+    transition: all 0.4s ease 0.15s;
+}
+
+.nftCard:hover .priceSection {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.priceLabel {
+    color: #d1d5db;
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    opacity: 0.8;
+    transition: all 0.3s ease;
+}
+
+.priceValue {
+    color: #f9fafb;
+    font-weight: 700;
+    font-size: 0.9375rem;
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    letter-spacing: 0.02em;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nftCard:hover .priceValue {
+    color: #ffffff;
+    transform: translateX(2px);
+}
+
+.ethIcon {
+    color: #c084fc;
+    font-size: 1.1rem;
+    filter: drop-shadow(0 0 2px rgba(192, 132, 252, 0.5));
+    transition: all 0.3s ease;
+}
+
+.nftCard:hover .ethIcon {
+    transform: scale(1.1) rotate(5deg);
+    filter: drop-shadow(0 0 4px rgba(192, 132, 252, 0.7));
+}
+
+.likeCounter {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    color: #e5e7eb;
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 0.25rem 0.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 1rem;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(4px);
+}
+
+.nftCard:hover .likeCounter {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(-2px);
+}
+
+.likeCounter .likeIcon {
+    color: #f87171;
+    filter: drop-shadow(0 0 2px rgba(248, 113, 113, 0.5));
+    transition: all 0.3s ease;
+}
+
+.nftCard:hover .likeCounter .likeIcon {
+    transform: scale(1.15);
+    filter: drop-shadow(0 0 4px rgba(248, 113, 113, 0.7));
+}
+
+/* No NFTs State */
+.noNFTs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 5rem 1rem;
+    text-align: center;
+}
+
+.emoji {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.noNFTsText {
+    color: #9ca3af;
+    font-size: 1.125rem;
+}
+
+/* Pagination */
 .pagination {
-  display: flex;
-  align-items: center;
-  justify-content: center; /* Align buttons to the center */
-  margin-bottom: 20px; /* Add margin to separate from content */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding: 1rem 0;
 }
 
-.pagination button {
-  padding: 8px 16px;
-  margin: 0 4px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background-color: #fff;
-  color: #333; /* Button text color */
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+@media (min-width: 640px) {
+    .pagination {
+        flex-direction: row;
+    }
 }
 
-.pagination button:hover {
-  background-color: #f0f0f0; /* Hover color */
+.pageNumbers {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
-/* Additional styles for the disabled state */
-.pagination button[disabled] {
-  background-color: #ccc;
-  cursor: not-allowed;
+.paginationButton,
+.pageButton {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    border: none;
+    background: #1f2937;
+    color: #e5e7eb;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
 
-/* Style for the current page number */
-.pagination span {
-  padding: 8px 16px;
-  margin: 0 4px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background-color: #f0f0f0;
-  color: #333; /* Text color */
+.paginationButton:hover:not(:disabled) {
+    background: #374151;
+    transform: translateY(-1px);
+}
+
+.paginationButton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.pageButton {
+    min-width: 2.5rem;
+    padding: 0.5rem;
+}
+
+.pageButton.active {
+    background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+    color: white;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.ellipsis {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    color: #9ca3af;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .gridContainer {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .gridContainer {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .nftName {
+        font-size: 0.8125rem;
+    }
+    
+    .priceValue,
+    .likeCounter {
+        font-size: 0.8125rem;
+    }
 }

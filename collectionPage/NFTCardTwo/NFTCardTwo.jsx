@@ -1,142 +1,167 @@
 import React, { useState } from 'react';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
+import styles from './NFTCardTwo.module.css';
+
 const NFTCard = ({ nft }) => {
-    const [isHovered, setIsHovered] = useState(false);
     const [like, setLike] = useState(false);
     const [likeInc, setLikeInc] = useState(21);
-    const likeNFT = () => {
+    
+    const likeNFT = (e) => {
+        e.stopPropagation();
         if (!like) {
             setLike(true);
-            setLikeInc(23);
+            setLikeInc(22);
         } else {
             setLike(false);
-            setLikeInc(23 + 1);
+            setLikeInc(21);
         }
     };
 
     return (
-        <div
-            className='group relative bg-gray-900 rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-2xl hover:shadow-purple-500/20'
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-        >
-            {/* Image Container */}
-            <div className='relative aspect-square overflow-hidden'>
+        <div className={styles.nftCard}>
+            <div className={styles.imageContainer}>
                 <img
                     src={nft.image || 'https://via.placeholder.com/400'}
                     alt={nft.name}
-                    className='w-full h-full object-cover transition-transform duration-500 group-hover:scale-110'
+                    className={styles.nftImage}
                 />
 
-                {/* Gradient Overlay */}
-                <div className='absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300' />
+                <div className={styles.gradientOverlay} />
 
-                {/* Top Section - Like Button */}
-                <div className='absolute top-4 right-4 z-10'>
-                    <button className='p-2.5 bg-white/10 backdrop-blur-md rounded-full hover:bg-white/20 transition-all duration-300 group'>
-                        <p onClick={likeNFT}>
-                            {like ? <AiOutlineHeart color='text-red-500' /> : <AiFillHeart color='text-red-500'/>}
-                        </p>
+                <div className={styles.cardInfo}>
+                    <h3 className={styles.nftName}>
+                        {nft.name || 'Unnamed NFT'}
+                    </h3>
+
+                    <div className={styles.priceSection}>
+                        <div className={styles.priceContainer}>
+                            <span className={styles.priceLabel}>Price</span>
+                            <p className={styles.priceValue}>
+                                <span className={styles.ethIcon}>◈</span>
+                                {nft.price || '0.00'} ETH
+                            </p>
+                        </div>
+                        
+                        <div className={styles.likeCounter}>
+                            <AiFillHeart className={styles.likeIcon} />
+                            <span className={styles.likeCount}>{likeInc}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div className={styles.likeButtonContainer}>
+                    <button 
+                        onClick={likeNFT}
+                        className={styles.likeButton}
+                    >
+                        {like ? 
+                            <AiFillHeart className={styles.likeIcon} /> : 
+                            <AiOutlineHeart className={styles.likeIcon} />
+                        }
                     </button>
                 </div>
 
-                {/* Bottom Section - Info Overlay */}
-                <div className='absolute bottom-0 left-0 right-0 p-5 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300'>
-                    <div className='flex justify-between items-end gap-3'>
-                        {/* Name and Price */}
-                        <div className='flex-1 min-w-0'>
-                            <h3 className='text-white font-bold text-lg mb-1 truncate drop-shadow-lg'>
-                                {nft.name}
-                            </h3>
-                            <div className='flex items-baseline gap-2'>
-                                <span className='text-gray-300 text-xs'>
-                                    Price
-                                </span>
-                                <p className='text-white font-semibold text-base'>
-                                    {nft.price} ETH
-                                </p>
-                            </div>
+                {nft.category && (
+                    <div className={styles.categoryBadge}>
+                        <div className={styles.categoryContent}>
+                            <span className={styles.categoryText}>
+                                {nft.category}
+                            </span>
                         </div>
-
-                        {/* Token/Category Badge */}
-                        {nft.category && (
-                            <div className='px-3 py-1.5 bg-white/20 backdrop-blur-md rounded-full'>
-                                <span className='text-white text-xs font-medium'>
-                                    {nft.category}
-                                </span>
-                            </div>
-                        )}
                     </div>
-                </div>
+                )}
             </div>
-            
         </div>
     );
 };
 
-const NFTCardTwo = ({ NFTData }) => {
+const NFTCardTwo = ({ NFTData = [] }) => {
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 8;
+    const itemsPerPage = 9; 
 
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentItems = NFTData.slice(indexOfFirstItem, indexOfLastItem);
     const totalPages = Math.ceil(NFTData.length / itemsPerPage);
 
-    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+    const paginate = (pageNumber) => {
+        setCurrentPage(pageNumber);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
 
     if (!NFTData || NFTData.length === 0) {
         return (
-            <div className='flex flex-col items-center justify-center py-20'>
-                <div className='text-6xl mb-4'>🎨</div>
-                <p className='text-gray-400 text-lg'>No NFTs found</p>
+            <div className={styles.noNFTs}>
+                <div className={styles.emoji}>🎨</div>
+                <p className={styles.noNFTsText}>No NFTs found</p>
             </div>
         );
     }
 
     return (
-        <div className='p-6'>
-            {/* Grid */}
-            <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8'>
+        <div className={styles.container}>
+            <div className={styles.gridContainer}>
                 {currentItems.map((nft, index) => (
-                    <NFTCard
-                        key={index}
-                        nft={nft}
-                    />
+                    <div key={`${nft.tokenId || index}-${nft.collection?.address || ''}`} className={styles.gridItem}>
+                        <NFTCard nft={nft} />
+                    </div>
                 ))}
             </div>
 
-            {/* Pagination */}
             {totalPages > 1 && (
-                <div className='flex items-center justify-center gap-2'>
+                <div className={styles.pagination}>
                     <button
                         onClick={() => paginate(currentPage - 1)}
                         disabled={currentPage === 1}
-                        className='px-4 py-2 rounded-lg bg-gray-800 text-gray-300 hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300'
+                        className={`${styles.paginationButton} ${currentPage === 1 ? styles.disabled : ''}`}
                     >
                         Previous
                     </button>
 
-                    <div className='flex gap-2'>
-                        {[...Array(totalPages)].map((_, index) => (
-                            <button
-                                key={index}
-                                onClick={() => paginate(index + 1)}
-                                className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
-                                    currentPage === index + 1
-                                        ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg'
-                                        : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
-                                }`}
-                            >
-                                {index + 1}
-                            </button>
-                        ))}
+                    <div className={styles.pageNumbers}>
+                        {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                            let pageNum;
+                            if (totalPages <= 5) {
+                                pageNum = i + 1;
+                            } else if (currentPage <= 3) {
+                                pageNum = i + 1;
+                            } else if (currentPage >= totalPages - 2) {
+                                pageNum = totalPages - 4 + i;
+                            } else {
+                                pageNum = currentPage - 2 + i;
+                            }
+                            
+                            if (i === 3 && currentPage < totalPages - 3) {
+                                return <span key="ellipsis" className={styles.ellipsis}>...</span>;
+                            }
+                            if (i === 4 && currentPage < totalPages - 3) {
+                                return (
+                                    <button
+                                        key={totalPages}
+                                        onClick={() => paginate(totalPages)}
+                                        className={`${styles.pageButton} ${currentPage === totalPages ? styles.active : ''}`}
+                                    >
+                                        {totalPages}
+                                    </button>
+                                );
+                            }
+                            
+                            return (
+                                <button
+                                    key={pageNum}
+                                    onClick={() => paginate(pageNum)}
+                                    className={`${styles.pageButton} ${currentPage === pageNum ? styles.active : ''}`}
+                                >
+                                    {pageNum}
+                                </button>
+                            );
+                        })}
                     </div>
 
                     <button
                         onClick={() => paginate(currentPage + 1)}
                         disabled={currentPage === totalPages}
-                        className='px-4 py-2 rounded-lg bg-gray-800 text-gray-300 hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300'
+                        className={`${styles.paginationButton} ${currentPage === totalPages ? styles.disabled : ''}`}
                     >
                         Next
                     </button>
