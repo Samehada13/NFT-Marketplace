@@ -35,6 +35,6 @@ const uploadNFT = () => {
             </div>
         </div>
     );
-};
+ };
 
 export default uploadNFT;

@@ -167,6 +167,7 @@ const UploadNFT = ({ uploadIPFS, createNFT }) => {
             {t('pages.uploadNft.uploadNft.nft.description.label')}
           </label>
           <textarea
+            className="outline-2 outline-[var(--primary-color)]"
             name='description'
             id='description'
             cols={30}

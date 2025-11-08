@@ -88,8 +88,8 @@
     "pages.uploadNft.image.paragraph": "Files supported: JPG, PNG, GIF, SVG Max size: 100 MB",
 
     "pages.uploadNft.uploadNft.dropZone.title": "JPG, PNG, WEBN, MAX 100 MB",
-    "pages.uploadNft.uploadNft.dropZone.heading": "Drag or Drop file",
-    "pages.uploadNft.uploadNft.dropZone.subHeading": "or Browse media on your device",
+    "pages.uploadNft.uploadNft.dropZone.heading": "Choose a file",
+    "pages.uploadNft.uploadNft.dropZone.subHeading": "or drag it here.",
     "pages.uploadNft.uploadNft.nft.name": "Name",
     "pages.uploadNft.uploadNft.nft.placeholder": "Name your NFT (Name must be not exceeded in 32 characters)",
     "pages.uploadNft.uploadNft.nft.website.paragraph": "GABR will include a link to this URL on this item's detail page, so that user can click learn more about it. Your are welcome to link your own webpage with more details.",
