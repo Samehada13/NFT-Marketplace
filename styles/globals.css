@@ -29,6 +29,8 @@
   --main-bg-color:  #fbc64c;
   --overlay: rgba(51, 56, 56, 0.225);
 
+  --bg-body: #f4f2ed;
+  --bg-main: #ffffff;
   --box-shadow: 0.5rem 0.5rem 1rem var(--shadow-dark-color),
     -0.5rem -0.5rem 1rem var(--shadow-light-color);
 
