@@ -1,12 +1,10 @@
-import React, {useState, useEffect, useContext} from 'react';
-
+import {useState, useEffect, useContext} from 'react';
 import Style from '../styles/searchPage.module.css';
 import {Slider, Brand, Loader, BTC, Title, Category} from '../components/componentIndex';
 import {Filter} from '../components/componentIndex';
 import {NFTCardTwo, Banner} from '../collectionPage/collectionIndex';
 import { useTranslation } from 'react-i18next';
 import { NFTMarketplaceContext } from '../context/NFTMarketplaceContext';
-import nftcardtwo from '../collectionPage/NFTCardTwo/NFTCardTwo.module.css';
 
 const searchPage = () => {
   const { fetchNFTs, currentAccount } = useContext(NFTMarketplaceContext);
