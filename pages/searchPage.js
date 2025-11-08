@@ -78,7 +78,7 @@ const searchPage = () => {
         activeCategory={activeCategory}
       />
       <div className={Style.nftGrid}>
-      <NFTCardTwo NFTData={nfts}/>
+      <NFTCardTwo NFTData={nfts} className="px-6" />
       </div>
       <BTC />
       <Brand />

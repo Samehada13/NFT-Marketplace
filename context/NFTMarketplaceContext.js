@@ -248,7 +248,6 @@ export const NFTMarketplaceProvider = ({ children }) => {
                         };
                     })
                 );
-                console.log('Data heree', items);
                 return items;
             // } 
             
