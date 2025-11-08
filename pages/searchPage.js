@@ -2,10 +2,8 @@ import React, {useState, useEffect, useContext} from 'react';
 
 import Style from '../styles/searchPage.module.css';
 import {Slider, Brand, Loader, BTC, Title, Category} from '../components/componentIndex';
-import {SearchBar} from '../searchPage/searchBarIndex';
 import {Filter} from '../components/componentIndex';
 import {NFTCardTwo, Banner} from '../collectionPage/collectionIndex';
-import images from '../img';
 import { useTranslation } from 'react-i18next';
 import { NFTMarketplaceContext } from '../context/NFTMarketplaceContext';
 import nftcardtwo from '../collectionPage/NFTCardTwo/NFTCardTwo.module.css';
