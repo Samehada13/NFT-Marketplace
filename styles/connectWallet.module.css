@@ -16,7 +16,8 @@
     border-bottom: 1px solid var(--shadow-dark-color);
 }
 .connectWallet_box_provider{
-    margin-block: 2rem;
+    display: flex;
+    flex-direction: column;
 }
 .connectWallet_box_provider_item{
     display: flex;
@@ -24,10 +25,11 @@
     gap: 2rem;
     border-radius: 1rem;
     margin-top: 1.5rem;
-    border: 1px solid var(--shadow-dark-color);
+    border: 1px solid var(--border-color);
     padding: 1rem;
     cursor: pointer;
     transition: all .3s ease-in;
+    width: 100%;
 }
 .connectWallet_box_provider_item:hover{
     background-color: var(--shadow-dark-color);
@@ -40,7 +42,7 @@
     line-height: 0;
 }
 .active{
-    box-shadow: var(--box-shadow);
+    background-color: var(--active-color) !important;
 }
 @media screen and (max-width: 35em) {
     .connectWallet_box{
