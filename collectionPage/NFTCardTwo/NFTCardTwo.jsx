@@ -46,7 +46,7 @@ const NFTCard = ({ nft }) => {
               <span className={styles.priceLabel}>Price</span>
               <p className={styles.priceValue}>
                 <span className={styles.ethIcon}>◈</span>
-                {nft.price || '0.00'} ETH
+                {nft.price ? parseFloat(nft.price).toFixed(4) : '0.0000'} MATIC
               </p>
             </div>
 

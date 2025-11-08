@@ -79,7 +79,7 @@ const NFTCard = ({ nftData }) => {
                                 <div className={Style.NFTCard_box_update_details_price_box_box}>
                                     <div className={Style.NFTCard_box_update_details_price_box_bid}>
                                         <small>Current Bid</small>
-                                        <p>{el.price} <span className={Style.smallText}>MATIC</span></p>
+                                        <p>{parseFloat(el.price).toFixed(4)} <span className={Style.smallText}>MATIC</span></p>
                                     </div>
                                     <div className={Style.NFTCard_box_update_details_price_box_stock}>
                                         <small>Seller: </small>

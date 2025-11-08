@@ -21,6 +21,7 @@ import NFTReviewDialogConfirmation from './NFTReviewDialogConfirmation';
 
 import { useTranslation } from 'react-i18next';
 import { generateSampleNFTs } from '../utils/sampleData';
+import NFTScatterChart from '../TopCreators/NFTScatterChart';
 
 const author = ({ creators }) => {
   const [collectibles, setCollectibles] = useState(true);
@@ -71,8 +72,6 @@ const author = ({ creators }) => {
           items = await fetchMyNFTsOrListedNFTs('fetchItemsListed');
         }
 
-        console.log('Fetched NFT items:', items);
-
         // If we got data, use it; otherwise use sample data
         if (Array.isArray(items) && items.length > 0) {
           setNfts(items);
@@ -82,7 +81,6 @@ const author = ({ creators }) => {
           const sampleData = generateSampleNFTs(30);
           setNfts(sampleData);
           setAddressNFTs(sampleData);
-          console.log('No NFTs fetched, using sample data');
         }
       } catch (error) {
         console.error('Error fetching NFTs:', error);
@@ -90,7 +88,6 @@ const author = ({ creators }) => {
         const sampleData = generateSampleNFTs(30);
         setNfts(sampleData);
         setAddressNFTs(sampleData);
-        console.log('Error fetching NFTs, using sample data');
       } finally {
         setLoadingNFTs(false);
       }
@@ -111,7 +108,6 @@ const author = ({ creators }) => {
           const sampleData = generateSampleNFTs(10);
           setMyNFTs(sampleData);
         }
-        console.log('myNFTs', items || 'using sample data');
       } catch (error) {
         console.error('Error fetching my NFTs:', error);
         const sampleData = generateSampleNFTs(10);
@@ -129,15 +125,12 @@ const author = ({ creators }) => {
 
   useEffect(() => {
     const { purchased, seller: sellerAddress } = router.query;
-    console.log('Seller:', sellerAddress);
     if (purchased === 'success' && sellerAddress) {
       setSeller(sellerAddress); // Update seller state
       setOpenReviewDialog(true);
       // router.replace(router.pathname, router.pathname, { scroll: false });
     } else if (purchased === 'failure') {
-      console.log('Purchase failed.');
       setOpenReviewDialog(false);
-      // router.replace(router.pathname, router.pathname, { scroll: false });
     }
   }, [router.query]);
 
@@ -156,24 +149,17 @@ const author = ({ creators }) => {
     };
   }, []);
 
-  // fetch nfts with active bids if you own the nft
   const [nftsWithBids, setNftsWithBids] = useState([]);
   useEffect(() => {
     const fetchNFTsWithBidsBySeller = async () => {
       try {
         const items = await fetchNFTsWithBids();
-        console.log('Fetched NFTs with bids:', items);
 
         const nftsBySeller = items.filter(
           (item) => item.seller.toLowerCase() === currentAccount.toLowerCase()
         );
 
         setNftsWithBids(nftsBySeller);
-
-        console.log(
-          'xxxxFetched NFTs with bids by current account as seller:',
-          nftsBySeller
-        );
       } catch (error) {
         console.error('Error fetching NFTs with bids:', error);
       }
@@ -192,8 +178,6 @@ const author = ({ creators }) => {
 
       try {
         const items = await fetchNFTsWithBids();
-        console.log('Fetched NFTs with bids:', items);
-
         const nftsByBidder = items.filter(
           (item) =>
             item.currentBidder &&
@@ -201,11 +185,6 @@ const author = ({ creators }) => {
         );
 
         setNftsWithBidsBidder(nftsByBidder);
-
-        console.log(
-          'Fetched NFTs with bids by current account as currentBidder:',
-          nftsByBidder
-        );
       } catch (error) {
         console.error('Error fetching NFTs with bids:', error);
       }
@@ -213,7 +192,8 @@ const author = ({ creators }) => {
 
     fetchNFTsWithBidsByBidder();
   }, [currentAccount, fetchNFTsWithBids]);
-
+  
+  console.log("NFTs", nfts);
   return (
     <div className='bg-body'>
       <section className='flex flex-col bg-body rounded-lg p-6'>
@@ -250,16 +230,13 @@ const author = ({ creators }) => {
           {/* <div className={Style.author_scatter}>
             </div> */}
 
-          <div className={Style.leftContainer}>
+          <div className="flex flex-col">
             <Title heading={t('pages.author.title')} />
             <div className={Style.author_box}>
               {currentAccount ? (
                 getSellVolume && getSellVolume.length > 0 ? (
                   <div>
-                    <p style={{ fontSize: totalSize }}>
-                      {t('pages.author.volume')}{' '}
-                      <b>{getSellVolume[0].total} Matic📊</b>
-                    </p>
+                    
                   </div>
                 ) : (
                   <p>{t('pages.author.error.paragraph1')} </p>
@@ -268,11 +245,11 @@ const author = ({ creators }) => {
                 <p>{t('pages.author.error.paragraph2')} </p>
               )}
             </div>
-            {/*<div className={Style.author_scatter}>
-                <ScatterPlot nfts={nfts} />
-            </div>*/}
+            <div className={Style.author_scatter}>
+                <NFTScatterChart nfts={nfts} />
+            </div>
           </div>
-          <div className={Style.rightContainer}>
+          {/* <div className={Style.rightContainer}>
             <Title
               style={{ fontSize: '5px' }}
               heading='Feedback and Reviews'
@@ -280,8 +257,8 @@ const author = ({ creators }) => {
             <ReviewList
               fetchReviewsForAddress={fetchReviewsForAddress}
               currentAccount={currentAccount}
-            />
-          </div>
+            /> 
+          </div>*/}
         </div>
       </section>
       <Brand />
