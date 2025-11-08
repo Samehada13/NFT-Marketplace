@@ -39,25 +39,40 @@ export const getTopCreators = (creators) => {
 };
 
 
-export const getVolumeOfUser  = (creators)=> {
+export const getVolumeOfUser = (creators) => {
+    // Return empty array if creators is not an array or is empty
+    if (!Array.isArray(creators) || creators.length === 0) {
+        return [];
+    }
+
     const finalCreators = [];
 
-    const finalResults = creators.reduce((index, currentValue)=> {
-        (index[currentValue.seller] =index[currentValue.seller]|| []).push(currentValue);
+    try {
+        const finalResults = creators.reduce((index, currentValue) => {
+            // Skip if currentValue is null/undefined or doesn't have seller property
+            if (!currentValue || !currentValue.seller) return index;
+            
+            (index[currentValue.seller] = index[currentValue.seller] || []).push(currentValue);
+            return index;
+        }, {});
 
-        return index;
-    }, {});
-    Object.entries(finalResults).forEach((item)=> {
-        const seller = item[0];
-        const total = item[1]
-        .map((newItem)=> Number(newItem.price))
-        .reduce((previousValue, currentValue) => previousValue + currentValue, 0);
+        Object.entries(finalResults).forEach(([seller, items]) => {
+            const total = items
+                .filter(item => item && item.price) // Filter out items without price
+                .map(item => Number(item.price) || 0) // Convert to number, default to 0 if invalid
+                .reduce((sum, price) => sum + price, 0);
 
-        finalCreators.push({seller, total});
-    }); 
+            if (seller) { // Only push if seller exists
+                finalCreators.push({ seller, total });
+            }
+        });
+    } catch (error) {
+        console.error('Error in getVolumeOfUser:', error);
+        return [];
+    }
 
     return finalCreators;
-}  
+}
 
 // export const getDateAndPriceOfListedNFTs = (nfts) => {
 //     const result = [];

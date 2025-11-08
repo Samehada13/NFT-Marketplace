@@ -19,7 +19,7 @@ const Footer = () => {
   const currentURL = typeof window !== 'undefined' ? window.location.href : '';
 
   return (
-    <footer className='bg-white px-4 pb-4'>
+    <footer className='bg-white px-6 pb-6'>
       <div className='mx-auto px-8 py-8 bg-gradient-to-bl from-purple-600 via-violet-500 to-violet-600  rounded-bl-lg rounded-br-lg '>
         {/* Main Footer Content */}
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8'>
@@ -130,7 +130,7 @@ const Footer = () => {
           {/* Copyright */}
           <div className='text-center lg:text-left'>
             <p className='text-white text-sm'>
-              &copy; 2024 GABR. All rights reserved.
+              &copy; {new Date().getFullYear()} GABR. All rights reserved.
             </p>
           </div>
 

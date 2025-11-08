@@ -88,8 +88,8 @@
   "pages.uploadNft.image.paragraph": "Mga suportadong file: JPG, PNG, GIF, SVG Pinakamataas na sukat: 100 MB",
 
   "pages.uploadNft.uploadNft.dropZone.title": "JPG, PNG, WEBN, HANGGANG 100 MB",
-  "pages.uploadNft.uploadNft.dropZone.heading": "I-drag o I-drop ang file",
-  "pages.uploadNft.uploadNft.dropZone.subHeading": "o I-browse ang media sa iyong aparato",
+  "pages.uploadNft.uploadNft.dropZone.heading": "Pumili ng file",
+  "pages.uploadNft.uploadNft.dropZone.subHeading": "o I-drag ito sa aparato",
   "pages.uploadNft.uploadNft.nft.name": "Pangalan",
   "pages.uploadNft.uploadNft.nft.placeholder": "Itala ang pangalan ng iyong NFT (Ang pangalan ay hindi dapat lumampas ng 32 na karakter)",
   "pages.uploadNft.uploadNft.nft.website.paragraph": "Ang GABR ay maglalaman ng isang link patungo sa URL na ito sa pahina ng detalye ng item, upang maaaring i-click ng user ang malaman pa ang tungkol dito. Malugod kayong inaanyayahan na ilink ang inyong sariling webpage na may mas maraming detalye.",

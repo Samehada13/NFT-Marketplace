@@ -1,233 +1,199 @@
-// import React, {useState, useEffect, useContext} from 'react';
-// import Image from 'next/image';
-// import {BsImage} from 'react-icons/bs';
-// import {AiFillHeart, AiOutlineHeart} from 'react-icons/ai';
-// import {MdVerified, MdTimer} from 'react-icons/md';
-// import Link from 'next/link';
-// import { useRouter } from 'next/router';
-
-// import Style from './NFTCardTwo.module.css';
-// import {LikeProfile} from '../../components/componentIndex';
-
-// const NFTCardTwo = ({NFTData, NFTAddress}) => {
-//     const [like, setLike] = useState(false);
-//     const [likeInc, setLikeInc] = useState(21);
-
-//     const likeNFT = ()=>{
-//         if(!like){
-//             setLike(true);
-//             setLikeInc(23);
-//         }else{
-//             setLike(false);
-//             setLikeInc(23 + 1);
-//         }
-//     }
-
-//   return (
-//     <div className={Style.nftCardTwo}>
-//         {(NFTAddress && NFTAddress.length > 0) ? (
-//             NFTAddress.map((el, i) => (
-//                 <Link href={{ pathname: "/NFTDetails", query: el }} key={i + 1}>
-//                     <div className={Style.nftCardTwo_box} key={i + 1}>
-//                     <div className={Style.nftCardTwo_box_like}>
-//                         <div className={Style.nftCardTwo_box_like_box}>
-//                             <div className={Style.nftCardTwo_box_like_box_box}>
-//                                 <BsImage className={Style.nftCardTwo_box_like_box_box_icon}/>
-//                                 <p onClick={()=> likeNFT()}>
-//                                     {like ? <AiOutlineHeart/> : <AiFillHeart/>}{""}
-//                                     <span>{likeInc + 1}</span>
-//                                 </p>
-//                             </div>
-//                         </div>
-//                     </div>
-//                     <div className={Style.nftCardTwo_box_img}>
-//                         <Image className={Style.nftCardTwo_box_img_img} src={el.image} 
-//                         alt='NFT' width={500} height={500} objectFit='cover' 
-//                         />
-//                     </div>
-//                     <div className={Style.nftCardTwo_box_info}>
-//                         <div className={Style.nftCardTwo_box_info_left}>
-//                             <LikeProfile/>
-//                             <p>{el.name}</p>
-//                         </div>
-//                         <small>4{i + 1}</small>
-//                     </div>
-//                     <div className={Style.nftCardTwo_box_price}>
-//                         <div className={Style.nftCardTwo_box_price_box}>
-//                             <small>Current Bid</small>
-//                             <p>{el.price} Matic</p>
-//                         </div>
-//                         <p className={Style.nftCardTwo_box_price_stock}>
-//                             <span> Token #: {el.tokenId}</span>
-//                         </p>
-//                     </div>
-//                 </div>
-//                 </Link>
-//             ))
-//         ) : (
-//             (NFTData && NFTData.length > 0) && (
-//                 NFTData.map((el, i) => (
-//                     <Link href={{ pathname: "/NFTDetails", query: el }} key={i + 1}>
-//                         <div className={Style.nftCardTwo_box} key={i + 1}>
-//                     <div className={Style.nftCardTwo_box_like}>
-//                         <div className={Style.nftCardTwo_box_like_box}>
-//                             <div className={Style.nftCardTwo_box_like_box_box}>
-//                                 <BsImage className={Style.nftCardTwo_box_like_box_box_icon}/>
-//                                 <p onClick={()=> likeNFT()}>
-//                                     {like ? <AiOutlineHeart/> : <AiFillHeart/>}{""}
-//                                     <span>{likeInc + 1}</span>
-//                                 </p>
-//                             </div>
-//                         </div>
-//                     </div>
-//                     <div className={Style.nftCardTwo_box_img}>
-//                         <Image className={Style.nftCardTwo_box_img_img} src={el.image} 
-//                         alt='NFT' width={500} height={500} objectFit='cover' 
-//                         />
-//                     </div>
-//                     <div className={Style.nftCardTwo_box_info}>
-//                         <div className={Style.nftCardTwo_box_info_left} title={el.name}>
-//                         <LikeProfile />
-//                         {el.name?.length > 6 ? (
-//                             <p onClick={() => handleNameClick(el.name)}>
-//                             {el.name.substring(0, 10) + "..."}
-//                             </p>
-//                         ) : (
-//                             <p>{el.name}</p>
-//                         )}
-//                         </div>
-//                         <span style={{ fontSize: '0.8rem', color: '#888' }}>1 stk</span>
-//                     </div>
-//                     <div className={Style.nftCardTwo_box_price}>
-//                         <div className={Style.nftCardTwo_box_price_box}>
-//                             <small>Current Bid</small>
-//                             <p>{el.price}Matic</p>
-//                         </div>
-//                         <p className={Style.nftCardTwo_box_price_stock}>
-//                             <span> Token #: {el.tokenId}</span>
-//                         </p>
-//                     </div>
-//                 </div>
-//                     </Link>
-//                 ))
-//             )
-//         )}
-        
-//     </div>
-//   )
-// }
-
-// export default NFTCardTwo
-
-
 import React, { useState } from 'react';
-import Image from 'next/image';
-import { BsImage } from 'react-icons/bs';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
-import Link from 'next/link';
+import styles from './NFTCardTwo.module.css';
 
-import Style from './NFTCardTwo.module.css';
-import { LikeProfile } from '../../components/componentIndex';
+const NFTCard = ({ nft }) => {
+  const [like, setLike] = useState(false);
+  const [likeInc, setLikeInc] = useState(21);
 
-const NFTCardTwo = ({ NFTData }) => {
-    const itemsPerPage = 24;
-    const [currentPage, setCurrentPage] = useState(1);
-    const [like, setLike] = useState(false);
-    const [likeInc, setLikeInc] = useState(21);
+  const likeNFT = (e) => {
+    e.stopPropagation();
+    if (!like) {
+      setLike(true);
+      setLikeInc(22);
+    } else {
+      setLike(false);
+      setLikeInc(21);
+    }
+  };
 
-    const likeNFT = () => {
-        if (!like) {
-            setLike(true);
-            setLikeInc(23);
-        } else {
-            setLike(false);
-            setLikeInc(23 + 1);
-        }
-    };
+  return (
+    <div className={styles.nftCard}>
+      <div className={styles.imageContainer}>
+        <img
+          src={typeof nft.image === 'object' ? nft.image.src : nft.image}
+          alt={nft.name}
+          className={styles.nftImage}
+          onError={(e) => {
+            // Only set the fallback once to prevent infinite loop
+            if (e.target.src !== 'https://via.placeholder.com/400') {
+              e.target.src = 'https://via.placeholder.com/400';
+              console.log('Failed to load image:', nft.image);
+            } else {
+              // If fallback also fails, just hide the image
+              e.target.style.display = 'none';
+            }
+          }}
+        />
 
-    const totalPages = Math.ceil(NFTData.length / itemsPerPage);
+        <div className={styles.gradientOverlay} />
 
-    const handleNextPage = () => {
-        setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
-    };
+        <div className={styles.cardInfo}>
+          <h3 className={styles.nftName}>{nft.name || 'Unnamed NFT'}</h3>
 
-    const handlePrevPage = () => {
-        setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
-    };
-
-    const renderNFTItems = () => {
-        const startIndex = (currentPage - 1) * itemsPerPage;
-        const endIndex = Math.min(startIndex + itemsPerPage, NFTData.length);
-
-        return NFTData.slice(startIndex, endIndex).map((el, i) => (
-            <Link href={{ pathname: '/NFTDetails', query: el }} key={i}>
-                <div className={Style.nftCardTwo_box} key={i}>
-                    <div className={Style.nftCardTwo_box_like}>
-                        <div className={Style.nftCardTwo_box_like_box}>
-                            <div className={Style.nftCardTwo_box_like_box_box}>
-                                <BsImage className={Style.nftCardTwo_box_like_box_box_icon} />
-                                <p onClick={likeNFT}>
-                                    {like ? <AiOutlineHeart /> : <AiFillHeart />}
-                                    {/* <span>{likeInc + 1}</span> */}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className={Style.nftCardTwo_box_img}>
-                        <Image
-                            className={Style.nftCardTwo_box_img_img}
-                            src={el.image}
-                            alt="NFT"
-                            width={500}
-                            height={500}
-                            objectFit="cover"
-                        />
-                    </div>
-                    <div className={Style.nftCardTwo_box_info}>
-                        <div className={Style.nftCardTwo_box_info_left} title={el.name}>
-                            <LikeProfile />
-                            {el.name?.length > 6 ? (
-                                <p onClick={() => handleNameClick(el.name)}>{el.name.substring(0, 10) + '...'}</p>
-                            ) : (
-                                <p>{el.name}</p>
-                            )}
-                        </div>
-                        <span style={{ fontSize: '0.8rem', color: '#888' }}>1 stk</span>
-                    </div>
-                    <div className={Style.nftCardTwo_box_price}>
-                        <div className={Style.nftCardTwo_box_price_box}>
-                            <small>Current Bid</small>
-                            <p>{el.price} Matic</p>
-                        </div>
-                        <p className={Style.nftCardTwo_box_price_stock}>
-                            <span>Token #: {el.tokenId}</span>
-                        </p>
-                    </div>
-                </div>
-            </Link>
-        ));
-    };
-
-    return (
-        <div>
-            <div className={Style.nftCardTwo}>
-                {renderNFTItems()}
+          <div className={styles.priceSection}>
+            <div className={styles.priceContainer}>
+              <span className={styles.priceLabel}>Price</span>
+              <p className={styles.priceValue}>
+                <span className={styles.ethIcon}>◈</span>
+                {nft.price ? parseFloat(nft.price).toFixed(4) : '0.0000'} MATIC
+              </p>
             </div>
-            {totalPages > 1 && (
-                <div className={Style.pagination}>
-                    <button onClick={handlePrevPage} disabled={currentPage === 1}>
-                        Prev
-                    </button>
-                    <span>{currentPage}</span>
-                    <button onClick={handleNextPage} disabled={currentPage === totalPages}>
-                        Next
-                    </button>
-                </div>
-            )}
+
+            <div className={styles.likeCounter}>
+              <AiFillHeart className={styles.likeIcon} />
+              <span className={styles.likeCount}>{likeInc}</span>
+            </div>
+          </div>
         </div>
+
+        <div className={styles.likeButtonContainer}>
+          <button
+            onClick={likeNFT}
+            className={styles.likeButton}
+          >
+            {like ? (
+              <AiFillHeart className={styles.likeIcon} />
+            ) : (
+              <AiOutlineHeart className={styles.likeIcon} />
+            )}
+          </button>
+        </div>
+
+        {nft.category && (
+          <div className={styles.categoryBadge}>
+            <div className={styles.categoryContent}>
+              <span className={styles.categoryText}>{nft.category}</span>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+const NFTCardTwo = ({ NFTData = [], className }) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 8;
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = NFTData.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(NFTData.length / itemsPerPage);
+
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  if (!NFTData || NFTData.length === 0) {
+    return (
+      <div className={styles.noNFTs}>
+        <div className={styles.emoji}>🎨</div>
+        <p className={styles.noNFTsText}>No NFTs found</p>
+      </div>
     );
+  }
+
+  return (
+    <div className={`${styles.container} ${className}`}>
+      <div className={styles.gridContainer}>
+        {currentItems.map((nft, index) => (
+          <div
+            key={`${nft.tokenId || index}-${nft.collection?.address || ''}`}
+            className={styles.gridItem}
+          >
+            <NFTCard nft={nft} />
+          </div>
+        ))}
+      </div>
+
+      {totalPages > 1 && (
+        <div className={styles.pagination}>
+          <button
+            onClick={() => paginate(currentPage - 1)}
+            disabled={currentPage === 1}
+            className={`${styles.paginationButton} ${
+              currentPage === 1 ? styles.disabled : ''
+            }`}
+          >
+            Previous
+          </button>
+
+          <div className={styles.pageNumbers}>
+            {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+              let pageNum;
+              if (totalPages <= 5) {
+                pageNum = i + 1;
+              } else if (currentPage <= 3) {
+                pageNum = i + 1;
+              } else if (currentPage >= totalPages - 2) {
+                pageNum = totalPages - 4 + i;
+              } else {
+                pageNum = currentPage - 2 + i;
+              }
+
+              if (i === 3 && currentPage < totalPages - 3) {
+                return (
+                  <span
+                    key='ellipsis'
+                    className={styles.ellipsis}
+                  >
+                    ...
+                  </span>
+                );
+              }
+              if (i === 4 && currentPage < totalPages - 3) {
+                return (
+                  <button
+                    key={totalPages}
+                    onClick={() => paginate(totalPages)}
+                    className={`${styles.pageButton} ${
+                      currentPage === totalPages ? styles.active : ''
+                    }`}
+                  >
+                    {totalPages}
+                  </button>
+                );
+              }
+
+              return (
+                <button
+                  key={pageNum}
+                  onClick={() => paginate(pageNum)}
+                  className={`${styles.pageButton} ${
+                    currentPage === pageNum ? styles.active : ''
+                  }`}
+                >
+                  {pageNum}
+                </button>
+              );
+            })}
+          </div>
+
+          <button
+            onClick={() => paginate(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            className={`${styles.paginationButton} ${
+              currentPage === totalPages ? styles.disabled : ''
+            }`}
+          >
+            Next
+          </button>
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default NFTCardTwo;
-
-

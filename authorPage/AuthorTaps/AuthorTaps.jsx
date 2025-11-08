@@ -76,7 +76,7 @@ const AuthorTaps = ({setCollectibles, setCreated, setLike, setFollower, setFollo
 
   return (
     <div className={Style.authorTaps}>
-      <div className={Style.authorTaps_box}>
+      <div className="">
         <div className={Style.authorTaps_box_left}>
           <div className={Style.authorTaps_box_left_btn}>
             <button className={`${activeBtn == 1 ? Style.active : ""}`} 

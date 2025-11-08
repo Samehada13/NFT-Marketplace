@@ -28,8 +28,7 @@ const DropZone = React.forwardRef(({ title, heading, subHeading, name, website, 
     <div ref={ref} className={styles.dropZone}>
       <div {...getRootProps()} className={styles.dropZoneBox}>
         <input {...getInputProps()} />
-        <div className={styles.dropZoneBoxInput}>
-          <p className={styles.dropZoneBoxTitle}>{title}</p>
+        <div className="">
           <div className={styles.dropZoneBoxImage}>
             <Image 
               src={img.upload} 
@@ -39,8 +38,10 @@ const DropZone = React.forwardRef(({ title, heading, subHeading, name, website, 
               objectFit="contain" 
             />
           </div>
-          <p className={styles.dropZoneBoxHeading}>{heading}</p>
-          <p className={styles.dropZoneBoxSubHeading}>{subHeading}</p>
+          <div className="flex flex-row justify-center items-center">
+            <p className="p-1 font-bold">{heading}</p>
+            <p className="">{subHeading}</p>
+          </div>
         </div>
       </div>
       {fileUrl && (
