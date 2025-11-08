@@ -11,7 +11,7 @@ const Brand = () => {
   const { t } = useTranslation();
 
   return (
-    <div className='bg-white px-4 '>
+    <div className='px-6'>
       <div className='relative bg-gradient-to-br rounded-tl-lg rounded-tr-lg from-violet-600 via-violet-500 to-purple-600 overflow-hidden'>
         {/* Decorative background elements */}
         <div className='absolute inset-0 '></div>

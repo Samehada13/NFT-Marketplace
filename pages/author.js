@@ -1,233 +1,292 @@
-import React, {useState, useEffect, useContext, useRef} from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import { ethers } from 'ethers';
 import Style from '../styles/author.module.css';
-import {Banner, NFTCardTwo} from '../collectionPage/collectionIndex';
-import {Brand, Title} from '../components/componentIndex';
+import { Banner, NFTCardTwo } from '../collectionPage/collectionIndex';
+import { Brand, Title } from '../components/componentIndex';
 import image from '../img';
-import {AuthorProfileCard, AuthorTaps, AuthorNFTCardBox} from '../authorPage/authorIndex';
+import {
+  AuthorProfileCard,
+  AuthorTaps,
+  AuthorNFTCardBox,
+} from '../authorPage/authorIndex';
 import FollowerTabCard from '../components/FollowerTab/FollowerTabCard/FollowerTabCard';
 import { useRouter } from 'next/router';
 import { useLocation } from 'react-router-dom';
-import {getVolumeOfUser } from '../TopCreators/TopCreators'
-import Scatter from '../TopCreators/ScatterPlot'
+import { getVolumeOfUser } from '../TopCreators/TopCreators';
+import Scatter from '../TopCreators/ScatterPlot';
 import { NFTMarketplaceContext } from '../context/NFTMarketplaceContext';
 import ScatterPlot from '../TopCreators/ScatterPlot';
 import ReviewList from './review';
 import NFTReviewDialogConfirmation from './NFTReviewDialogConfirmation';
 
 import { useTranslation } from 'react-i18next';
+import { generateSampleNFTs } from '../utils/sampleData';
 
-const author = ({creators}) => {
-    const [collectibles, setCollectibles] = useState(true);
-    const [created, setCreated] = useState(false);
-    const [like, setLike] = useState(false);
-    const [follower, setFollower] = useState(false);
-    const [following, setFollowing] = useState(false);
-    const [seller, setSeller] = useState('');
-    
-    const {
-        fetchMyNFTsOrListedNFTs, 
-        fetchNFTsByAddressFromURL, 
-        currentAccount, 
-        leaveSellerReview, 
-        tokenId,
-        fetchReviewsForAddress,
-        fetchNFTsWithBids, 
-    } = useContext(NFTMarketplaceContext);
+const author = ({ creators }) => {
+  const [collectibles, setCollectibles] = useState(true);
+  const [created, setCreated] = useState(false);
+  const [like, setLike] = useState(false);
+  const [follower, setFollower] = useState(false);
+  const [following, setFollowing] = useState(false);
+  const [seller, setSeller] = useState('');
 
-    const [error, setError] = useState("");
-    const [openError, setOpenError] = useState(false);
+  const {
+    fetchMyNFTsOrListedNFTs,
+    fetchNFTsByAddressFromURL,
+    currentAccount,
+    leaveSellerReview,
+    tokenId,
+    fetchReviewsForAddress,
+    fetchNFTsWithBids,
+  } = useContext(NFTMarketplaceContext);
 
-    const [nfts, setNfts] = useState([]);
-    const [myNFTs, setMyNFTs] = useState([]);
+  const [error, setError] = useState('');
+  const [openError, setOpenError] = useState(false);
 
-    const router = useRouter();
-    const [addressNFTs, setAddressNFTs] = useState([]);
+  const [nfts, setNfts] = useState([]);
+  const [myNFTs, setMyNFTs] = useState([]);
 
-    const getSellVolume = getVolumeOfUser (nfts);
-    const totalSize = 24;
+  const router = useRouter();
+  const [addressNFTs, setAddressNFTs] = useState([]);
 
-    const getDateNPrice = nfts;
-    console.log('Date and Price Data:', getDateNPrice);
-    const [loadingNFTs, setLoadingNFTs] = useState(true);
+  const getSellVolume = getVolumeOfUser(nfts);
+  const totalSize = 24;
+  const [loadingNFTs, setLoadingNFTs] = useState(true);
+  const [chartData, setChartData] = useState([]);
 
-    useEffect(() => {
-      const urlSearchParams = new URLSearchParams(location.search);
-      const addressParam = urlSearchParams.get('address');
-  
-      if (addressParam) {
-          fetchNFTsByAddressFromURL(addressParam).then((items) => {
-              setAddressNFTs(items);
-            //   console.log('itesssssss', items);
-          });
-      }
-  }, [router.search]);
-  
+  // Replace both useEffect hooks with this single one:
   useEffect(() => {
-      const urlSearchParams = new URLSearchParams(location.search);
-      const addressParam = urlSearchParams.get('address');
-  
-      if (!addressParam) {
-          fetchMyNFTsOrListedNFTs("fetchItemsListed").then((items) => {
-              setNfts(items);
-            //   console.log(items);
-          });
-      }
-  }, [router.search]);
-  
-  useEffect(() => {
-      fetchMyNFTsOrListedNFTs("fetchMyNfts").then((items) => {
-          setMyNFTs(items);
-      });
-  }, []);
+    const urlSearchParams = new URLSearchParams(location.search);
+    const addressParam = urlSearchParams.get('address');
 
-  const { t } = useTranslation();
-    const [openReviewDialog, setOpenReviewDialog] = useState(false);
+    const fetchData = async () => {
+      setLoadingNFTs(true);
+      try {
+        let items = [];
 
-    useEffect(() => {
-        const { purchased, seller: sellerAddress } = router.query;
-        console.log('Seller:', sellerAddress);
-        if (purchased === 'success' && sellerAddress) {
-            setSeller(sellerAddress); // Update seller state
-            setOpenReviewDialog(true);
-            // router.replace(router.pathname, router.pathname, { scroll: false });
-        } else if (purchased === 'failure') {
-            console.log('Purchase failed.');
-            setOpenReviewDialog(false);
-            // router.replace(router.pathname, router.pathname, { scroll: false });
+        if (addressParam) {
+          items = await fetchNFTsByAddressFromURL(addressParam);
+          setAddressNFTs(items);
+        } else if (currentAccount) {
+          items = await fetchMyNFTsOrListedNFTs('fetchItemsListed');
         }
-    }, [router.query]);
 
-    const handleCloseReviewDialog = () => {
-        setOpenReviewDialog(false);
+        console.log('Fetched NFT items:', items);
+
+        // If we got data, use it; otherwise use sample data
+        if (Array.isArray(items) && items.length > 0) {
+          setNfts(items);
+          setAddressNFTs(items);
+        } else {
+          // No data fetched, use sample data
+          const sampleData = generateSampleNFTs(30);
+          setNfts(sampleData);
+          setAddressNFTs(sampleData);
+          console.log('No NFTs fetched, using sample data');
+        }
+      } catch (error) {
+        console.error('Error fetching NFTs:', error);
+        // On error, fall back to sample data
+        const sampleData = generateSampleNFTs(30);
+        setNfts(sampleData);
+        setAddressNFTs(sampleData);
+        console.log('Error fetching NFTs, using sample data');
+      } finally {
+        setLoadingNFTs(false);
+      }
     };
 
-    useEffect(() => {
-        const clearQueryParams = () => {
-            window.history.replaceState({}, document.title, window.location.pathname);
-        };
-        clearQueryParams();
+    fetchData();
+  }, [router.search, currentAccount]);
 
-        return () => {
-            window.removeEventListener('beforeunload', clearQueryParams);
-        };
-    }, []);
-
-    // fetch nfts with active bids if you own the nft
-    const [nftsWithBids, setNftsWithBids] = useState([]);
-    useEffect(() => {
-        const fetchNFTsWithBidsBySeller = async () => {
-            try {
-                
-                const items = await fetchNFTsWithBids();
-                console.log('Fetched NFTs with bids:', items);
-                
-                const nftsBySeller = items.filter(item => item.seller.toLowerCase() === currentAccount.toLowerCase());
-    
-                setNftsWithBids(nftsBySeller);
-    
-                console.log('xxxxFetched NFTs with bids by current account as seller:', nftsBySeller);
-            } catch (error) {
-                console.error('Error fetching NFTs with bids:', error);
-            }
-        };
-    
-        if (currentAccount) {
-            fetchNFTsWithBidsBySeller();
+  // Keep this separate useEffect for myNFTs
+  useEffect(() => {
+    const fetchMyNFTs = async () => {
+      try {
+        const items = await fetchMyNFTsOrListedNFTs('fetchMyNfts');
+        if (Array.isArray(items) && items.length > 0) {
+          setMyNFTs(items);
+        } else {
+          // Use sample data if no NFTs found
+          const sampleData = generateSampleNFTs(10);
+          setMyNFTs(sampleData);
         }
-    }, [currentAccount]);
-    
-    //fetch nfts with active bids if current account connected is equal to the currenBidder
-    const [nftsWithBidsBidder, setNftsWithBidsBidder] = useState([]);
-    useEffect(() => {
-        const fetchNFTsWithBidsByBidder = async () => {
-            if (!currentAccount) return; 
+        console.log('myNFTs', items || 'using sample data');
+      } catch (error) {
+        console.error('Error fetching my NFTs:', error);
+        const sampleData = generateSampleNFTs(10);
+        setMyNFTs(sampleData);
+      }
+    };
 
-            try {
-                const items = await fetchNFTsWithBids();
-                console.log('Fetched NFTs with bids:', items);
+    if (currentAccount) {
+      fetchMyNFTs();
+    }
+  }, [currentAccount]);
 
-                const nftsByBidder = items.filter(item => 
-                    item.currentBidder && item.currentBidder.toLowerCase() === currentAccount.toLowerCase()
-                );
+  const { t } = useTranslation();
+  const [openReviewDialog, setOpenReviewDialog] = useState(false);
 
-                setNftsWithBidsBidder(nftsByBidder);
-                
-                console.log('Fetched NFTs with bids by current account as currentBidder:', nftsByBidder);
-            } catch (error) {
-                console.error('Error fetching NFTs with bids:', error);
-            }
-        };
+  useEffect(() => {
+    const { purchased, seller: sellerAddress } = router.query;
+    console.log('Seller:', sellerAddress);
+    if (purchased === 'success' && sellerAddress) {
+      setSeller(sellerAddress); // Update seller state
+      setOpenReviewDialog(true);
+      // router.replace(router.pathname, router.pathname, { scroll: false });
+    } else if (purchased === 'failure') {
+      console.log('Purchase failed.');
+      setOpenReviewDialog(false);
+      // router.replace(router.pathname, router.pathname, { scroll: false });
+    }
+  }, [router.query]);
 
-        fetchNFTsWithBidsByBidder();
-    }, [currentAccount, fetchNFTsWithBids]);
- 
-    
+  const handleCloseReviewDialog = () => {
+    setOpenReviewDialog(false);
+  };
+
+  useEffect(() => {
+    const clearQueryParams = () => {
+      window.history.replaceState({}, document.title, window.location.pathname);
+    };
+    clearQueryParams();
+
+    return () => {
+      window.removeEventListener('beforeunload', clearQueryParams);
+    };
+  }, []);
+
+  // fetch nfts with active bids if you own the nft
+  const [nftsWithBids, setNftsWithBids] = useState([]);
+  useEffect(() => {
+    const fetchNFTsWithBidsBySeller = async () => {
+      try {
+        const items = await fetchNFTsWithBids();
+        console.log('Fetched NFTs with bids:', items);
+
+        const nftsBySeller = items.filter(
+          (item) => item.seller.toLowerCase() === currentAccount.toLowerCase()
+        );
+
+        setNftsWithBids(nftsBySeller);
+
+        console.log(
+          'xxxxFetched NFTs with bids by current account as seller:',
+          nftsBySeller
+        );
+      } catch (error) {
+        console.error('Error fetching NFTs with bids:', error);
+      }
+    };
+
+    if (currentAccount) {
+      fetchNFTsWithBidsBySeller();
+    }
+  }, [currentAccount]);
+
+  //fetch nfts with active bids if current account connected is equal to the currenBidder
+  const [nftsWithBidsBidder, setNftsWithBidsBidder] = useState([]);
+  useEffect(() => {
+    const fetchNFTsWithBidsByBidder = async () => {
+      if (!currentAccount) return;
+
+      try {
+        const items = await fetchNFTsWithBids();
+        console.log('Fetched NFTs with bids:', items);
+
+        const nftsByBidder = items.filter(
+          (item) =>
+            item.currentBidder &&
+            item.currentBidder.toLowerCase() === currentAccount.toLowerCase()
+        );
+
+        setNftsWithBidsBidder(nftsByBidder);
+
+        console.log(
+          'Fetched NFTs with bids by current account as currentBidder:',
+          nftsByBidder
+        );
+      } catch (error) {
+        console.error('Error fetching NFTs with bids:', error);
+      }
+    };
+
+    fetchNFTsWithBidsByBidder();
+  }, [currentAccount, fetchNFTsWithBids]);
+
   return (
-    <div className={Style.author}>
-        <NFTReviewDialogConfirmation 
-            handleClose={handleCloseReviewDialog} 
-            open={openReviewDialog} 
+    <div className='bg-body'>
+      <section className='flex flex-col bg-body rounded-lg p-6'>
+        <div className='bg-main p-6 rounded-lg'>
+          <NFTReviewDialogConfirmation
+            handleClose={handleCloseReviewDialog}
+            open={openReviewDialog}
             seller={seller}
             leaveSellerReview={leaveSellerReview}
             setError={setError}
             setOpenError={setOpenError}
             tokenId={tokenId}
-        />
-        <Banner bannerImage={image.creatorbackground3}/>
-        <AuthorProfileCard currentAccount={currentAccount}/>
-        <AuthorTaps setCollectibles={setCollectibles}
-        setCreated={setCreated}
-        setLike={setLike}
-        setFollower={setFollower}
-        setFollowing={setFollowing}/>
-        <AuthorNFTCardBox 
-        collectibles={collectibles} 
-        created={created} 
-        like={like} 
-        follower={follower} 
-        following={following}
-        nfts={nfts}
-        myNFTs={myNFTs}
-        addressNFTs={addressNFTs}
-        nftsWithBids={nftsWithBids}
-        nftsWithBidsBidder={nftsWithBidsBidder}
-        />
-        {/* <div className={Style.author_scatter}>
-        </div> */}
+          />
+          <AuthorProfileCard currentAccount={currentAccount} />
+          <AuthorTaps
+            setCollectibles={setCollectibles}
+            setCreated={setCreated}
+            setLike={setLike}
+            setFollower={setFollower}
+            setFollowing={setFollowing}
+          />
+          <AuthorNFTCardBox
+            collectibles={collectibles}
+            created={created}
+            like={like}
+            follower={follower}
+            following={following}
+            nfts={nfts}
+            myNFTs={myNFTs}
+            addressNFTs={addressNFTs}
+            nftsWithBids={nftsWithBids}
+            nftsWithBidsBidder={nftsWithBidsBidder}
+          />
+          {/* <div className={Style.author_scatter}>
+            </div> */}
 
-        <div className={Style.leftContainer}>
-            <Title heading={t('pages.author.title')}/>
+          <div className={Style.leftContainer}>
+            <Title heading={t('pages.author.title')} />
             <div className={Style.author_box}>
-                {currentAccount ? (
-                    getSellVolume && getSellVolume.length > 0 ? (
-                        <div>
-                            <p style={{ fontSize: totalSize }}>{t('pages.author.volume')} <b>{getSellVolume[0].total} Matic📊</b></p>
-                        </div>
-                    ) : (
-                        <p>{t('pages.author.error.paragraph1')} </p>
-                    )
+              {currentAccount ? (
+                getSellVolume && getSellVolume.length > 0 ? (
+                  <div>
+                    <p style={{ fontSize: totalSize }}>
+                      {t('pages.author.volume')}{' '}
+                      <b>{getSellVolume[0].total} Matic📊</b>
+                    </p>
+                  </div>
                 ) : (
-                    <p>{t('pages.author.error.paragraph2')} </p>
-                )}
+                  <p>{t('pages.author.error.paragraph1')} </p>
+                )
+              ) : (
+                <p>{t('pages.author.error.paragraph2')} </p>
+              )}
             </div>
-            <div className={Style.author_scatter}>
-                <ScatterPlot nfts={getDateNPrice} />
-            </div>
-        </div>
-        <div className={Style.rightContainer}>
-            <Title style={{ fontSize: '5px' }} heading='Feedback and Reviews' />
-            <ReviewList 
-                fetchReviewsForAddress={fetchReviewsForAddress} 
-                currentAccount={currentAccount}
+            {/*<div className={Style.author_scatter}>
+                <ScatterPlot nfts={nfts} />
+            </div>*/}
+          </div>
+          <div className={Style.rightContainer}>
+            <Title
+              style={{ fontSize: '5px' }}
+              heading='Feedback and Reviews'
             />
+            <ReviewList
+              fetchReviewsForAddress={fetchReviewsForAddress}
+              currentAccount={currentAccount}
+            />
+          </div>
         </div>
-        
-        <Brand/>
+      </section>
+      <Brand />
     </div>
-  )
-}
+  );
+};
 
-export default author
-
-// Removed line 225         <Title heading={t('pages.author.title.earn')} />
+export default author;
