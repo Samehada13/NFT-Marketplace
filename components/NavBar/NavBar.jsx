@@ -57,11 +57,8 @@ const NavBar = () => {
               {/* Desktop Navigation */}
               <div className='hidden md:flex md:space-x-4'>
                 {/* Discover Dropdown */}
-                <Menu
-                  as='div'
-                  className='relative'
-                >
-                  {({ open }) => (
+                <Menu as='div' className='relative'>
+                  {({ open, close }) => (
                     <>
                       <Menu.Button className='inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-md transition-colors'>
                         {t('navbar.discover')}
@@ -72,6 +69,7 @@ const NavBar = () => {
                         />
                       </Menu.Button>
                       <Transition
+                        show={open}
                         as={Fragment}
                         enter='transition ease-out duration-100'
                         enterFrom='transform opacity-0 scale-95'
@@ -80,8 +78,8 @@ const NavBar = () => {
                         leaveFrom='transform opacity-100 scale-100'
                         leaveTo='transform opacity-0 scale-95'
                       >
-                        <Menu.Items className='absolute left-0 mt-2 origin-top-left rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50'>
-                          <div className='p-2'>
+                        <Menu.Items static className='absolute left-0 mt-2 origin-top-left rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50'>
+                          <div className='p-2' onClick={close}>
                             <Discover />
                           </div>
                         </Menu.Items>
@@ -91,11 +89,8 @@ const NavBar = () => {
                 </Menu>
 
                 {/* Help Center Dropdown */}
-                <Menu
-                  as='div'
-                  className='relative'
-                >
-                  {({ open }) => (
+                <Menu as='div' className='relative'>
+                  {({ open, close }) => (
                     <>
                       <Menu.Button className='inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-md transition-colors'>
                         {t('navbar.helpCenter')}
@@ -106,6 +101,7 @@ const NavBar = () => {
                         />
                       </Menu.Button>
                       <Transition
+                        show={open}
                         as={Fragment}
                         enter='transition ease-out duration-100'
                         enterFrom='transform opacity-0 scale-95'
@@ -114,8 +110,8 @@ const NavBar = () => {
                         leaveFrom='transform opacity-100 scale-100'
                         leaveTo='transform opacity-0 scale-95'
                       >
-                        <Menu.Items className='absolute left-0 mt-2 origin-top-left rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50'>
-                          <div className='p-2'>
+                        <Menu.Items static className='absolute left-0 mt-2 origin-top-left rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50'>
+                          <div className='p-2' onClick={close}>
                             <HelpCenter />
                           </div>
                         </Menu.Items>

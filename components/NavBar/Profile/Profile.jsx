@@ -13,15 +13,6 @@ const Profile = ({ currentAccount }) => {
   const menuItems = [
     {
       icon: (
-        <span className='material-symbol material-symbol--md material-symbol-filled'>
-          person
-        </span>
-      ),
-      text: t('navbar.profile.creator.myProfile'),
-      href: '/author',
-    },
-    {
-      icon: (
         <span className='material-symbol material-symbol--md material-symbol-filled '>
           image
         </span>
