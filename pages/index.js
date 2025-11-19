@@ -1,17 +1,20 @@
 import React, { useState, useContext, useEffect } from 'react';
 
 import Style from '../styles/index.module.css';
-import {HeroSection, Service, BigNFTSlider, Subscribe, 
-  Title, Category, Filter, NFTCard, Collection, FollowerTab, 
-  AudioLive, Slider, Brand, Video, Loader, BTC} from "../components/componentIndex";
+import {
+  HeroSection, Service, BigNFTSlider, Subscribe,
+  Title, Category, Filter, NFTCard, Collection, FollowerTab,
+  AudioLive, Slider, Brand, Video, Loader, BTC
+} from "../components/componentIndex";
 import { getTopCreators } from '../TopCreators/TopCreators';
 import { useTranslation } from 'react-i18next';
+import useSlideIntoView from '../hooks/useSlideIntoView';
 
 import { NFTMarketplaceContext } from "../context/NFTMarketplaceContext";
 
 const index = () => {
   const { checkIfWalletConnected, currentAccount } = useContext(NFTMarketplaceContext);
-  useEffect(()=> {
+  useEffect(() => {
     checkIfWalletConnected();
   }, []);
 
@@ -20,23 +23,23 @@ const index = () => {
   const [nftsCopy, setNftsCopy] = useState([]);
 
   const creators = getTopCreators(nfts);
- 
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         // if(currentAccount){
-          const items = await fetchNFTs();
-          const reversedItems = items.slice().reverse();
-    
-          setNfts(reversedItems);
-          setNftsCopy(reversedItems);
+        const items = await fetchNFTs();
+        const reversedItems = items.slice().reverse();
+
+        setNfts(reversedItems);
+        setNftsCopy(reversedItems);
         // }
 
       } catch (error) {
         console.log("Error while fetching NFTs", error);
       }
     };
-  
+
     fetchData();
   }, []);
 
@@ -54,30 +57,65 @@ const index = () => {
 
   const { t } = useTranslation();
 
+  // Wrapper component for slide-into-view animations
+  const SlideWrapper = ({ children, delay = 0, direction = 'bottom' }) => {
+    const { ref, isVisible, direction: slideDirection } = useSlideIntoView({
+      threshold: 0.1,
+      direction,
+      delay
+    });
+
+    return (
+      <div
+        ref={ref}
+        className={`${Style.slideContainer} ${Style[`slideFrom${direction.charAt(0).toUpperCase() + direction.slice(1)}`]} ${isVisible ? Style.slideVisible : ''
+          }`}
+      >
+        {children}
+      </div>
+    );
+  };
+
   return (
-      <div className={Style.homePage}>
-        <HeroSection/>
-        <Service/>
-        {/* <BigNFTSlider nftData={nfts}/> */}
-        {/* <Title 
+    <div className={Style.homePage}>
+      <SlideWrapper delay={0}>
+        <HeroSection />
+      </SlideWrapper>
+
+      <SlideWrapper delay={100}>
+        <Service />
+      </SlideWrapper>
+
+      {/* <BigNFTSlider nftData={nfts}/> */}
+      {/* <Title 
           heading={t('pages.home.title')} 
           // paragraph={t('pages.home.subtitle')} 
-        /> */} 
-        
-        {/* <Filter onCategoryFilter={handleCategoryFilter}/>
+        /> */ }
+
+      {/* <Filter onCategoryFilter={handleCategoryFilter}/>
         {nfts.length == 0 ? <Loader/> : <NFTCard nftData={nfts}/>}} */}
 
-        {creators.length == 0 ? <Loader/> : <FollowerTab TopCreators={creators}/>}
+      <SlideWrapper delay={200}>
+        {creators.length == 0 ? <Loader /> : <FollowerTab TopCreators={creators} />}
+      </SlideWrapper>
+
+      <SlideWrapper delay={300}>
         <BTC />
-        {/* <div style={{ fontSize: '1.5em', margin: '10%', marginTop: '2%', marginBottom: '5%' }}>
+      </SlideWrapper>
+
+      {/* <div style={{ fontSize: '1.5em', margin: '10%', marginTop: '2%', marginBottom: '5%' }}>
           NFT Marketplace Contract Address: 
           <a href="https://amoy.polygonscan.com/address/0xfab46273936c613e8c1a0dda75f82dcb1d154c9b" target="_blank" rel="noopener noreferrer">
             <span style={{ fontWeight: 'bold' }}> 0xFab46273936c613e8C1A0ddA75f82dCB1d154c9B</span>
           </a>
         </div> */}
+
+      <SlideWrapper delay={400}>
         <Brand />
-        {/* <Video /> */}
-      </div>
+      </SlideWrapper>
+
+      {/* <Video /> */}
+    </div>
   );
 };
 
