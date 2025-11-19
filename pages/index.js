@@ -4,7 +4,7 @@ import Style from '../styles/index.module.css';
 import {
   HeroSection, Service, BigNFTSlider, Subscribe,
   Title, Category, Filter, NFTCard, Collection, FollowerTab,
-  AudioLive, Slider, Brand, Video, Loader, BTC
+  AudioLive, Slider, Brand, Video, Loader, BTC, NFTCollectionsTable
 } from "../components/componentIndex";
 import { getTopCreators } from '../TopCreators/TopCreators';
 import { useTranslation } from 'react-i18next';
@@ -102,7 +102,9 @@ const index = () => {
       <SlideWrapper delay={300}>
         <BTC />
       </SlideWrapper>
-
+      <SlideWrapper delay={300}>
+        <NFTCollectionsTable />
+      </SlideWrapper>
       {/* <div style={{ fontSize: '1.5em', margin: '10%', marginTop: '2%', marginBottom: '5%' }}>
           NFT Marketplace Contract Address: 
           <a href="https://amoy.polygonscan.com/address/0xfab46273936c613e8c1a0dda75f82dcb1d154c9b" target="_blank" rel="noopener noreferrer">
