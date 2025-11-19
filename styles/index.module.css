@@ -1,0 +1,35 @@
+.homePage {
+    width: 100%;
+}
+
+/* Slide animation container */
+.slideContainer {
+    opacity: 0;
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+/* Slide from bottom */
+.slideFromBottom {
+    transform: translateY(60px);
+}
+
+/* Slide from left */
+.slideFromLeft {
+    transform: translateX(-60px);
+}
+
+/* Slide from right */
+.slideFromRight {
+    transform: translateX(60px);
+}
+
+/* Slide from top */
+.slideFromTop {
+    transform: translateY(-60px);
+}
+
+/* Visible state - element has slid into view */
+.slideVisible {
+    opacity: 1;
+    transform: translateY(0) translateX(0);
+}
