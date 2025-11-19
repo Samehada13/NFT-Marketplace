@@ -19,7 +19,10 @@ import Video from "./Video/Video";
 import Loader from "./Loader/Loader";
 import Error from "./Error/Error";
 import BTC from "./BTC/BTC";
+import NFTCollectionsTable from "./NFTCollectionsTable/NFTCollectionsTable";
 
-export {Button, Footer, NavBar, HeroSection, Service, BigNFTSlider, 
-    Subscribe, Title, Category, Filter, NFTCard, Collection, FollowerTab, 
-    AudioLive, LikeProfile, Slider, Brand, Video, Loader, Error, BTC};
+export {
+    Button, Footer, NavBar, HeroSection, Service, BigNFTSlider,
+    Subscribe, Title, Category, Filter, NFTCard, Collection, FollowerTab,
+    AudioLive, LikeProfile, Slider, Brand, Video, Loader, Error, BTC, NFTCollectionsTable
+};
