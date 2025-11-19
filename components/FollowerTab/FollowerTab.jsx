@@ -171,31 +171,29 @@ const FollowerTab = ({ TopCreators }) => {
         <div className={Style.followerTab_tabs}>
           <div className='flex flex-row justify-center gap-4 py-4'>
             <button
-              className={`flex items-center gap-2 px-6 py-2 rounded-full font-medium transition-colors ${
-                popular 
-                  ? 'bg-white text-primary' 
+              className={`flex items-center gap-2 px-6 py-2 rounded-full font-medium transition-colors ${popular
+                  ? 'bg-white text-primary'
                   : 'bg-transparent text-white hover:bg-white/10'
-              }`}
+                }`}
               onClick={openPopular}
             >
               <RiUserFollowFill /> {t('pages.home.followerTab.popular')}
             </button>
             <button
-              className={`flex items-center gap-2 px-6 py-2 rounded-full font-medium transition-colors ${
-                news 
-                  ? 'bg-white text-primary' 
+              className={`flex items-center gap-2 px-6 py-2 rounded-full font-medium transition-colors ${news
+                  ? 'bg-white text-primary'
                   : 'bg-transparent text-white hover:bg-white/10'
-              }`}
+                }`}
               onClick={openNews}
             >
-              <RiAwardLine className="w-5 h-5" /> 
+              <RiAwardLine className="w-5 h-5" />
               <span className="whitespace-nowrap">{t('pages.home.followerTab.news')}</span>
             </button>
           </div>
         </div>
       </div>
       {popular && (
-        <div className="flex flex-col md:flex-row gap-4">
+        <div className={Style.followerTab_tabs_box}>
           {enhancedPopularCards.map((el, i) => (
             <FollowerTabCard
               key={i + 1}
@@ -206,7 +204,7 @@ const FollowerTab = ({ TopCreators }) => {
         </div>
       )}
       {following && (
-        <div className="flex flex-col md:flex-row gap-4">
+        <div className={Style.followerTab_tabs_box}>
           {FollowingArray.map((el, i) => (
             <FollowerTabCard
               key={i + 1}
