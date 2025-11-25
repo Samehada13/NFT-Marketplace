@@ -1,5 +1,5 @@
 import React from 'react'
-import Image from 'next/image'
+import Lottie from 'lottie-react'
 
 import Style from './Loader.module.css'
 import image from '../../img'
@@ -9,8 +9,8 @@ const Loader = () => {
     <div className="primary-bg">
         <div className={Style.loader_box}>
             <div className={Style.loader_box_img}>
-                <Image src={image.Loader} alt='Loader' width={200} height={200} 
-                className={Style.loader_box_img_img} objectFit='cover'/>
+                <Lottie animationData={image.Loader} loop={true} style={{width: 250, height: 250}} 
+                className={Style.loader_box_img_img}/>
             </div>
         </div>
     </div>
