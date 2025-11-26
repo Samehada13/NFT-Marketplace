@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useMemo, useCallback } from 'react';
 
 import Style from '../styles/index.module.css';
 import {
@@ -6,11 +6,34 @@ import {
   Title, Category, Filter, NFTCard, Collection, FollowerTab,
   AudioLive, Slider, Brand, Video, Loader, BTC, NFTCollectionsTable
 } from "../components/componentIndex";
+import { NFTCardTwo } from '../collectionPage/collectionIndex';
 import { getTopCreators } from '../TopCreators/TopCreators';
 import { useTranslation } from 'react-i18next';
 import useSlideIntoView from '../hooks/useSlideIntoView';
 import NFTCardTwo from '../collectionPage/NFTCardTwo/NFTCardTwo';
 import { NFTMarketplaceContext } from "../context/NFTMarketplaceContext";
+import { generateSampleNFTs } from '../utils/sampleData';
+
+// Wrapper component for slide-into-view animations (moved outside to prevent re-creation on every render)
+const SlideWrapper = React.memo(({ children, delay = 0, direction = 'bottom' }) => {
+  const { ref, isVisible } = useSlideIntoView({
+    threshold: 0.1,
+    direction,
+    delay
+  });
+
+  return (
+    <div
+      ref={ref}
+      className={`${Style.slideContainer} ${Style[`slideFrom${direction.charAt(0).toUpperCase() + direction.slice(1)}`]} ${isVisible ? Style.slideVisible : ''
+        }`}
+    >
+      {children}
+    </div>
+  );
+});
+
+SlideWrapper.displayName = 'SlideWrapper';
 
 const index = () => {
   const { checkIfWalletConnected, currentAccount } = useContext(NFTMarketplaceContext);
@@ -23,20 +46,19 @@ const index = () => {
   const [nftsCopy, setNftsCopy] = useState([]);
   const [activeCategory, setActiveCategory] = useState('All');
 
-  const creators = getTopCreators(nfts);
+  const creators = useMemo(() => getTopCreators(nftsCopy), [nftsCopy]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // if(currentAccount){
         const items = await fetchNFTs();
-
+        
         if (items && Array.isArray(items) && items.length > 0) {
           const reversedItems = items.slice().reverse();
           setNfts(reversedItems);
           setNftsCopy(reversedItems);
           console.log("Loaded", items.length, "NFTs from blockchain");
-        } else {
+        } else {  
           console.log("No blockchain NFTs found, using sample data for testing");
           const sampleData = generateSampleNFTs(15);
           const formattedSampleData = sampleData.map(nft => ({
@@ -48,52 +70,41 @@ const index = () => {
         }
 
       } catch (error) {
-        console.log("Error while fetching NFTs", error);
+        console.log("Error while fetching NFTs, using sample data:", error);
+        const sampleData = generateSampleNFTs(15);
+        const formattedSampleData = sampleData.map(nft => ({
+          ...nft,
+          price: (parseFloat(nft.price) / 1e18).toFixed(4),
+        }));
+        setNfts(formattedSampleData);
+        setNftsCopy(formattedSampleData);
       }
     };
 
     fetchData();
   }, []);
 
-  const handleCategoryFilter = (category) => {
+  const handleCategoryFilter = useCallback((category) => {
     setActiveCategory(category);
-
     if (category === 'All') {
-      // If 'All' is clicked, reset to the full list
-      setNfts(nftsCopy);
     } else {
-      // Otherwise, filter by the specific category
       const filteredNFTs = nftsCopy.filter(({ category: nftCategory }) => nftCategory === category);
 
       setNfts(filteredNFTs);
     }
-  };
+  }, [nftsCopy]);
 
   const { t } = useTranslation();
 
-  // Wrapper component for slide-into-view animations
-  const SlideWrapper = ({ children, delay = 0, direction = 'bottom' }) => {
-    const { ref, isVisible, direction: slideDirection } = useSlideIntoView({
-      threshold: 0.1,
-      direction,
-      delay
-    });
-
-    return (
-      <div
-        ref={ref}
-        className={`${Style.slideContainer} ${Style[`slideFrom${direction.charAt(0).toUpperCase() + direction.slice(1)}`]} ${isVisible ? Style.slideVisible : ''
-          }`}
-      >
-        {children}
-      </div>
-    );
-  };
+  const MemoHeroSection = useMemo(() => <HeroSection />, []);
+  const MemoBTC = useMemo(() => <BTC />, []);
+  const MemoNFTCollectionsTable = useMemo(() => <NFTCollectionsTable />, []);
+  const MemoBrand = useMemo(() => <Brand />, []);
 
   return (
     <div className={`${Style.homePage} !mt-0 !pt-0`}>
       <SlideWrapper delay={0}>
-        <HeroSection />
+        {MemoHeroSection}
       </SlideWrapper>
 
       <SlideWrapper delay={100}>
@@ -123,24 +134,16 @@ const index = () => {
       </SlideWrapper>
 
       <SlideWrapper delay={300}>
-        <BTC />
+        {MemoBTC}
       </SlideWrapper>
-
+      
       <SlideWrapper delay={300}>
-        <NFTCollectionsTable />
+        {MemoNFTCollectionsTable}
       </SlideWrapper>
-      {/* <div style={{ fontSize: '1.5em', margin: '10%', marginTop: '2%', marginBottom: '5%' }}>
-          NFT Marketplace Contract Address: 
-          <a href="https://amoy.polygonscan.com/address/0xfab46273936c613e8c1a0dda75f82dcb1d154c9b" target="_blank" rel="noopener noreferrer">
-            <span style={{ fontWeight: 'bold' }}> 0xFab46273936c613e8C1A0ddA75f82dCB1d154c9B</span>
-          </a>
-        </div> */}
 
       <SlideWrapper delay={400}>
-        <Brand />
+        {MemoBrand}
       </SlideWrapper>
-
-      {/* <Video /> */}
     </div>
   );
 };

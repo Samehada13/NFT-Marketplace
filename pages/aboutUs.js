@@ -38,7 +38,7 @@ const AboutUs = () => {
               Buyers may explore the ads, make bids, and buy NFTs with
               cryptocurrency, usually Ethereum or other blockchain-based
               currencies. This platform was designed primarily for graphic
-              designers in the Bicol Region but may also be used to trade
+              designers in the Camarines Norte but may also be used to trade
               outside of the region. This platform was created to support a
               student's undergraduate research.
             </p>

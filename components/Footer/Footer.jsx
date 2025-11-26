@@ -136,7 +136,7 @@ const Footer = () => {
 
           {/* Legal Links */}
           <div className='flex items-center gap-4 text-sm'>
-            <a
+           {/*} <a
               href='#'
               onClick={(e) => {
                 e.preventDefault();
@@ -145,7 +145,7 @@ const Footer = () => {
               className='text-white hover:text-violet-600 transition-colors'
             >
               Privacy Policy
-            </a>
+            </a>*/}
             <span className='text-white'>|</span>
             <a
               href='#'

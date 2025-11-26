@@ -303,6 +303,31 @@
   height: 40px;
 }
 
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  gap: 16px;
+}
+
+.loadingText {
+  font-size: 1.2rem;
+  color: var(--primary-color);
+  font-weight: 600;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
 /* Responsive Design */
 @media screen and (max-width: 1200px) {
   .tableContainer {
