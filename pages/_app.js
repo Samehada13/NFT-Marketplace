@@ -9,11 +9,11 @@ const MyApp = ({ Component, pageProps }) => (
   <div className="min-h-screen flex flex-col overflow-visible">
     <I18nextProvider i18n={i18n}>
       <NFTMarketplaceProvider>
-        <NavBar/>
-        <div className="flex-grow pt-16">
+        <NavBar />
+        <div className="flex-grow">
           <Component {...pageProps} />
         </div>
-        <Footer/>
+        <Footer />
       </NFTMarketplaceProvider>
     </I18nextProvider>
   </div>

@@ -29,11 +29,22 @@ const index = () => {
       try {
         // if(currentAccount){
         const items = await fetchNFTs();
-        const reversedItems = items.slice().reverse();
 
-        setNfts(reversedItems);
-        setNftsCopy(reversedItems);
-        // }
+        if (items && Array.isArray(items) && items.length > 0) {
+          const reversedItems = items.slice().reverse();
+          setNfts(reversedItems);
+          setNftsCopy(reversedItems);
+          console.log("Loaded", items.length, "NFTs from blockchain");
+        } else {
+          console.log("No blockchain NFTs found, using sample data for testing");
+          const sampleData = generateSampleNFTs(15);
+          const formattedSampleData = sampleData.map(nft => ({
+            ...nft,
+            price: (parseFloat(nft.price) / 1e18).toFixed(4),
+          }));
+          setNfts(formattedSampleData);
+          setNftsCopy(formattedSampleData);
+        }
 
       } catch (error) {
         console.log("Error while fetching NFTs", error);
@@ -77,31 +88,41 @@ const index = () => {
   };
 
   return (
-    <div className={Style.homePage}>
+    <div className={`${Style.homePage} !mt-0 !pt-0`}>
       <SlideWrapper delay={0}>
         <HeroSection />
       </SlideWrapper>
 
       <SlideWrapper delay={100}>
-        <Service />
+        <div className="main-bg p-6">
+          <div className="flex items-center gap-3">
+            <div className="w-1 h-12 bg-gradient-to-b from-violet-500 to-pink-500 rounded-full" />
+            <h1 className="text-4xl font-bold text-[var(--primary-color)]">
+              Explore NFTs
+            </h1>
+          </div>
+        </div>
+        <Filter
+          onCategoryFilter={handleCategoryFilter}
+          activeCategory={activeCategory}
+        />
       </SlideWrapper>
 
-      {/* <BigNFTSlider nftData={nfts}/> */}
-      {/* <Title 
-          heading={t('pages.home.title')} 
-          // paragraph={t('pages.home.subtitle')} 
-        /> */ }
-
-      {/* <Filter onCategoryFilter={handleCategoryFilter}/>
-        {nfts.length == 0 ? <Loader/> : <NFTCard nftData={nfts}/>}} */}
+      {/* Display filtered NFTs */}
+      <SlideWrapper delay={150}>
+        <div className={Style.nftGrid}>
+          <NFTCardTwo NFTData={nfts} className="main-bg p-6" />
+        </div>
+      </SlideWrapper>
 
       <SlideWrapper delay={200}>
-        {creators.length == 0 ? <Loader /> : <FollowerTab TopCreators={creators} />}
+        {<FollowerTab TopCreators={creators} />}
       </SlideWrapper>
 
       <SlideWrapper delay={300}>
         <BTC />
       </SlideWrapper>
+
       <SlideWrapper delay={300}>
         <NFTCollectionsTable />
       </SlideWrapper>

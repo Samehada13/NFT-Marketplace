@@ -10,8 +10,14 @@
 .primary-accent-opacity {
   background-color: var(--primary-accent-opacity);
 }
+.main-bg {
+  background-color: var(--main-bg-color);
+}
 .primary-text {
   color: var(--primary-color);
+}
+.accent-text {
+  color: var(--primary-accent);
 }
 .primary-text-hover {
   color: var(--primary-color-hover) !important;

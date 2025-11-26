@@ -163,7 +163,7 @@ const FollowerTab = ({ TopCreators }) => {
   const { t } = useTranslation();
 
   return (
-    <div className='primary-bg p-6'>
+    <div className='main-bg p-6'>
       <div className='text-center'>
         <h2 className='text-4xl text-white font-semibold'>
           {t('pages.home.followerTab.tcl')}

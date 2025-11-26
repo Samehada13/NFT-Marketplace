@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import Style from './HeroSection.module.css';
 import { Button } from '../componentIndex';
-import HeroImage from '../../public/HeroSection.jpg';
+import HeroImage from '../../public/LandingPage2.png';
 import { useTranslation } from 'react-i18next';
 
 const Home = () => {

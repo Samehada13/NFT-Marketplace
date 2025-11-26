@@ -1,4 +1,4 @@
-import { useState, useContext, Fragment } from 'react';
+import { useState, useEffect, useContext, Fragment } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -18,11 +18,25 @@ const NavBar = () => {
   const [notification, setNotification] = useState(false);
   const [profile, setProfile] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const router = useRouter();
   const { currentAccount, connectWallet, openError } = useContext(
     NFTMarketplaceContext
   );
   const { t } = useTranslation();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const openNotification = () => {
     setNotification(!notification);
@@ -36,7 +50,7 @@ const NavBar = () => {
 
   return (
     <div className='w-full fixed top-0 left-0 right-0 z-50'>
-      <nav className='bg-white shadow-sm'>
+      <nav className={`transition-all duration-300 ${isScrolled ? 'bg-[rgba(10,15,30,0.8)] backdrop-blur-md shadow-sm' : 'bg-transparent'}`}>
         <div className=' mx-auto px-4 sm:px-6'>
           <div className='flex justify-between items-center h-16'>
             {/* Left side - Logo and Desktop Menu */}
@@ -60,12 +74,11 @@ const NavBar = () => {
                 <Menu as='div' className='relative'>
                   {({ open, close }) => (
                     <>
-                      <Menu.Button className='inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-md transition-colors'>
+                      <Menu.Button className='inline-flex items-center px-3 py-2 text-sm font-medium text-white hover:bg-white/10 rounded-md transition-colors'>
                         {t('navbar.discover')}
                         <ChevronDownIcon
-                          className={`ml-1 h-4 w-4 transition-transform ${
-                            open ? 'rotate-180' : ''
-                          }`}
+                          className={`ml-1 h-4 w-4 transition-transform ${open ? 'rotate-180' : ''
+                            }`}
                         />
                       </Menu.Button>
                       <Transition
@@ -92,12 +105,11 @@ const NavBar = () => {
                 <Menu as='div' className='relative'>
                   {({ open, close }) => (
                     <>
-                      <Menu.Button className='inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-md transition-colors'>
+                      <Menu.Button className='inline-flex items-center px-3 py-2 text-sm font-medium text-white hover:bg-white/10 rounded-md transition-colors'>
                         {t('navbar.helpCenter')}
                         <ChevronDownIcon
-                          className={`ml-1 h-4 w-4 transition-transform ${
-                            open ? 'rotate-180' : ''
-                          }`}
+                          className={`ml-1 h-4 w-4 transition-transform ${open ? 'rotate-180' : ''
+                            }`}
                         />
                       </Menu.Button>
                       <Transition
@@ -129,25 +141,25 @@ const NavBar = () => {
                 <input
                   type='text'
                   placeholder={t('navbar.searchPlaceholder')}
-                  className='w-64 px-4 py-2 pr-10 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
+                  className='w-64 px-4 py-2 pr-10 text-sm bg-white/10 border border-white/20 text-white placeholder-white/60 rounded-md focus:outline-none focus:ring-2 focus:ring-white/40'
                 />
-                <BsSearch className='absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400' />
+                <BsSearch className='absolute right-3 top-1/2 transform -translate-y-1/2 text-white/60' />
               </div>
 
               {/* Connect/Mint Button 
                {/*<div>
                 {currentAccount == '' ? (
                   <Button
-                    btnName={t('navbar.connect')}
-                    handleClick={() => connectWallet()}
+      btnName={t('navbar.connect')}
+      handleClick={() => connectWallet()}
                   />
-                ) : (
-                  <Button
-                    btnName={t('navbar.mint')}
-                    handleClick={() => router.push('/uploadNFT')}
-                  />
+      ) : (
+      <Button
+        btnName={t('navbar.mint')}
+        handleClick={() => router.push('/uploadNFT')}
+      />
                 )}
-              </div>*/}
+    </div> */}
 
               {/* Profile Dropdown */}
               <Menu
@@ -155,7 +167,7 @@ const NavBar = () => {
                 className='relative'
               >
                 <Menu.Button className='flex items-center'>
-                  <span className='material-symbols-rounded'>
+                  <span className='material-symbols-rounded text-white'>
                     account_circle
                   </span>
                 </Menu.Button>
@@ -186,7 +198,7 @@ const NavBar = () => {
             <div className='md:hidden'>
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className='inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:bg-gray-100 focus:outline-none'
+                className='inline-flex items-center justify-center p-2 rounded-md text-white hover:bg-white/10 focus:outline-none'
               >
                 {mobileMenuOpen ? (
                   <MdClose className='h-6 w-6' />
@@ -228,9 +240,8 @@ const NavBar = () => {
                     <Disclosure.Button className='flex justify-between w-auto px-4 py-2 text-sm font-medium text-left text-gray-700 bg-gray-50 rounded-lg hover:bg-gray-100'>
                       <span>{t('navbar.discover')}</span>
                       <ChevronDownIcon
-                        className={`${
-                          open ? 'rotate-180 transform' : ''
-                        } h-5 w-5 text-gray-500`}
+                        className={`${open ? 'rotate-180 transform' : ''
+                          } h-5 w-5 text-gray-500`}
                       />
                     </Disclosure.Button>
                     <Transition
@@ -261,9 +272,8 @@ const NavBar = () => {
                     <Disclosure.Button className='flex justify-between w-auto px-4 py-2 text-sm font-medium text-left text-gray-700 bg-gray-50 rounded-lg hover:bg-gray-100'>
                       <span>{t('navbar.helpCenter')}</span>
                       <ChevronDownIcon
-                        className={`${
-                          open ? 'rotate-180 transform' : ''
-                        } h-5 w-5 text-gray-500`}
+                        className={`${open ? 'rotate-180 transform' : ''
+                          } h-5 w-5 text-gray-500`}
                       />
                     </Disclosure.Button>
                     <Transition

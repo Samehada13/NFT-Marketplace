@@ -1,5 +1,7 @@
 .homePage {
     width: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 /* Slide animation container */
