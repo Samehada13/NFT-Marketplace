@@ -9,7 +9,7 @@ import {
 import { getTopCreators } from '../TopCreators/TopCreators';
 import { useTranslation } from 'react-i18next';
 import useSlideIntoView from '../hooks/useSlideIntoView';
-
+import NFTCardTwo from '../collectionPage/NFTCardTwo/NFTCardTwo';
 import { NFTMarketplaceContext } from "../context/NFTMarketplaceContext";
 
 const index = () => {
@@ -21,6 +21,7 @@ const index = () => {
   const { fetchNFTs } = useContext(NFTMarketplaceContext);
   const [nfts, setNfts] = useState([]);
   const [nftsCopy, setNftsCopy] = useState([]);
+  const [activeCategory, setActiveCategory] = useState('All');
 
   const creators = getTopCreators(nfts);
 
@@ -55,6 +56,8 @@ const index = () => {
   }, []);
 
   const handleCategoryFilter = (category) => {
+    setActiveCategory(category);
+
     if (category === 'All') {
       // If 'All' is clicked, reset to the full list
       setNfts(nftsCopy);
