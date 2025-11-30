@@ -125,12 +125,12 @@ const index = () => {
       {/* Display filtered NFTs */}
       <SlideWrapper delay={150}>
         <div className={Style.nftGrid}>
-          <NFTCardTwo NFTData={nfts} className="p-6" />
+          <NFTCardTwo NFTData={nfts} className="" />
         </div>
       </SlideWrapper>
 
       <SlideWrapper delay={200}>
-        {creators.length == 0 ? <Loader /> : <FollowerTab TopCreators={creators} />}
+        {<FollowerTab TopCreators={creators} />}
       </SlideWrapper>
 
       <SlideWrapper delay={300}>

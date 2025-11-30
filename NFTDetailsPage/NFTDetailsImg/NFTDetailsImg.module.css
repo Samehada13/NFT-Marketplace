@@ -1,57 +1,66 @@
 .NFTDetailsImg {
   width: 100%;
 }
-.NFTDetailsImg_box_NFT {
-  display: grid;
-}
-.NFTDetailsImg_box_NFT_img {
-  grid-column: 1 / -1;
-  grid-row: 1 / end;
-}
-.NFTDetailsImg_box_NFT_img_img {
+
+.NFTDetailsImg_box {
+  width: 100%;
+  background-color: var(--bg-main);
+  border: 1px solid var(--icons-bg-color);
   border-radius: 1rem;
+  padding: 0;
+  box-shadow: var(--box-shadow);
+  overflow: hidden;
 }
+
+.NFTDetailsImg_box_NFT {
+  width: 100%;
+  position: relative;
+}
+
 .NFTDetailsImg_box_NFT_like {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  grid-column: 1 / -1;
-  grid-row: 1 / end;
-  z-index: 111111;
-  align-self: flex-start;
-  padding-inline: 2rem;
+  gap: 1rem;
+  z-index: 10;
 }
+
 .NFTDetailsImg_box_NFT_like p {
   background-color: var(--primary-color);
-  padding: 0.2rem 1rem;
-  color: var(--main-bg-color);
+  padding: 0.6rem 1rem;
+  border-radius: 2rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  border-radius: 2rem;
+  color: #fff;
+  font-weight: 600;
+  box-shadow: 0 4px 15px rgba(149, 101, 232, 0.3);
+  transition: all 0.3s ease;
   cursor: pointer;
 }
+
+.NFTDetailsImg_box_NFT_like p:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(149, 101, 232, 0.5);
+}
+
 .NFTDetailsImg_box_NFT_like_icon {
   font-size: 1.4rem;
-}
-.NFTDetailsImg_box_details,
-.NFTDetailsImg_box_description {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  line-height: 0;
-  background-color: var(--main-bg-color);
-  border-radius: 0.5rem;
-  padding-inline: 1rem;
   cursor: pointer;
-  margin-top: 1rem;
+  color: #fff;
 }
-.NFTDetailsImg_box_description_box,
-.NFTDetailsImg_box_details_box {
-  padding: 0.1rem 1rem;
-  font-size: 1rem;
+
+.NFTDetailsImg_box_NFT_img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-accent) 100%);
 }
-.NFTDetailsImg_box_details_box p {
-  line-height: 1;
-  font-size: 1rem;
+
+.NFTDetailsImg_box_NFT_img_img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }

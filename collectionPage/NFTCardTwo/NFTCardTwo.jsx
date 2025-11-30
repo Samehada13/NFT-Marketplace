@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
+import { useRouter } from 'next/router';
 import styles from './NFTCardTwo.module.css';
 
 const NFTCard = ({ nft }) => {
   const [like, setLike] = useState(false);
   const [likeInc, setLikeInc] = useState(21);
+  const router = useRouter();
 
   const likeNFT = (e) => {
     e.stopPropagation();
@@ -17,8 +19,15 @@ const NFTCard = ({ nft }) => {
     }
   };
 
+  const handleCardClick = () => {
+    router.push({
+      pathname: '/NFTDetails',
+      query: nft
+    });
+  };
+
   return (
-    <div className={styles.nftCard}>
+    <div className={styles.nftCard} onClick={handleCardClick} style={{ cursor: 'pointer' }}>
       <div className={styles.imageContainer}>
         <img
           src={typeof nft.image === 'object' ? nft.image.src : nft.image}
@@ -123,9 +132,8 @@ const NFTCardTwo = ({ NFTData = [], className }) => {
           <button
             onClick={() => paginate(currentPage - 1)}
             disabled={currentPage === 1}
-            className={`${styles.paginationButton} ${
-              currentPage === 1 ? styles.disabled : ''
-            }`}
+            className={`${styles.paginationButton} ${currentPage === 1 ? styles.disabled : ''
+              }`}
           >
             Previous
           </button>
@@ -158,9 +166,8 @@ const NFTCardTwo = ({ NFTData = [], className }) => {
                   <button
                     key={totalPages}
                     onClick={() => paginate(totalPages)}
-                    className={`${styles.pageButton} ${
-                      currentPage === totalPages ? styles.active : ''
-                    }`}
+                    className={`${styles.pageButton} ${currentPage === totalPages ? styles.active : ''
+                      }`}
                   >
                     {totalPages}
                   </button>
@@ -171,9 +178,8 @@ const NFTCardTwo = ({ NFTData = [], className }) => {
                 <button
                   key={pageNum}
                   onClick={() => paginate(pageNum)}
-                  className={`${styles.pageButton} ${
-                    currentPage === pageNum ? styles.active : ''
-                  }`}
+                  className={`${styles.pageButton} ${currentPage === pageNum ? styles.active : ''
+                    }`}
                 >
                   {pageNum}
                 </button>
@@ -184,9 +190,8 @@ const NFTCardTwo = ({ NFTData = [], className }) => {
           <button
             onClick={() => paginate(currentPage + 1)}
             disabled={currentPage === totalPages}
-            className={`${styles.paginationButton} ${
-              currentPage === totalPages ? styles.disabled : ''
-            }`}
+            className={`${styles.paginationButton} ${currentPage === totalPages ? styles.disabled : ''
+              }`}
           >
             Next
           </button>

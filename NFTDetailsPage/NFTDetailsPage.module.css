@@ -1,20 +1,45 @@
-.nftDetailsPage{
+.nftDetailsPage {
     width: 100%;
-    margin-block: 3rem;
+    min-height: 100vh;
+    background-color: var(--bg-body);
+    padding: 3rem 0;
 }
-.nftDetailsPage_box{
-    width: 80%;
+
+.nftDetailsPage_box {
+    padding: 0 1.6rem;
+    width: 100%;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    gap: 5rem;
+    grid-template-columns: 45% 1fr;
+    gap: 3rem;
+    align-items: start;
+    margin-bottom: 3rem;
 }
-@media screen and (max-width: 35em) {
-    .nftDetailsPage{
-        margin-block: 2rem;
-    }
-    .nftDetailsPage_box{
-        width: 90%;
+
+.nftDetailsPage_fullWidth {
+    padding: 0 1.6rem;
+    width: 100%;
+    margin: 0 auto;
+}
+
+@media screen and (max-width: 1024px) {
+    .nftDetailsPage_box {
         grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .nftDetailsPage {
+        padding: 2rem 0;
+    }
+
+    .nftDetailsPage_box {
+        width: 95%;
+        margin-bottom: 2rem;
+    }
+
+    .nftDetailsPage_fullWidth {
+        width: 95%;
     }
 }
