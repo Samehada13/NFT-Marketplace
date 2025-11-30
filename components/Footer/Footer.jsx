@@ -26,7 +26,7 @@ const Footer = () => {
           {/* Brand Section */}
           <div className='space-y-4'>
             <div className='relative w-24 h-24'>
-              <h1 className='text-white text-4xl font-semibold'>GABR</h1>
+              <h1 className='text-white text-4xl font-semibold'>PIXEL SPACE</h1>
             </div>
             {/* <p className='text-white leading-relaxed text-sm'>
               {t('pages.home.footer.paragraph')}
@@ -130,7 +130,7 @@ const Footer = () => {
           {/* Copyright */}
           <div className='text-center lg:text-left'>
             <p className='text-white text-sm'>
-              &copy; {new Date().getFullYear()} GABR. All rights reserved.
+              &copy; {new Date().getFullYear()} PIXEL SPACE. All rights reserved.
             </p>
           </div>
 
