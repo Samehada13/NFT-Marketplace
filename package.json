@@ -26,6 +26,7 @@
     "framer-motion": "^10.18.0",
     "i18next": "^23.8.2",
     "ipfs-http-client": "^60.0.1",
+    "lottie-react": "^2.4.1",
     "material-symbols": "^0.38.0",
     "moment": "^2.29.4",
     "next": "^12.2.5",
@@ -35,6 +36,7 @@
     "react-i18next": "^14.0.1",
     "react-icons": "^4.11.0",
     "react-router-dom": "^6.21.0",
+    "recharts": "^3.5.1",
     "tailwind-scrollbar-hide": "^4.0.0",
     "tailwindcss-animate": "^1.0.7",
     "web3modal": "^1.9.12"
