@@ -36,10 +36,9 @@ const SlideWrapper = React.memo(({ children, delay = 0, direction = 'bottom' }) 
 SlideWrapper.displayName = 'SlideWrapper';
 
 const index = () => {
-  const { checkIfWalletConnected, currentAccount } = useContext(NFTMarketplaceContext);
-  useEffect(() => {
-    checkIfWalletConnected();
-  }, []);
+  const { currentAccount } = useContext(NFTMarketplaceContext);
+  // checkIfWalletConnected is already called in NFTMarketplaceContext on mount
+  // No need to call it again here
 
   const { fetchNFTs } = useContext(NFTMarketplaceContext);
   const [nfts, setNfts] = useState([]);
@@ -52,13 +51,13 @@ const index = () => {
     const fetchData = async () => {
       try {
         const items = await fetchNFTs();
-        
+
         if (items && Array.isArray(items) && items.length > 0) {
           const reversedItems = items.slice().reverse();
           setNfts(reversedItems);
           setNftsCopy(reversedItems);
           console.log("Loaded", items.length, "NFTs from blockchain");
-        } else {  
+        } else {
           console.log("No blockchain NFTs found, using sample data for testing");
           const sampleData = generateSampleNFTs(15);
           const formattedSampleData = sampleData.map(nft => ({
@@ -116,8 +115,8 @@ const index = () => {
             </h1>
           </div>
         </div>
-        <Filter 
-          onCategoryFilter={handleCategoryFilter} 
+        <Filter
+          onCategoryFilter={handleCategoryFilter}
           activeCategory={activeCategory}
         />
       </SlideWrapper>
@@ -136,7 +135,7 @@ const index = () => {
       <SlideWrapper delay={300}>
         {MemoBTC}
       </SlideWrapper>
-      
+
       <SlideWrapper delay={300}>
         {MemoNFTCollectionsTable}
       </SlideWrapper>
