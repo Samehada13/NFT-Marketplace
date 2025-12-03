@@ -1,79 +1,144 @@
 import React, { useState, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import Image from 'next/image';
+import Lottie from 'lottie-react';
 import styles from './DropZone.module.css';
 import img from '../../img';
 
-import { useTranslation } from 'react-i18next';
-
-const DropZone = React.forwardRef(({ title, heading, subHeading, name, website, description, royalties, fileSize, category, properties, price, uploadIPFS, setImage }, ref) => {
+const DropZone = React.forwardRef(({
+  title,
+  heading,
+  subHeading,
+  uploadIPFS,
+  setImage
+}, ref) => {
   const [fileUrl, setFileUrl] = useState(null);
+  const [isUploading, setIsUploading] = useState(false);
 
   const onDrop = useCallback(async (acceptedFile) => {
-    const url = await uploadIPFS(acceptedFile[0]);
-    setFileUrl(url);
-    setImage(url);
-    console.log(url);
+    setIsUploading(true);
+    try {
+      const url = await uploadIPFS(acceptedFile[0]);
+      setFileUrl(url);
+      setImage(url);
+      console.log(url);
+    } catch (error) {
+      console.error('Upload failed:', error);
+    } finally {
+      setIsUploading(false);
+    }
   }, [uploadIPFS, setImage]);
 
-  const { getRootProps, getInputProps } = useDropzone({
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: 'image/*',
     maxSize: 5000000,
   });
 
-  const { t } = useTranslation();
+  // Lottie loading animation
+  const uploadingAnimation = {
+    "v": "5.7.4",
+    "fr": 60,
+    "ip": 0,
+    "op": 90,
+    "w": 200,
+    "h": 200,
+    "nm": "Upload",
+    "ddd": 0,
+    "assets": [],
+    "layers": [{
+      "ddd": 0,
+      "ind": 1,
+      "ty": 4,
+      "nm": "Circle",
+      "sr": 1,
+      "ks": {
+        "o": { "a": 0, "k": 100 },
+        "r": { "a": 1, "k": [{ "t": 0, "s": [0] }, { "t": 90, "s": [360] }] },
+        "p": { "a": 0, "k": [100, 100, 0] },
+        "a": { "a": 0, "k": [0, 0, 0] },
+        "s": { "a": 0, "k": [100, 100, 100] }
+      },
+      "ao": 0,
+      "shapes": [{
+        "ty": "gr",
+        "it": [{
+          "d": 1,
+          "ty": "el",
+          "s": { "a": 0, "k": [80, 80] },
+          "p": { "a": 0, "k": [0, 0] },
+          "nm": "Path"
+        }, {
+          "ty": "st",
+          "c": { "a": 0, "k": [0.58, 0.4, 0.91, 1] },
+          "o": { "a": 0, "k": 100 },
+          "w": { "a": 0, "k": 8 },
+          "lc": 2,
+          "lj": 1,
+          "ml": 4,
+          "nm": "Stroke"
+        }, {
+          "ty": "tr",
+          "p": { "a": 0, "k": [0, 0] },
+          "a": { "a": 0, "k": [0, 0] },
+          "s": { "a": 0, "k": [100, 100] },
+          "r": { "a": 0, "k": 0 },
+          "o": { "a": 0, "k": 100 }
+        }],
+        "nm": "Circle"
+      }],
+      "ip": 0,
+      "op": 90,
+      "st": 0
+    }]
+  };
 
   return (
     <div ref={ref} className={styles.dropZone}>
-      <div {...getRootProps()} className={styles.dropZoneBox}>
-        <input {...getInputProps()} />
-        <div className="">
-          <div className={styles.dropZoneBoxImage}>
-            <Image 
-              src={img.upload} 
-              alt="Upload" 
-              width={100} 
-              height={100} 
-              objectFit="contain" 
-            />
-          </div>
-          <div className="flex flex-row justify-center items-center">
-            <p className="p-1 font-bold">{heading}</p>
-            <p className="">{subHeading}</p>
-          </div>
-        </div>
-      </div>
-      {fileUrl && (
-        <aside className={styles.dropZoneAside}>
-          <div className={styles.dropZoneAsideBox}>
-          <div style={{ width: '100%', height: '100%' }}>
-            <Image 
-              src={fileUrl} 
-              alt="NFT image" 
-              width={300} 
-              height={360} 
-            />
-          </div>
-
-            <div className={styles.dropZoneAsideBoxPreview}>
-              <div className={styles.dropZoneAsideBoxPreviewItem}>
-                <p><span><b>{t('pages.uploadNft.uploadNft.dropZone.dropZone.name')}</b></span>&nbsp;{name || ''}</p>
-                <p><span><b>Website:</b></span>&nbsp;{website || ''}</p>
-              </div>
-              <div className={styles.dropZoneAsideBoxPreviewItem}>
-                <p><span><b>{t('pages.uploadNft.uploadNft.dropZone.dropZone.description')}</b></span>&nbsp;{description || ''}</p>
-              </div>
-              <div className={styles.dropZoneAsideBoxPreviewItem}>
-                <p><span><b>{t('pages.uploadNft.uploadNft.dropZone.dropZone.category')}</b></span>&nbsp;{category || ''}</p>
-                <p><span><b>{t('pages.uploadNft.uploadNft.dropZone.dropZone.royalties')}</b></span>&nbsp;{royalties || ''} %</p>
-                <p><span><b>{t('pages.uploadNft.uploadNft.dropZone.dropZone.fileSize')}</b></span>&nbsp;{fileSize || ''} MB</p>
-                <p><span><b>{t('pages.uploadNft.uploadNft.dropZone.dropZone.properties')}</b></span>&nbsp;{properties || ''}</p>
-                <p><span><b>{t('pages.uploadNft.uploadNft.dropZone.dropZone.price')}</b></span>&nbsp;{price || ''} Matic</p>
-              </div>
+      {!fileUrl && !isUploading && (
+        <div {...getRootProps()} className={`${styles.dropZoneBox} ${isDragActive ? styles.dragActive : ''}`}>
+          <input {...getInputProps()} />
+          <div className={styles.dropZoneContent}>
+            <div className={styles.dropZoneBoxImage}>
+              <Image
+                src={img.upload}
+                alt="Upload"
+                width={100}
+                height={100}
+                objectFit="contain"
+              />
+            </div>
+            <div className={styles.dropZoneText}>
+              <p className={styles.dropZoneHeading}>{heading}</p>
+              <p className={styles.dropZoneSubheading}>{subHeading}</p>
             </div>
           </div>
-        </aside>
+        </div>
+      )}
+
+      {/* LOADING STATE WITH LOTTIE */}
+      {isUploading && (
+        <div className={styles.dropZoneLoading}>
+          <Lottie
+            animationData={uploadingAnimation}
+            loop={true}
+            style={{ width: 150, height: 150 }}
+          />
+          <p className={styles.loadingText}>Uploading...</p>
+        </div>
+      )}
+
+      {/* SIMPLE IMAGE PREVIEW */}
+      {fileUrl && !isUploading && (
+        <div className={styles.dropZonePreview}>
+          <div className={styles.previewSuccess}>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="#4caf50" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            <span>Image Uploaded Successfully</span>
+          </div>
+          <img src={fileUrl} alt="NFT Preview" className={styles.previewImage} />
+        </div>
       )}
     </div>
   );

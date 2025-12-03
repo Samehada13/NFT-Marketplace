@@ -1,108 +1,681 @@
-.upload_box_slider_div {
-  display: flex;
-  gap: 1rem;
+.upload {
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(135deg, rgba(251, 198, 76, 0.05) 0%, rgba(149, 101, 232, 0.05) 50%, rgba(251, 198, 76, 0.05) 100%);
+  padding: 2rem 0;
 }
-.upload_box_slider {
-  border: 1px solid var(--primary-color);
-  border-radius: 1rem;
-  padding: 1rem;
-  cursor: pointer;
+
+.uploadContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
 }
-.upload_box_slider_box {
+
+/* ==================== STEPPER HEADER ==================== */
+.stepperHeader {
+  background: white;
+  border-radius: 16px;
+  padding: 2.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.stepperProgress {
   display: flex;
   align-items: center;
-  gap: 3rem;
+  justify-content: space-between;
 }
-.upload_box_slider_box_img_img {
-  border-radius: 50%;
+
+.stepItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 1;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
 }
-.upload_box_slider_box_img_icon {
-  background-color: var(--primary-color);
-  color: var(--main-bg-color);
+
+.stepItem:hover .stepCircle {
+  transform: scale(1.05);
+}
+
+.stepCircle {
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
+  background: #f5f5f5;
+  border: 3px solid #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 2;
+}
+
+.stepItem.active .stepCircle {
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-accent));
+  border-color: var(--primary-color);
+  box-shadow: 0 4px 20px rgba(149, 101, 232, 0.3);
+}
+
+.stepItem.completed .stepCircle {
+  background: #4caf50;
+  border-color: #4caf50;
+}
+
+.stepIcon {
+  font-size: 1.8rem;
+  color: #999;
+  transition: color 0.3s ease;
+}
+
+.stepItem.active .stepIcon,
+.stepItem.completed .stepIcon {
+  color: white;
+}
+
+.stepLabel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  text-align: center;
+}
+
+.stepNumber {
+  font-size: 0.75rem;
+  color: #999;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stepItem.active .stepNumber {
+  color: var(--primary-color);
+}
+
+.stepTitle {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #666;
+}
+
+.stepItem.active .stepTitle {
+  color: var(--primary-color);
+}
+
+.stepConnector {
+  flex: 1;
+  height: 3px;
+  background: #e0e0e0;
+  margin: 0 1rem;
+  align-self: flex-start;
+  margin-top: 30px;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.stepConnector.completed {
+  background: linear-gradient(90deg, #4caf50, var(--primary-color));
+}
+
+/* ==================== STEPPER BODY ==================== */
+.stepperBody {
+  background: white;
+  border-radius: 16px;
+  padding: 3rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  min-height: 500px;
+  animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==================== STEP CONTENT ==================== */
+.stepContent {
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.stepHeader {
+  margin-bottom: 2.5rem;
+  text-align: center;
+}
+
+.stepHeader h2 {
+  font-size: 2rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.5rem;
+}
+
+.stepHeader p {
+  font-size: 1.1rem;
+  color: #666;
+}
+
+/* ==================== UPLOAD SECTION (Step 1) ==================== */
+.uploadSection {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* ==================== FORM SECTION ==================== */
+.formSection {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.formRow {
   display: grid;
-  padding: 0.2rem;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
 }
-.upload_box_slider p {
-  font-size: 1.2rem;
+
+/* ==================== CATEGORY SECTION ==================== */
+.categorySection {
+  margin-top: 2.5rem;
+}
+
+.categorySection h3 {
+  font-size: 1.3rem;
   font-weight: 700;
-  line-height: 1.2;
+  color: #333;
+  margin-bottom: 1.5rem;
+  text-align: center;
 }
-.upload_box_btn {
+
+.categoryGrid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  margin-block: 4rem;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1.25rem;
+}
+
+.categoryCard {
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 1.5rem 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.categoryCard:hover {
+  border-color: var(--primary-color);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(149, 101, 232, 0.15);
+}
+
+.categoryCard.active {
+  border-color: var(--primary-color);
+  background: linear-gradient(135deg, rgba(149, 101, 232, 0.05), rgba(251, 198, 76, 0.05));
+  box-shadow: 0 8px 24px rgba(149, 101, 232, 0.2);
+}
+
+.categoryImageWrapper {
+  position: relative;
+  margin-bottom: 1rem;
+  display: inline-block;
+}
+
+.categoryImage {
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.categoryCheckmark {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 28px;
+  height: 28px;
+  background: var(--primary-color);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0);
+  transition: all 0.3s ease;
+}
+
+.categoryCard.active .categoryCheckmark {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.categoryCheckmark svg {
+  color: white;
+  font-size: 1.2rem;
+}
+
+.categoryLabel {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #666;
+}
+
+.categoryCard.active .categoryLabel {
+  color: var(--primary-color);
+}
+
+/* ==================== REVIEW SECTION (Step 4) ==================== */
+.reviewSection {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.reviewCard {
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  gap: 2.5rem;
+  background: #f9f9f9;
+  border-radius: 12px;
+  padding: 2rem;
+}
+
+.reviewImage {
+  aspect-ratio: 1;
+  border-radius: 12px;
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.reviewImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.reviewDetails {
+  display: flex;
+  flex-direction: column;
   gap: 2rem;
 }
-.upload_box_btn_style {
-  width: 100%;
-  display: grid;
-  align-self: center;
-  font-size: 1.3rem;
+
+.reviewGroup h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--primary-color);
 }
-.active {
-  background-color: var(--primary-color);
-  color: var(--main-bg-color);
+
+.reviewItem {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
 }
-@media screen and (max-width: 35em) {
-  .upload_box_slider_div {
-    display: grid;
+
+.reviewLabel {
+  font-weight: 600;
+  color: #666;
+  min-width: 120px;
+}
+
+.reviewValue {
+  color: #333;
+  flex: 1;
+  word-break: break-word;
+}
+
+/* ==================== STEPPER ACTIONS ==================== */
+.stepperActions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 2px solid #f0f0f0;
+}
+
+.actionSpacer {
+  flex: 1;
+}
+
+.btnPrimary {
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-accent)) !important;
+  color: white !important;
+  padding: 0.9rem 2.5rem !important;
+  border-radius: 10px !important;
+  font-weight: 700 !important;
+  font-size: 1rem !important;
+  border: none !important;
+  box-shadow: 0 4px 16px rgba(149, 101, 232, 0.3) !important;
+  transition: all 0.3s ease !important;
+}
+
+.btnPrimary:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 24px rgba(149, 101, 232, 0.4) !important;
+}
+
+.btnMint {
+  background: linear-gradient(135deg, #4caf50, #45a049) !important;
+  color: white !important;
+  padding: 0.9rem 2.5rem !important;
+  border-radius: 10px !important;
+  font-weight: 700 !important;
+  font-size: 1rem !important;
+  border: none !important;
+  box-shadow: 0 4px 16px rgba(76, 175, 80, 0.3) !important;
+  transition: all 0.3s ease !important;
+}
+
+.btnMint:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 24px rgba(76, 175, 80, 0.4) !important;
+}
+
+.btnSecondary {
+  background: white !important;
+  color: var(--primary-color) !important;
+  padding: 0.9rem 2.5rem !important;
+  border-radius: 10px !important;
+  font-weight: 700 !important;
+  font-size: 1rem !important;
+  border: 2px solid var(--primary-color) !important;
+  transition: all 0.3s ease !important;
+}
+
+.btnSecondary:hover {
+  background: var(--primary-color) !important;
+  color: white !important;
+}
+
+.btnCancel {
+  background: white !important;
+  color: #666 !important;
+  padding: 0.9rem 2rem !important;
+  border-radius: 10px !important;
+  font-weight: 600 !important;
+  font-size: 1rem !important;
+  border: 2px solid #e0e0e0 !important;
+  transition: all 0.3s ease !important;
+}
+
+.btnCancel:hover {
+  border-color: #ff5252 !important;
+  color: #ff5252 !important;
+}
+
+/* ==================== CONFIRMATION MODAL ==================== */
+.confirmationOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+  backdrop-filter: blur(4px);
+}
+
+.confirmationDialog {
+  background: white;
+  border-radius: 16px;
+  padding: 2.5rem;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.confirmationHeader h2 {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #333;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.confirmationContent {
+  margin-bottom: 2rem;
+}
+
+.confirmationContent p {
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.confirmationItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.confirmationLabel {
+  font-weight: 600;
+  color: #666;
+}
+
+.confirmationValue {
+  font-weight: 700;
+  color: #333;
+}
+
+.confirmationActions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.confirmationBtnYes {
+  flex: 1;
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-accent)) !important;
+  color: white !important;
+  padding: 1rem !important;
+  border-radius: 10px !important;
+  font-weight: 700 !important;
+  border: none !important;
+  transition: all 0.3s ease !important;
+}
+
+.confirmationBtnYes:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 24px rgba(149, 101, 232, 0.4) !important;
+}
+
+.confirmationBtnNo {
+  flex: 1;
+  background: white !important;
+  color: #666 !important;
+  padding: 1rem !important;
+  border-radius: 10px !important;
+  font-weight: 700 !important;
+  border: 2px solid #e0e0e0 !important;
+  transition: all 0.3s ease !important;
+}
+
+.confirmationBtnNo:hover {
+  border-color: #ff5252 !important;
+  color: #ff5252 !important;
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media screen and (max-width: 992px) {
+  .stepperHeader {
+    padding: 2rem 1.5rem;
+  }
+
+  .stepperBody {
+    padding: 2rem;
+  }
+
+  .stepCircle {
+    width: 50px;
+    height: 50px;
+  }
+
+  .stepIcon {
+    font-size: 1.5rem;
+  }
+
+  .stepTitle {
+    font-size: 0.85rem;
+  }
+
+  .stepConnector {
+    margin-top: 25px;
+  }
+
+  .reviewCard {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .reviewImage {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .uploadContainer {
+    padding: 0 1rem;
+  }
+
+  .stepperHeader {
+    padding: 1.5rem 1rem;
+  }
+
+  .stepperBody {
+    padding: 1.5rem;
+  }
+
+  .stepperProgress {
+    flex-wrap: wrap;
+  }
+
+  .stepItem {
+    flex-direction: row;
+    gap: 0.5rem;
+    min-width: 45%;
+  }
+
+  .stepConnector {
+    display: none;
+  }
+
+  .stepLabel {
+    align-items: flex-start;
+  }
+
+  .stepHeader h2 {
+    font-size: 1.5rem;
+  }
+
+  .formRow {
+    grid-template-columns: 1fr;
+  }
+
+  .categoryGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .stepperActions {
+    flex-wrap: wrap;
+  }
+
+  .actionSpacer {
+    display: none;
+  }
+
+  .confirmationActions {
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .stepCircle {
+    width: 40px;
+    height: 40px;
+  }
+
+  .stepIcon {
+    font-size: 1.2rem;
+  }
+
+  .stepNumber {
+    font-size: 0.65rem;
+  }
+
+  .stepTitle {
+    font-size: 0.75rem;
+  }
+
+  .categoryGrid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
-.confirmationDialog {
-  background-color: #f8f9fa;
-  border: 2px solid var(--icons-bg-color);
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  padding: 20px;
+
+.imagePreview {
+  max-width: 500px;
+  margin: 2rem auto 0;
   text-align: center;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1000;
-  max-width: 500px; /* Set a maximum width for better readability */
+  animation: fadeIn 0.4s ease;
 }
 
-.confirmationDialog h2 {
-  font-size: 1.8rem;
-  color: var(--primary-color);
-  margin-bottom: 20px;
-}
-
-.confirmationDialog p {
+.imagePreview h3 {
   font-size: 1.2rem;
-  color: #495057;
-  margin-bottom: 15px;
-  text-align: center; /* Center-align the text */
-  display: flex; /* Add display flex */
-  align-items: center; /* Align items in the center */
-  justify-content: center; /* Center the content horizontally */
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
 }
 
-.confirmationDialog button {
-  font-size: 1rem;
-  padding: 0.8rem 1.2rem;
-  margin: 5px;
-}
-
-/* Style for Yes button */
-.confirmationDialog button.btnYes {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  margin-right: 5px;
-}
-
-/* Style for No button */
-.confirmationDialog button.btnNo {
-  background-color: #dc3545;
-  color: white;
-  border: none;
-  margin-left: 5px;
-}
-.confirmationDialog .buttonContainer {
-  display: flex;
-  justify-content: center;
+.imagePreview img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
