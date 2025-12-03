@@ -133,7 +133,34 @@ const UploadNFT = ({ uploadIPFS, createNFT }) => {
         }
     };
 
-    const handleReset = () => { setName(""); setPrice(""); setWebsite(""); setDescription(""); setProperties(""); setFileSize(""); setRoyalties(""); setCategory(0); setActive(0); setImage(null); setCurrentStep(1); setErrorName(""); setErrorPrice(""); setErrorSize(""); setErrorRoyalties(""); };
+    const handleReset = () => {
+        setName(""); 
+        setPrice(""); 
+        setWebsite(""); 
+        setDescription(""); 
+        setProperties(""); 
+        setFileSize(""); 
+        setRoyalties(""); 
+        setCategory(0); 
+        setActive(0); 
+        setImage(null); 
+        setCurrentStep(1); 
+        setErrorName(""); 
+        setErrorPrice(""); 
+        setErrorSize(""); 
+        setErrorRoyalties("");
+    };
+
+    const handleCancelConfirmation = (confirmed) => {
+        if (!confirmed) {
+            setShowCancelConfirmation(false);
+            return;
+        }
+        
+        // Reset all form fields and return to step 1
+        handleReset();
+        setShowCancelConfirmation(false);
+    };
 
     return (
         <div className={Style.upload}>
@@ -187,6 +214,7 @@ const UploadNFT = ({ uploadIPFS, createNFT }) => {
                                     heading="or click to browse"
                                     subHeading="PNG, JPG, GIF, WEBP. Max 100MB"
                                     setImage={setImage}
+                                    image={image}
                                     uploadIPFS={uploadIPFS}
                                 />
                             </div>
@@ -249,7 +277,7 @@ const UploadNFT = ({ uploadIPFS, createNFT }) => {
                                             >
                                                 <div className={Style.categoryImageWrapper}>
                                                     <Image
-                                                        src={el.image}
+                                                        src={   el.image}
                                                         alt={el.category}
                                                         width={80}
                                                         height={80}
@@ -423,6 +451,14 @@ const UploadNFT = ({ uploadIPFS, createNFT }) => {
 
                     {/* Navigation Buttons */}
                     <div className={Style.stepperActions}>
+                        <Button
+                            btnName="Reset"
+                            handleClick={() => setShowCancelConfirmation(true)}
+                            variant="danger"
+                        />
+    
+                        <div className={Style.actionSpacer} />
+
                         {currentStep > 1 && (
                             <Button
                                 btnName="Previous"
@@ -430,8 +466,6 @@ const UploadNFT = ({ uploadIPFS, createNFT }) => {
                                 classStyle={Style.btnSecondary}
                             />
                         )}
-
-                        <div className={Style.actionSpacer} />
 
                         {currentStep < totalSteps ? (
                             <Button
@@ -446,11 +480,6 @@ const UploadNFT = ({ uploadIPFS, createNFT }) => {
                                 classStyle={Style.btnMint}
                             />
                         )}
-
-                        <Button
-                            btnName="Reset" handleClick={handleReset}
-                            classStyle={Style.btnCancel}
-                        />
                     </div>
                 </div>
 

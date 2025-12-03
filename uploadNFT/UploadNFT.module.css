@@ -1,7 +1,6 @@
 .upload {
   width: 100%;
-  min-height: 100vh;
-  background: linear-gradient(135deg, rgba(251, 198, 76, 0.05) 0%, rgba(149, 101, 232, 0.05) 50%, rgba(251, 198, 76, 0.05) 100%);
+  min-height: 100vh;  
   padding: 2rem 0;
 }
 
@@ -310,12 +309,15 @@
   overflow: hidden;
   background: white;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .reviewImage img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
 }
 
 .reviewDetails {
@@ -415,19 +417,25 @@
 }
 
 .btnCancel {
-  background: white !important;
-  color: #666 !important;
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  color: #ff5252 !important;
   padding: 0.9rem 2rem !important;
   border-radius: 10px !important;
-  font-weight: 600 !important;
+  font-weight: 700 !important;
   font-size: 1rem !important;
-  border: 2px solid #e0e0e0 !important;
+  border: 2px solid #ff5252 !important;
+  border-color: #ff5252 !important;
   transition: all 0.3s ease !important;
 }
 
 .btnCancel:hover {
+  background: #ff5252 !important;
+  background-color: #ff5252 !important;
+  color: #ffffff !important;
   border-color: #ff5252 !important;
-  color: #ff5252 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 16px rgba(255, 82, 82, 0.4) !important;
 }
 
 /* ==================== CONFIRMATION MODAL ==================== */
@@ -679,3 +687,4 @@
   border-radius: 12px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
+
