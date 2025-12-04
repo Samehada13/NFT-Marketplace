@@ -30,6 +30,7 @@
   flex-direction: column;
   align-items: center;
   gap: 0.75rem;
+  padding: 1rem;
   flex: 1;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -111,8 +112,8 @@
   height: 3px;
   background: #e0e0e0;
   margin: 0 1rem;
-  align-self: flex-start;
-  margin-top: 30px;
+  align-self: center;
+  justify-self: center;
   transition: all 0.3s ease;
   position: relative;
   z-index: 1;
