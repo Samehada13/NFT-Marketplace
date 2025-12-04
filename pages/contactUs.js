@@ -1,147 +1,158 @@
 import React, { useState } from 'react';
+import { HiChevronDown, HiChevronUp } from 'react-icons/hi';
 
 const ContactUs = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: '',
-  });
+  const [openFAQ, setOpenFAQ] = useState(null);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Form submitted:', formData);
-    // Add your form submission logic here
+  const toggleFAQ = (index) => {
+    setOpenFAQ(openFAQ === index ? null : index);
   };
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const faqs = [
+    {
+      question: 'How can I get in touch with the NFT Marketplace team for collaborations?',
+      answer: 'We\'re always excited to hear from potential collaborators! For partnership inquiries, please reach out to our Partnerships team at the email provided above. We\'ll review your proposal and get back to you within 3-5 business days.'
+    },
+    {
+      question: 'Where can I find information on NFT campaigns and releases?',
+      answer: 'Stay updated on our latest NFT drops, campaigns, and exclusive releases by following our social media channels or subscribing to our newsletter. You can also reach out to our Press team for detailed information about upcoming releases and media kits.'
+    },
+    {
+      question: 'How can I reach your customer support team?',
+      answer: 'Our dedicated support team is available to help you with any technical issues, account questions, or general inquiries. Email our Support team using the contact information provided above, or visit our Help Center for immediate answers to common questions.'
+    },
+    {
+      question: 'How do I list my NFTs on the marketplace?',
+      answer: 'To list your NFTs, simply connect your wallet, navigate to the "Create" section, and follow the step-by-step guide to mint and list your digital assets. For technical assistance with the listing process, our Support team is here to help.'
+    },
+    {
+      question: 'What blockchain networks do you support?',
+      answer: 'We currently support Ethereum and Polygon networks for NFT transactions. Our platform is designed to provide seamless cross-chain compatibility, ensuring lower gas fees and faster transactions. Contact our Technical team for more information about supported networks.'
+    },
+    {
+      question: 'How do I report a security issue or vulnerability?',
+      answer: 'Security is our top priority. If you\'ve discovered a potential security vulnerability, please contact our Security team immediately at the Head Office email. We appreciate responsible disclosure and will respond to all security reports promptly.'
+    }
+  ];
 
   return (
-    <div className='min-h-screen py-12 px-6'>
-      <div className='max-w-7xl mx-auto'>
-        <div className='text-center mb-12'>
-          <h1 className='text-4xl md:text-5xl font-bold text-[var(--primary-text)] mb-4'>
-            We'd love to hear from you!
-          </h1>
-          <p className='text-gray-500 text-lg'>
-            Get in touch with us for any inquiries or support
-          </p>
-        </div>
+    <div className='min-h-screen bg-white'>
+      {/* Hero Section */}
+      <div className='max-w-7xl mx-auto px-6 pt-24 pb-16'>
+        <div className='grid grid-cols-1 lg:grid-cols-2 gap-16'>
+          {/* Left Side - Contact Info */}
+          <div>
+            <p className='text-sm text-gray-600 mb-8 max-w-md leading-relaxed'>
+              For any inquiries, collaborations, or just to say hello, we'd love to hear from you. Here's how we're best reached.
+            </p>
 
-        <div className='grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12'>
-          {/* Left Side - Contact Information */}
-          <div className='space-y-8'>
-            <div className='rounded-2xl p-8 border border-white/20'>
-              <div className='space-y-6'>
-                <div className='pb-6 border-b border-white/20'>
-                  <h3 className='text-xl font-semibold text-[var(--primary-color)] flex items-center'>
-                    Address
-                  </h3>
-                  <p className='text-gray-500'>
-                    Santa Cruz, Labo, Camarines Norte
+            <h1 className='text-7xl md:text-8xl font-bold text-gray-900 mb-16 tracking-tight leading-none'>
+              CONTACT US
+            </h1>
+
+            {/* Contact Sections */}
+            <div className='space-y-12'>
+              {/* Press */}
+              <div>
+                <h2 className='text-sm font-bold text-gray-900 mb-3 tracking-wide'>
+                  PRESS
+                </h2>
+                <div className='text-sm text-gray-700 space-y-1'>
+                  <p>INQUIRIES OR COVERAGE REQUESTS (PRESS OFFICE)</p>
+                  <p>Carlos Greenapear, Managing Director</p>
+                  <p>POLYGON ID: 456987 Flagship NFT Gallery</p>
+                  <p className='mt-3'>
+                    <a href='mailto:press@rlbnft.com' className='hover:text-purple-600 transition-colors'>
+                      JUUN.J NFT
+                    </a>
+                  </p>
+                  <p>
+                    <a href='mailto:press@rlbnft.com' className='hover:text-purple-600 transition-colors'>
+                      PRESS@RLBNFT.COM
+                    </a>
                   </p>
                 </div>
+              </div>
 
-                <div className='pb-6 border-b border-white/20'>
-                  <h3 className='text-xl font-semibold text-[var(--primary-color)] flex items-center'>
-                    Email
-                  </h3>
-                  <a
-                    href='mailto:rlb_nft.support@gmail.com'
-                    className='text-purple-300 hover:text-purple-200 transition-colors break-all'
-                  >
-                    rlb_nft.support@gmail.com
-                  </a>
+              {/* Sales */}
+              <div>
+                <h2 className='text-sm font-bold text-gray-900 mb-3 tracking-wide'>
+                  PARTNERSHIPS
+                </h2>
+                <div className='text-sm text-gray-700 space-y-1'>
+                  <p>
+                    <a href='mailto:partnerships@rlbnft.com' className='hover:text-purple-600 transition-colors'>
+                      PARTNERSHIPS@RLBNFT.COM
+                    </a>
+                  </p>
+                  <p className='mt-3'>COLLABORATION INQUIRIES</p>
+                  <p>
+                    <a href='mailto:collaborate@rlbnft.com' className='hover:text-purple-600 transition-colors'>
+                      COLLABORATE@RLBNFT.COM
+                    </a>
+                  </p>
                 </div>
+              </div>
 
-                <div className='pb-6 border-b border-white/20'>
-                  <h3 className='text-xl font-semibold text-[var(--primary-color)] flex items-center'>
-                    Phone Number
-                  </h3>
-                  <a
-                    href='tel:+63907095520'
-                    className='text-gray-500 hover:text-[var(--primary-text)] transition-colors'
-                  >
-                    +63 907 095 520
-                  </a>
+              {/* Head Office */}
+              <div>
+                <h2 className='text-sm font-bold text-gray-900 mb-3 tracking-wide'>
+                  HEAD OFFICE
+                </h2>
+                <div className='text-sm text-gray-700 space-y-1'>
+                  <p>
+                    <a href='mailto:rlb_nft.support@gmail.com' className='hover:text-purple-600 transition-colors'>
+                      RLB_NFT.SUPPORT@GMAIL.COM
+                    </a>
+                  </p>
+                  <p className='mt-3'>JUUN.J MARKETPLACE DAY CORPORATION</p>
+                  <p>Santa Cruz, Labo, Camarines Norte</p>
+                  <p>Republic of Philippines</p>
+                  <p className='mt-3'>
+                    <a href='tel:+63907095520' className='hover:text-purple-600 transition-colors'>
+                      +63 907 095 520
+                    </a>
+                  </p>
                 </div>
+              </div>
 
-                <div>
-                  <h3 className='text-xl font-semibold text-[var(--primary-color)] flex items-center'>
-                    Connect With Us
-                  </h3>
-                  <div className='flex gap-4 flex-wrap'>
+              {/* Support */}
+              <div>
+                <h2 className='text-sm font-bold text-gray-900 mb-3 tracking-wide'>
+                  SUPPORT
+                </h2>
+                <div className='text-sm text-gray-700 space-y-1'>
+                  <p>TECHNICAL ASSISTANCE & ACCOUNT HELP</p>
+                  <p>
+                    <a href='mailto:support@rlbnft.com' className='hover:text-purple-600 transition-colors'>
+                      SUPPORT@RLBNFT.COM
+                    </a>
+                  </p>
+                  <p className='mt-3'>COMMUNITY & SOCIAL</p>
+                  <div className='flex gap-4 mt-2'>
                     <a
                       href='https://www.facebook.com/icreate.l'
                       target='_blank'
                       rel='noopener noreferrer'
-                      className='w-12 h-12 bg-white/10 hover:bg-purple-500 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 border border-white/20'
+                      className='text-gray-700 hover:text-purple-600 transition-colors text-xs font-medium'
                     >
-                      <svg
-                        className='w-6 h-6 text-[var(--primary-accent)]'
-                        fill='currentColor'
-                        viewBox='0 0 24 24'
-                      >
-                        <path d='M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.563V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z' />
-                      </svg>
+                      FACEBOOK
                     </a>
                     <a
                       href='https://twitter.com/BLeyano'
                       target='_blank'
                       rel='noopener noreferrer'
-                      className='w-12 h-12 bg-white/10 hover:bg-purple-500 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 border border-white/20'
+                      className='text-gray-700 hover:text-purple-600 transition-colors text-xs font-medium'
                     >
-                      <svg
-                        className='w-6 h-6 text-[var(--primary-accent)]'
-                        fill='currentColor'
-                        viewBox='0 0 24 24'
-                      >
-                        <path d='M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z' />
-                      </svg>
+                      TWITTER
                     </a>
                     <a
                       href='https://www.instagram.com/nftmplace/'
                       target='_blank'
                       rel='noopener noreferrer'
-                      className='w-12 h-12 bg-white/10 hover:bg-purple-500 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 border border-white/20'
+                      className='text-gray-700 hover:text-purple-600 transition-colors text-xs font-medium'
                     >
-                      <svg
-                        className='w-6 h-6 text-[var(--primary-accent)]'
-                        fill='currentColor'
-                        viewBox='0 0 24 24'
-                      >
-                        <path d='M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z' />
-                      </svg>
-                    </a>
-                    <a
-                      href='#'
-                      className='w-12 h-12 bg-white/10 hover:bg-purple-500 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 border border-white/20'
-                    >
-                      <svg
-                        className='w-6 h-6 text-[var(--primary-accent)]'
-                        fill='currentColor'
-                        viewBox='0 0 24 24'
-                      >
-                        <path d='M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z' />
-                      </svg>
-                    </a>
-                    <a
-                      href='https://www.youtube.com/@burnfayrYT'
-                      target='_blank'
-                      rel='noopener noreferrer'
-                      className='w-12 h-12 bg-white/10 hover:bg-purple-500 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 border border-white/20'
-                    >
-                      <svg
-                        className='w-6 h-6 text-[var(--primary-accent)]'
-                        fill='currentColor'
-                        viewBox='0 0 24 24'
-                      >
-                        <path d='M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z' />
-                      </svg>
+                      INSTAGRAM
                     </a>
                   </div>
                 </div>
@@ -149,42 +160,14 @@ const ContactUs = () => {
             </div>
           </div>
 
-          {/* Right Side - Contact Form */}
-          <div className='bg-white/10 backdrop-blur-lg rounded-2xl p-8 shadow-xl border border-black/5'>
-            <form
-              onSubmit={handleSubmit}
-              className='space-y-6'
-            >
-              <div>
-                <label
-                  htmlFor='name'
-                  className='block text-sm font-medium text-[var(--primary-text)] mb-2'
-                >
-                  Full Name
-                </label>
-                <input
-                  type='text'
-                  id='name'
-                  name='name'
-                  required
-                  value={formData.name}
-                  onChange={handleChange}
-                  placeholder='John Doe'
-                  className='w-full px-6 py-3 bg-white/5 border-2 border-[var(--primary-color)]/30 rounded-lg text-[var(--primary-text)] placeholder-gray-400 focus:outline-none focus:border-[var(--primary-color)]'
-                />
-              </div>
-
-              <div>
-                <label
-                  htmlFor='email'
-                  className='block text-sm font-medium text-[var(--primary-text)] mb-2'
-                >
-                  Email Address
-                </label>
-                <div className='relative'>
-                  <div className='absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none'>
+          {/* Right Side - Decorative Element */}
+          <div className='hidden lg:flex items-center justify-center'>
+            <div className='relative w-full h-[600px] bg-gradient-to-br from-purple-100 to-purple-50 rounded-2xl overflow-hidden'>
+              <div className='absolute inset-0 flex items-center justify-center'>
+                <div className='text-center space-y-4'>
+                  <div className='w-32 h-32 mx-auto bg-gradient-to-br from-purple-600 to-pink-600 rounded-full flex items-center justify-center'>
                     <svg
-                      className='w-5 h-5 text-gray-400'
+                      className='w-16 h-16 text-white'
                       fill='none'
                       stroke='currentColor'
                       viewBox='0 0 24 24'
@@ -197,48 +180,114 @@ const ContactUs = () => {
                       />
                     </svg>
                   </div>
-                  <input
-                    type='email'
-                    id='email'
-                    name='email'
-                    required
-                    value={formData.email}
-                    onChange={handleChange}
-                    placeholder='your.email@example.com'
-                    className='w-full pl-12 pr-4 py-3 bg-white/5 border-2 border-[var(--primary-color)]/30 rounded-lg text-[var(--primary-text)] placeholder-gray-400 focus:outline-none focus:border-[var(--primary-color)] '
-                  />
+                  <h3 className='text-2xl font-bold text-gray-900'>Get in Touch</h3>
+                  <p className='text-gray-600 max-w-xs mx-auto'>
+                    We're here to help with any questions about our NFT marketplace
+                  </p>
                 </div>
               </div>
 
-              <div>
-                <label
-                  htmlFor='message'
-                  className='block text-sm font-medium text-[var(--primary-text)] mb-2'
-                >
-                  Your Message
-                </label>
-                <textarea
-                  id='message'
-                  name='message'
-                  required
-                  value={formData.message}
-                  onChange={handleChange}
-                  rows={6}
-                  placeholder="Tell us what's on your mind..."
-                  className='w-full px-4 py-3 bg-white/5 border-2 border-[var(--primary-color)]/30 rounded-lg text-[var(--primary-text)] placeholder-gray-400 focus:outline-none focus:border-[var(--primary-color)] resize-none'
-                ></textarea>
-              </div>
-
-              <button
-                type='submit'
-                className='w-full bg-[var(--primary-color)] text-white hover:from-purple-700 font-semibold py-4 px-6 rounded-lg transition-all duration-300 transform hover:scale-100'
-              >
-                Send Message
-              </button>
-            </form>
+              {/* Decorative circles */}
+              <div className='absolute top-10 left-10 w-20 h-20 bg-purple-200 rounded-full opacity-50'></div>
+              <div className='absolute bottom-20 right-10 w-32 h-32 bg-pink-200 rounded-full opacity-50'></div>
+              <div className='absolute top-1/2 right-1/4 w-16 h-16 bg-yellow-200 rounded-full opacity-50'></div>
+            </div>
           </div>
         </div>
       </div>
+
+      {/* FAQ Section */}
+      <div className='bg-gray-50 py-20'>
+        <div className='max-w-7xl mx-auto px-6'>
+          <h2 className='text-4xl md:text-5xl font-bold text-gray-900 mb-12 tracking-tight'>
+            FREQUENTLY ASKED
+            <br />
+            QUESTIONS
+          </h2>
+
+          <div className='max-w-4xl space-y-2'>
+            {faqs.map((faq, index) => (
+              <div
+                key={index}
+                className='bg-white border border-gray-200 overflow-hidden transition-all duration-300'
+              >
+                <button
+                  onClick={() => toggleFAQ(index)}
+                  className='w-full px-8 py-6 flex items-center justify-between hover:bg-gray-50 transition-colors text-left group'
+                  aria-expanded={openFAQ === index}
+                >
+                  <span className='text-sm md:text-base font-medium text-gray-900 pr-8 group-hover:text-purple-600 transition-colors'>
+                    {faq.question}
+                  </span>
+                  <div className='flex-shrink-0'>
+                    {openFAQ === index ? (
+                      <HiChevronUp className='w-6 h-6 text-gray-900 group-hover:text-purple-600 transition-colors' />
+                    ) : (
+                      <HiChevronDown className='w-6 h-6 text-gray-900 group-hover:text-purple-600 transition-colors' />
+                    )}
+                  </div>
+                </button>
+
+                <div
+                  className={`overflow-hidden transition-all duration-300 ease-in-out ${openFAQ === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+                    }`}
+                >
+                  <div className='px-8 pb-6 pt-2'>
+                    <p className='text-sm md:text-base text-gray-600 leading-relaxed'>
+                      {faq.answer}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom CTA */}
+      <div className='bg-white py-20'>
+        <div className='max-w-7xl mx-auto px-6 text-center'>
+          <h3 className='text-3xl md:text-4xl font-bold text-gray-900 mb-4 tracking-tight'>
+            Ready to Start Your NFT Journey?
+          </h3>
+          <p className='text-gray-600 mb-8 max-w-2xl mx-auto'>
+            Explore our marketplace and discover unique digital assets from creators around the world.
+          </p>
+          <a
+            href='/'
+            className='inline-flex items-center gap-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-4 rounded-full font-semibold hover:from-purple-700 hover:to-pink-700 transition-all duration-300 hover:scale-105 hover:shadow-xl group'
+          >
+            EXPLORE MARKETPLACE
+            <svg
+              className='w-5 h-5 group-hover:translate-x-1 transition-transform'
+              fill='none'
+              stroke='currentColor'
+              viewBox='0 0 24 24'
+            >
+              <path
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                strokeWidth={2}
+                d='M17 8l4 4m0 0l-4 4m4-4H3'
+              />
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      {/* CSS for smooth animations */}
+      <style jsx>{`
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
     </div>
   );
 };

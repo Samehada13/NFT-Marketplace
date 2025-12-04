@@ -9,9 +9,9 @@ import {
   AuthorTaps,
   AuthorNFTCardBox,
 } from '../authorPage/authorIndex';
+import Filter from '../components/Filter/Filter';
 import FollowerTabCard from '../components/FollowerTab/FollowerTabCard/FollowerTabCard';
 import { useRouter } from 'next/router';
-import { useLocation } from 'react-router-dom';
 import { getVolumeOfUser } from '../TopCreators/TopCreators';
 import Scatter from '../TopCreators/ScatterPlot';
 import { NFTMarketplaceContext } from '../context/NFTMarketplaceContext';
@@ -31,18 +31,14 @@ const author = ({ creators }) => {
   const [following, setFollowing] = useState(false);
   const [seller, setSeller] = useState('');
 
-  const {
+    const {
     fetchMyNFTsOrListedNFTs,
     fetchNFTsByAddressFromURL,
     currentAccount,
     leaveSellerReview,
     tokenId,
-    fetchReviewsForAddress,
     fetchNFTsWithBids,
   } = useContext(NFTMarketplaceContext);
-
-  const [error, setError] = useState('');
-  const [openError, setOpenError] = useState(false);
 
   const [nfts, setNfts] = useState([]);
   const [myNFTs, setMyNFTs] = useState([]);
@@ -203,8 +199,6 @@ const author = ({ creators }) => {
             open={openReviewDialog}
             seller={seller}
             leaveSellerReview={leaveSellerReview}
-            setError={setError}
-            setOpenError={setOpenError}
             tokenId={tokenId}
           />
           <AuthorProfileCard currentAccount={currentAccount} />

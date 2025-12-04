@@ -29,8 +29,6 @@ export const NFTMarketplaceContext = React.createContext();
 
 export const NFTMarketplaceProvider = ({ children }) => {
     const titleData = "Discover, collect, and sell NFTs";
-    const [error, setError] = useState("");
-    const [openError, setOpenError] = useState(false);
     const [toasts, setToasts] = useState([]);
     const [currentAccount, setCurrentAccount] = useState("");
     const router = useRouter();
@@ -78,10 +76,10 @@ export const NFTMarketplaceProvider = ({ children }) => {
         }
     }
 
-    useEffect(() => {
-        checkIfWalletConnected();
-        // connectingWithSC();
-    }, []);
+    // Removed automatic wallet check - users can manually connect when needed
+    // useEffect(() => {
+    //     checkIfWalletConnected();
+    // }, []);
 
     const connectWallet = async () => {
         try {
@@ -151,7 +149,8 @@ export const NFTMarketplaceProvider = ({ children }) => {
             !fileSize ||
             !properties
         ) {
-            return setError("Data is missing"), setOpenError(true);
+            addToast("Please fill in all required fields", "error", 5000);
+            return;
         }
 
         const currentDate = new Date();
@@ -189,8 +188,8 @@ export const NFTMarketplaceProvider = ({ children }) => {
             await createSale(url, price);
             router.push("/searchPage");
         } catch (error) {
-            setError("Error while creating NFT", error);
-            setOpenError(true);
+            addToast("Error while creating NFT. Please try again.", "error", 5000);
+            console.error("Create NFT error:", error);
         }
         console.log(data);
     }
@@ -211,8 +210,8 @@ export const NFTMarketplaceProvider = ({ children }) => {
             console.log(transaction);
 
         } catch (error) {
-            setError("Error while creating sale", error);
-            setOpenError(true);
+            addToast("Error while creating sale. Please try again.", "error", 5000);
+            console.error("Create sale error:", error);
         }
     };
 
@@ -284,11 +283,7 @@ export const NFTMarketplaceProvider = ({ children }) => {
         }
     };
 
-    useEffect(() => {
-        // if (currentAccount){
-        fetchNFTs();
-        // }
-    }, []);
+
 
     const fetchMyNFTsOrListedNFTs = async (type) => {
         try {
@@ -339,9 +334,7 @@ export const NFTMarketplaceProvider = ({ children }) => {
         }
     }
 
-    useEffect(() => {
-        fetchMyNFTsOrListedNFTs();
-    }, []);
+
 
     const fetchNFTsByAddressFromURL = async () => {
         try {
@@ -411,9 +404,8 @@ export const NFTMarketplaceProvider = ({ children }) => {
                 return [];
             }
         } catch (error) {
-            setError("Error while fetching NFTs", error);
-            setOpenError(true);
-            console.error(error);
+            addToast("Error while fetching NFTs. Please try again.", "error", 5000);
+            console.error("Fetch NFTs by address error:", error);
             return [];
         }
     };
@@ -431,8 +423,7 @@ export const NFTMarketplaceProvider = ({ children }) => {
             router.push("/author");
         } catch (error) {
             console.error("Error while buying NFT:", error);
-            setError("Error while buying NFT", error.message);
-            setOpenError(true);
+            addToast("Error while buying NFT. Please try again.", "error", 5000);
             throw error;
         }
     }
@@ -467,12 +458,8 @@ export const NFTMarketplaceProvider = ({ children }) => {
             console.log("Bids for NFT after successful bid:", bidsForNFT);
         } catch (error) {
             console.error("Error placing bid", error);
-
-            // Log additional error details
             console.error("Error details:", error.message, error.code, error.data);
-
-            setError("Error placing bid");
-            setOpenError(true);
+            addToast("Error placing bid. Please try again.", "error", 5000);
         }
     };
 
@@ -503,8 +490,7 @@ export const NFTMarketplaceProvider = ({ children }) => {
             return formattedTop7Bids;
         } catch (error) {
             console.error('Error fetching top 7 bids for NFT', error);
-            setError('Error fetching top 7 bids for NFT');
-            setOpenError(false);
+            addToast('Error fetching bids for NFT', "error", 5000);
             return [];
         }
     };
@@ -522,21 +508,18 @@ export const NFTMarketplaceProvider = ({ children }) => {
                     router.push("/searchPage");
                 } catch (error) {
                     console.error("Error navigating to search page", error);
-                    setError("Error navigating to search page");
-                    setOpenError(true);
+                    addToast("Error navigating to search page", "error", 5000);
                     return;
                 }
 
             } else {
                 console.error("Transaction failed:", receipt);
-                setError("Error accepting bid");
-                setOpenError(true);
+                addToast("Error accepting bid. Transaction failed.", "error", 5000);
             }
         } catch (error) {
             console.error("Error accepting bid", error);
             console.error("Error details:", error.message, error.code, error.data);
-            setError("Error accepting bid");
-            setOpenError(true);
+            addToast("Error accepting bid. Please try again.", "error", 5000);
         }
     };
 
@@ -659,9 +642,6 @@ export const NFTMarketplaceProvider = ({ children }) => {
             checkIfWalletConnected,
             fetchNFTs,
             createSale,
-            setOpenError,
-            openError,
-            error,
             currentAccount,
             placeBid,
             acceptBid,

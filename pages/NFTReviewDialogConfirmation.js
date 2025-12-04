@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
+import { NFTMarketplaceContext } from '../context/NFTMarketplaceContext';
 
 const StyledNFTReviewDialogConfirmation = styled.div`
   background-color: #f8f9fa;
@@ -81,11 +82,10 @@ const NFTReviewDialogConfirmation = ({
   handleReview,
   seller,
   leaveSellerReview,
-  setError,
-  setOpenError,
   tokenId,
   buyer,
 }) => {
+  const { addToast } = useContext(NFTMarketplaceContext);
   const [review, setReview] = useState('');
   const [isOpen, setIsOpen] = useState(false);
 
@@ -119,14 +119,13 @@ const NFTReviewDialogConfirmation = ({
       if (success) {
         handleClose();
         setReview('');
+        addToast('Review submitted successfully!', 'success', 3000);
       } else {
-        setError('Error adding seller review');
-        setOpenError(true);
+        addToast('Error adding seller review. Please try again.', 'error', 5000);
       }
     } catch (error) {
       console.error('Error adding seller review', error);
-      setError('Error adding seller review');
-      setOpenError(true);
+      addToast('Error adding seller review. Please try again.', 'error', 5000);
     }
   };
 

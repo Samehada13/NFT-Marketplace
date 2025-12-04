@@ -19,7 +19,7 @@ const NavBar = () => {
   const [profile, setProfile] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const router = useRouter();
-  const { currentAccount, connectWallet, openError } = useContext(
+  const { currentAccount, connectWallet } = useContext(
     NFTMarketplaceContext
   );
   const { t } = useTranslation();
