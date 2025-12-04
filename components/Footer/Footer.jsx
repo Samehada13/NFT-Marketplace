@@ -67,7 +67,7 @@ const Footer = () => {
                 className='w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all'
               />
               <button className='absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-amber-500 hover:bg-amber-600 rounded-md transition-colors'>
-                <RiSendPlaneFill className='text-white text-lg' />
+                <RiSendPlaneFill className='text-lg text-gray-900' />
               </button>
             </div>
 
@@ -136,7 +136,7 @@ const Footer = () => {
 
           {/* Legal Links */}
           <div className='flex items-center gap-4 text-sm'>
-           {/*} <a
+            {/*} <a
               href='#'
               onClick={(e) => {
                 e.preventDefault();
