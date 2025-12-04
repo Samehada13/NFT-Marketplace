@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { TiArrowSortedDown, TiArrowSortedUp, TiTick } from 'react-icons/ti';
-
 import Style from './AuthorTaps.module.css';
-
 import { useTranslation } from 'react-i18next';
 
 const AuthorTaps = ({
@@ -43,11 +41,7 @@ const AuthorTaps = ({
   }, [activeBtn]);
 
   const openDropDownList = () => {
-    if (!openList) {
-      setOpenList(true);
-    } else {
-      setOpenList(false);
-    }
+    setOpenList(!openList);
   }
 
   const openTab = (e) => {
@@ -103,7 +97,8 @@ const AuthorTaps = ({
 
   return (
     <div className={Style.authorTaps}>
-      <div className="flex justify-between items-center w-full">
+      <div className={Style.authorTaps_container}>
+        {/* Tab Buttons */}
         <div className={Style.authorTaps_box_left}>
           <div className={Style.authorTaps_box_left_btn}>
             <button className={`${activeBtn == 1 ? Style.active : ""}`}
@@ -119,32 +114,33 @@ const AuthorTaps = ({
           </div>
         </div>
 
-        {/* Sorting Dropdown - Only show when not on About tab */}
+        {/* Controls - Only show when not on About tab */}
         {activeBtn !== 5 && (
-          <div className='relative'>
-            <div
-              className='flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-600 rounded-lg cursor-pointer hover:border-blue-400 transition-all duration-300'
-              onClick={openDropDownList}
-            >
-              <p className='text-sm font-medium text-gray-700 dark:text-gray-300'>
-                {sortOptions.find(opt => opt.value === sortBy)?.label || 'Sort By'}
-              </p>
-              {openList ? <TiArrowSortedUp className='text-gray-600 dark:text-gray-400' /> : <TiArrowSortedDown className='text-gray-600 dark:text-gray-400' />}
+          <div className={Style.authorTaps_controls}>
+            {/* Sort Dropdown */}
+            <div className={Style.sortDropdown}>
+              <button
+                className={Style.sortButton}
+                onClick={openDropDownList}
+              >
+                <span>{sortOptions.find(opt => opt.value === sortBy)?.label || 'Sort By'}</span>
+                {openList ? <TiArrowSortedUp /> : <TiArrowSortedDown />}
+              </button>
+              {openList && (
+                <div className={Style.sortMenu}>
+                  {sortOptions.map((option, i) => (
+                    <button
+                      key={i}
+                      onClick={() => handleSortChange(option.value)}
+                      className={`${Style.sortOption} ${sortBy === option.value ? Style.active : ''}`}
+                    >
+                      <span>{option.label}</span>
+                      {sortBy === option.value && <TiTick />}
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
-            {openList && (
-              <div className='absolute right-0 top-12 z-50 w-48 bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 rounded-lg shadow-xl overflow-hidden'>
-                {sortOptions.map((option, i) => (
-                  <div
-                    key={i}
-                    onClick={() => handleSortChange(option.value)}
-                    className='flex items-center justify-between px-4 py-3 cursor-pointer hover:bg-blue-50 dark:hover:bg-gray-700 transition-all duration-200'
-                  >
-                    <p className='text-sm text-gray-700 dark:text-gray-300'>{option.label}</p>
-                    {sortBy === option.value && <TiTick className='text-blue-600 dark:text-blue-400' />}
-                  </div>
-                ))}
-              </div>
-            )}
           </div>
         )}
       </div>

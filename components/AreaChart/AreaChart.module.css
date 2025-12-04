@@ -1,10 +1,7 @@
 .areaChart {
     background: var(--bg-main);
     border-radius: 1.5rem;
-    padding: 2rem;
     margin: 1.5rem;
-    box-shadow: 0.25rem 0.25rem 0.5rem var(--shadow-dark-color),
-        -0.25rem -0.25rem 0.5rem var(--shadow-light-color);
     transition: all 0.3s ease;
 }
 

@@ -17,7 +17,7 @@ const Profile = ({ currentAccount }) => {
           image
         </span>
       ),
-      text: t('navbar.profile.creator.myNfts'),
+      text: t('navbar.profile.creator.myProfile'),
       href: '/author',
     },
     /* {

@@ -9,6 +9,8 @@ import {
   AuthorTaps,
   AuthorNFTCardBox,
 } from '../authorPage/authorIndex';
+import HeroSection from '../authorPage/HeroSection/HeroSection';
+import RecentActivity from '../authorPage/RecentActivity/RecentActivity';
 import Filter from '../components/Filter/Filter';
 import FollowerTabCard from '../components/FollowerTab/FollowerTabCard/FollowerTabCard';
 import { useRouter } from 'next/router';
@@ -22,6 +24,7 @@ import NFTReviewDialogConfirmation from './NFTReviewDialogConfirmation';
 import { useTranslation } from 'react-i18next';
 import { generateSampleNFTs } from '../utils/sampleData';
 import NFTScatterChart from '../TopCreators/NFTScatterChart';
+import AreaChart from '../components/AreaChart/AreaChart';
 
 const author = ({ creators }) => {
   const [collectibles, setCollectibles] = useState(true);
@@ -29,9 +32,11 @@ const author = ({ creators }) => {
   const [like, setLike] = useState(false);
   const [follower, setFollower] = useState(false);
   const [following, setFollowing] = useState(false);
+  const [about, setAbout] = useState(false);
+  const [sortBy, setSortBy] = useState('recent');
   const [seller, setSeller] = useState('');
 
-    const {
+  const {
     fetchMyNFTsOrListedNFTs,
     fetchNFTsByAddressFromURL,
     currentAccount,
@@ -188,73 +193,88 @@ const author = ({ creators }) => {
 
     fetchNFTsWithBidsByBidder();
   }, [currentAccount, fetchNFTsWithBids]);
-  
-  console.log("NFTs", nfts);
-  return (
-    <div className='bg-body'>
-      <section className='flex flex-col bg-body rounded-lg p-6'>
-        <div className='bg-main p-6 rounded-lg'>
-          <NFTReviewDialogConfirmation
-            handleClose={handleCloseReviewDialog}
-            open={openReviewDialog}
-            seller={seller}
-            leaveSellerReview={leaveSellerReview}
-            tokenId={tokenId}
-          />
-          <AuthorProfileCard currentAccount={currentAccount} />
-          <AuthorTaps
-            setCollectibles={setCollectibles}
-            setCreated={setCreated}
-            setLike={setLike}
-            setFollower={setFollower}
-            setFollowing={setFollowing}
-          />
-          <AuthorNFTCardBox
-            collectibles={collectibles}
-            created={created}
-            like={like}
-            follower={follower}
-            following={following}
-            nfts={nfts}
-            myNFTs={myNFTs}
-            addressNFTs={addressNFTs}
-            nftsWithBids={nftsWithBids}
-            nftsWithBidsBidder={nftsWithBidsBidder}
-          />
-          {/* <div className={Style.author_scatter}>
-            </div> */}
 
-          <div className="flex flex-col">
-            <Title heading={t('pages.author.title')} />
-            <div className={Style.author_box}>
-              {currentAccount ? (
-                getSellVolume && getSellVolume.length > 0 ? (
-                  <div>
-                    
-                  </div>
-                ) : (
-                  <p>{t('pages.author.error.paragraph1')} </p>
-                )
-              ) : (
-                <p>{t('pages.author.error.paragraph2')} </p>
-              )}
-            </div>
-            <div className={Style.author_scatter}>
-                <NFTScatterChart nfts={nfts} />
-            </div>
-          </div>
-          {/* <div className={Style.rightContainer}>
-            <Title
-              style={{ fontSize: '5px' }}
-              heading='Feedback and Reviews'
+  // Calculate stats for hero section
+  const userStats = {
+    totalNFTs: nfts.length || 0,
+    totalSales: nfts.filter(nft => nft.sold).length || 0,
+    followers: 0, // TODO: Implement followers count
+    collectionValue: nfts.reduce((acc, nft) => acc + (parseFloat(nft.price) || 0), 0).toFixed(2) || '0'
+  };
+
+  console.log("NFTs", nfts);
+
+  return (
+    <div className='bg-body' style={{ background: 'var(--bg-body)' }}>
+      <NFTReviewDialogConfirmation
+        handleClose={handleCloseReviewDialog}
+        open={openReviewDialog}
+        seller={seller}
+        leaveSellerReview={leaveSellerReview}
+        tokenId={tokenId}
+      />
+
+      {/* New Hero Section */}
+      <HeroSection
+        currentAccount={currentAccount}
+        stats={userStats}
+        isOwnProfile={!router.query.address || router.query.address === currentAccount}
+      />
+
+      {/* Navigation Tabs */}
+      <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 32px' }}>
+        <AuthorTaps
+          setCollectibles={setCollectibles}
+          setCreated={setCreated}
+          setLike={setLike}
+          setFollower={setFollower}
+          setFollowing={setFollowing}
+          setAbout={setAbout}
+          sortBy={sortBy}
+          setSortBy={setSortBy}
+        />
+
+        {/* Main Content Area */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: '70% 30%',
+          gap: '32px',
+          marginBottom: '32px'
+        }}>
+          {/* Primary Content */}
+          <div>
+            <AuthorNFTCardBox
+              collectibles={collectibles}
+              created={created}
+              like={like}
+              follower={follower}
+              following={following}
+              nfts={nfts}
+              myNFTs={myNFTs}
+              addressNFTs={addressNFTs}
+              nftsWithBids={nftsWithBids}
+              nftsWithBidsBidder={nftsWithBidsBidder}
             />
-            <ReviewList
-              fetchReviewsForAddress={fetchReviewsForAddress}
-              currentAccount={currentAccount}
-            /> 
-          </div>*/}
+          </div>
+
+          {/* Sidebar */}
+          <div>
+            {/* Analytics Section */}
+            <div style={{
+              background: 'white',
+              borderRadius: '16px',
+              padding: '16px',
+              marginBottom: '24px'
+            }}>
+              <AreaChart />
+            </div>
+
+            {/* Recent Activity Timeline */}
+            <RecentActivity activities={[]} />
+          </div>
         </div>
-      </section>
+      </div>
+
       <Brand />
     </div>
   );
