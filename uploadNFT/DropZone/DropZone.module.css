@@ -169,8 +169,11 @@
 }
 
 .previewImage {
+    width: 100%;
     max-width: 100%;
+    height: auto;
     max-height: 400px;
+    object-fit: contain;
     display: block;
     margin: 0 auto;
     border-radius: 12px;
@@ -212,7 +215,11 @@
     }
 
     .previewImage {
-        max-width: 300px;
+        max-height: 300px;
+    }
+
+    .dropZonePreview {
+        padding: 1rem;
     }
 }
 
@@ -232,5 +239,22 @@
     .loadingAnimation {
         width: 100px;
         height: 100px;
+    }
+
+    .previewImage {
+        max-height: 250px;
+    }
+
+    .dropZone {
+        padding: 1rem;
+        border-width: 2px;
+    }
+
+    .dropZonePreview {
+        padding: 0.75rem;
+    }
+
+    .previewSuccess {
+        font-size: 0.9rem;
     }
 }
