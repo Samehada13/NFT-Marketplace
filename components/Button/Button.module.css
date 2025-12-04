@@ -1,16 +1,32 @@
 .button {
-  background-color: var(--primary-color);
   padding: 1rem 2rem;
-  border: 1px solid var(--primary-color);
   font-size: 1.1rem;
   border-radius: 2rem;
-  color: var(--shadow-light-color);
   cursor: pointer;
   transition: all 0.2s ease-in;
   box-shadow: var(--box-shadow);
+  border: 1px solid transparent;
 }
-.button:hover {
+
+.primary {
+  background-color: var(--primary-color);
+  color: var(--shadow-light-color);
+  border-color: var(--primary-color);
+}
+
+.primary:hover {
   background-color: var(--main-bg-color);
-  border: 1px solid var(--primary-color);
   color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+}
+
+.danger {
+  background-color: #ef4444;
+  color: #ffffff;
+  border-color: #ef4444;
+}
+
+.danger:hover {
+  background-color: #dc2626;
+  border-color: #dc2626;
 }

@@ -1,126 +1,230 @@
 .authorTaps {
   width: 100%;
-  margin: 4rem 0 3rem 0;
+  padding: 16px 32px;
+  background: white;
+  border-radius: 16px;
+  margin-bottom: 32px;
 }
-.authorTaps_box {
-  width: 80%;
+
+.authorTaps_container {
+  max-width: 1400px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  gap: 24px;
 }
+
+.authorTaps_box_left {
+  flex: 1;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.authorTaps_box_left::-webkit-scrollbar {
+  display: none;
+}
+
 .authorTaps_box_left_btn {
   display: flex;
-  gap: 2rem;
+  gap: 12px;
   align-items: center;
 }
+
 .authorTaps_box_left_btn button {
-  border: 1px solid var(--primary-color);
-  outline: 0;
-  background-color: var(--main-bg-color);
-  font-size: 1.2rem;
-  border-radius: 2rem;
+  padding: 8px 24px;
+  border-radius: 24px;
+  font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease-in;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  outline: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  background: transparent;
   color: var(--primary-color);
-  padding: 0.5rem 1rem;
-  display: grid;
-}
-.authorTaps_box_left_btn .active {
-  border: 1px solid var(--primary-color);
-  background-color: var(--primary-color);
-  color: var(--main-bg-color);
-}
-.authorTaps_box_left_btn button:hover {
-  border: 1px solid var(--primary-color);
-  background-color: var(--primary-color);
-  color: var(--main-bg-color);
-}
-.authorTaps_box_right {
   position: relative;
 }
-.authorTaps_box_right_para {
-  border: 1px solid var(--primary-color);
-  border-radius: 2rem;
-  width: 17.5rem;
-  padding: 0 2rem;
+
+.authorTaps_box_left_btn button:hover {
+  background: rgba(149, 101, 232, 0.1);
+}
+
+.authorTaps_box_left_btn .active {
+  background: var(--primary-color);
+  color: white;
+}
+
+.authorTaps_box_left_btn .active:hover {
+  background: var(--primary-color);
+  color: white;
+}
+
+/* Tab controls right side */
+.authorTaps_controls {
+  display: flex;
+  gap: 12px;
   align-items: center;
-  gap: 1rem;
+  flex-shrink: 0;
+}
+
+.viewToggle {
+  display: flex;
+  gap: 4px;
+  background: #f3f4f6;
+  padding: 4px;
+  border-radius: 8px;
+}
+
+.viewButton {
+  padding: 8px 12px;
+  border: none;
+  background: transparent;
   cursor: pointer;
-  grid-template-columns: 9fr 1fr;
-  display: grid;
+  border-radius: 6px;
+  color: #6b7280;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.authorTaps_box_right_para p {
-  font-size: 1.2rem;
-  line-height: 0.5;
+
+.viewButton:hover {
+  color: var(--primary-color);
 }
-.authorTaps_box_right_list {
-  background-color: var(--main-bg-color);
-  padding: 1rem;
-  width: 16rem;
-  left: -3rem;
+
+.viewButton.active {
+  background: white;
+  color: var(--primary-color);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.sortDropdown {
+  position: relative;
+}
+
+.sortButton {
+  padding: 10px 16px;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  background: white;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.sortButton:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+.sortMenu {
   position: absolute;
-  z-index: 111111111;
-  border-radius: 1rem;
-  margin-top: 1.5rem;
-  box-shadow: var(--box-shadow);
+  top: calc(100% + 8px);
+  right: 0;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  min-width: 200px;
+  padding: 8px;
+  z-index: 1000;
 }
-.authorTaps_box_right_list_item {
+
+.sortOption {
+  width: 100%;
+  padding: 12px 16px;
+  border: none;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #374151;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  line-height: 0;
-  padding-right: 1rem;
+  transition: background 0.2s ease;
 }
-.authorTaps_box_right_list_item p {
-  transition: all 0.3s ease-in;
-  padding: 0 1rem;
-  line-height: 1;
-  cursor: pointer;
+
+.sortOption:hover {
+  background: #f3f4f6;
 }
-.authorTaps_box_right_list_item:hover {
-  background-color: var(--primary-color);
-  color: var(--main-bg-color);
-  border-radius: 0.2rem;
+
+.sortOption.active {
+  background: #ede9fe;
+  color: var(--primary-color);
+  font-weight: 600;
 }
-@media screen and (max-width: 35em) {
+
+.sortOption svg {
+  color: var(--primary-color);
+}
+
+/* Responsive Design */
+@media screen and (max-width: 1024px) {
   .authorTaps {
-    margin: 3rem 0 3rem 0;
+    padding: 12px 24px;
   }
-  .authorTaps_box {
-    width: 90%;
-    display: grid;
-    grid-template-columns: 1fr;
+
+  .authorTaps_container {
+    flex-direction: column;
+    align-items: stretch;
   }
-  .authorTaps_box_left_btn {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-    box-shadow: var(--box-shadow);
-    padding: 0.5rem;
-    border-radius: 1rem;
-    padding: 2rem 1rem;
-  }
-  .authorTaps_box_right {
-    margin-top: 2rem;
-  }
-  .authorTaps_box_right_para {
+
+  .authorTaps_box_left {
     width: 100%;
   }
-  .authorTaps_box_right_list {
-    left: 4rem;
+
+  .authorTaps_controls {
+    justify-content: space-between;
+    width: 100%;
   }
 }
-@media screen and (min-device-width: 768px) and (max-device-width: 1024px) {
-  .authorTaps_box {
-    width: 90%;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2rem;
+
+@media screen and (max-width: 768px) {
+  .authorTaps {
+    padding: 12px 16px;
   }
-  .authorTaps_box_right_list {
-    left: 7rem;
+
+  .authorTaps_box_left_btn button {
+    padding: 10px 20px;
+    font-size: 14px;
   }
-  .authorTaps_box_right_para {
+
+  .sortButton {
+    font-size: 13px;
+    padding: 8px 12px;
+  }
+
+  .viewToggle {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .authorTaps_box_left_btn {
+    gap: 8px;
+  }
+
+  .authorTaps_box_left_btn button {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+
+  .authorTaps_controls {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .sortButton {
     width: 100%;
+    justify-content: space-between;
   }
 }

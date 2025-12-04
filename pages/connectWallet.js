@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import Image from 'next/image';
 
 import Style from '../styles/connectWallet.module.css';
@@ -8,60 +8,241 @@ import { NFTMarketplaceContext } from '../context/NFTMarketplaceContext';
 
 import { useTranslation } from 'react-i18next';
 
-const connectWallet = () => {
-  const [activeBtn, setActiveBtn] = useState(1);
+const ConnectWallet = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const [isConnecting, setIsConnecting] = useState(false);
   const { currentAccount, connectWallet } = useContext(NFTMarketplaceContext);
-  const providerArray = [
+  const { t } = useTranslation();
+
+  // Enhanced wallet data with features and descriptions
+  const walletProviders = [
     {
       provider: image.provider1,
-      name: 'Metamask',
+      name: 'MetaMask',
+      tagline: "World's most popular wallet",
+      features: [
+        { icon: '🦊', text: 'Browser extension & mobile app' },
+        { icon: '🔒', text: 'Bank-level security' },
+        { icon: '⚡', text: 'Built-in token swap' }
+      ],
+      trustIndicator: '30M+ users worldwide',
+      badge: 'Recommended',
+      bgGradient: 'linear-gradient(135deg, #f6851b 0%, #e2761b 100%)'
     },
     {
       provider: image.provider2,
       name: 'WalletConnect',
+      tagline: 'Connect from any wallet app',
+      features: [
+        { icon: '📱', text: '300+ wallet support' },
+        { icon: '🔗', text: 'Universal connection' },
+        { icon: '📸', text: 'QR code scan' }
+      ],
+      trustIndicator: 'Industry standard',
+      badge: null,
+      bgGradient: 'linear-gradient(135deg, #3b99fc 0%, #2d7dd2 100%)'
     },
     {
       provider: image.provider3,
-      name: 'WalletLink',
+      name: 'Coinbase Wallet',
+      tagline: 'Trusted by millions',
+      features: [
+        { icon: '💰', text: 'Buy crypto built-in' },
+        { icon: '👥', text: 'User-friendly interface' },
+        { icon: '🏦', text: 'Backed by Coinbase' }
+      ],
+      trustIndicator: '10M+ downloads',
+      badge: 'Popular',
+      bgGradient: 'linear-gradient(135deg, #0052ff 0%, #0041cc 100%)'
     },
     {
       provider: image.provider4,
-      name: 'Formatic',
-    },
+      name: 'Fortmatic',
+      tagline: 'Email & password simplicity',
+      features: [
+        { icon: '✉️', text: 'No extension needed' },
+        { icon: '🔐', text: 'Social login support' },
+        { icon: '🎓', text: 'Beginner-friendly' }
+      ],
+      trustIndicator: 'Easy to start',
+      badge: 'Best for beginners',
+      bgGradient: 'linear-gradient(135deg, #6851ff 0%, #5641cc 100%)'
+    }
   ];
 
-  const { t } = useTranslation();
+  // Auto-advance carousel
+  useEffect(() => {
+    if (!isAutoPlaying) return;
+
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % walletProviders.length);
+    }, 5000); // 5 seconds
+
+    return () => clearInterval(interval);
+  }, [isAutoPlaying, walletProviders.length]);
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyPress = (e) => {
+      if (e.key === 'ArrowLeft') {
+        goToPrevious();
+      } else if (e.key === 'ArrowRight') {
+        goToNext();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, [currentIndex]);
+
+  const goToNext = useCallback(() => {
+    setCurrentIndex((prev) => (prev + 1) % walletProviders.length);
+    setIsAutoPlaying(false);
+  }, [walletProviders.length]);
+
+  const goToPrevious = useCallback(() => {
+    setCurrentIndex((prev) => (prev - 1 + walletProviders.length) % walletProviders.length);
+    setIsAutoPlaying(false);
+  }, [walletProviders.length]);
+
+  const goToIndex = useCallback((index) => {
+    setCurrentIndex(index);
+    setIsAutoPlaying(false);
+  }, []);
+
+  const handleConnect = async () => {
+    setIsConnecting(true);
+    try {
+      await connectWallet();
+    } finally {
+      setTimeout(() => setIsConnecting(false), 1000);
+    }
+  };
+
+  const getCardClass = (index) => {
+    if (index === currentIndex) return `${Style.walletCard} ${Style.active}`;
+    if (index === (currentIndex - 1 + walletProviders.length) % walletProviders.length) {
+      return `${Style.walletCard} ${Style.prev}`;
+    }
+    if (index === (currentIndex + 1) % walletProviders.length) {
+      return `${Style.walletCard} ${Style.next}`;
+    }
+    return `${Style.walletCard} ${Style.hidden}`;
+  };
 
   return (
-    <div className="flex flex-1 w-full min-h-[calc(80vh)] px-6 pt-6 justify-center">
-      <div className='flex flex-col justify-start px-6 items-start text-left'>
-        <section className='flex w-full items-center gap-3 '>
-          <div className='w-1 h-14 bg-gradient-to-b from-violet-500 to-pink-500 rounded-full' />
-          <div className='flex flex-col text-start'>
-            <h1 className='text-3xl font-bold text-[var(--primary-color)]'>
-              {t('pages.connectWallet.h1')}
-            </h1>
-            <p className=''>{t('pages.connectWallet.paragraph')}</p>
+    <div className={Style.connectWallet}>
+      {/* Header Section */}
+      <div className={Style.header}>
+        <div className={Style.headerContent}>
+          <div className={Style.headerText}>
+            <h1>{t('pages.connectWallet.h1')}</h1>
+            <p>{t('pages.connectWallet.paragraph')}</p>
           </div>
-        </section>
+        </div>
+        <div className={Style.stepIndicator}>Step 1 of 2</div>
+      </div>
 
-        <div className="flex flex-col w-full justify-center items-center gap-3">
-          {providerArray.map((el, i) => (
-            <div
-              className={`${Style.connectWallet_box_provider_item} 
-                    ${activeBtn == i + 1 ? Style.active : ''}`}
-              key={i + 1}
-              onClick={() => (setActiveBtn(i + 1), connectWallet())}
-            >
-              <Image
-                src={el.provider}
-                alt={el.provider}
-                width={50}
-                height={50}
-                className={Style.connectWallet_box_provider_item_img}
-              />
-              <p>{el.name}</p>
-            </div>
+      {/* Carousel Container */}
+      <div className={Style.carouselContainer}>
+        {/* Main Carousel */}
+        <div
+          className={Style.carouselWrapper}
+          onMouseEnter={() => setIsAutoPlaying(false)}
+          onMouseLeave={() => setIsAutoPlaying(true)}
+        >
+          {/* Wallet Cards */}
+          <div className={Style.carouselTrack}>
+            {walletProviders.map((wallet, index) => (
+              <div
+                key={index}
+                className={getCardClass(index)}
+                onClick={() => {
+                  if (index === currentIndex) {
+                    handleConnect();
+                  } else if (index === (currentIndex - 1 + walletProviders.length) % walletProviders.length) {
+                    goToPrevious();
+                  } else if (index === (currentIndex + 1) % walletProviders.length) {
+                    goToNext();
+                  }
+                }}
+              >
+                {/* Background Gradient */}
+                <div className={Style.cardBackground} />
+
+                {/* Visual Identity Zone */}
+                <div className={Style.visualZone}>
+                  <div className={Style.walletLogo}>
+                    <Image
+                      src={wallet.provider}
+                      alt={wallet.name}
+                      width={80}
+                      height={80}
+                    />
+                  </div>
+                  <div className={Style.walletInfo}>
+                    <h3>{wallet.name}</h3>
+                    <p className={Style.walletTagline}>{wallet.tagline}</p>
+                    {wallet.badge && (
+                      <div className={Style.badges}>
+                        <span className={`${Style.badge} ${wallet.badge === 'Recommended' ? Style.recommended : ''}`}>
+                          ⭐ {wallet.badge}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Information Zone */}
+                <div className={Style.infoZone}>
+                  <ul className={Style.features}>
+                    {wallet.features.map((feature, i) => (
+                      <li key={i} className={Style.featureItem}>
+                        <span className={Style.featureIcon}>{feature.icon}</span>
+                        <span>{feature.text}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className={Style.trustIndicator}>
+                    <strong>{wallet.trustIndicator}</strong>
+                    <span>Secure & Reliable</span>
+                  </div>
+                </div>
+
+                {/* Action Zone */}
+                <div className={Style.actionZone}>
+                  <button className={Style.connectButton} onClick={(e) => {
+                    e.stopPropagation();
+                    handleConnect();
+                  }}>
+                    {isConnecting ? 'Connecting...' : 'Connect Wallet'}
+                  </button>
+                  <div className={Style.quickNote}>
+                    ⚡ Connect in under 30 seconds
+                  </div>
+                </div>
+
+                {/* Loading State */}
+                {isConnecting && index === currentIndex && (
+                  <div className={Style.loading}>
+                    <div className={Style.spinner} />
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Dot Indicators */}
+        <div className={Style.dotIndicators}>
+          {walletProviders.map((_, index) => (
+            <button
+              key={index}
+              className={`${Style.dot} ${index === currentIndex ? Style.active : ''}`}
+              onClick={() => goToIndex(index)}
+              aria-label={`Go to wallet ${index + 1}`}
+            />
           ))}
         </div>
       </div>
@@ -69,4 +250,4 @@ const connectWallet = () => {
   );
 };
 
-export default connectWallet;
+export default ConnectWallet;

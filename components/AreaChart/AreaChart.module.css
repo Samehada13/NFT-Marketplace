@@ -1,0 +1,128 @@
+.areaChart {
+    background: var(--bg-main);
+    border-radius: 1.5rem;
+    margin: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.chartHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin: 0;
+}
+
+.subtitle {
+    font-size: 0.95rem;
+    color: var(--border-color);
+    margin: 0.25rem 0 0 0;
+}
+
+.stats {
+    display: flex;
+    gap: 2rem;
+}
+
+.statItem {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.statLabel {
+    font-size: 0.85rem;
+    color: var(--border-color);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.statValue {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-accent);
+    margin-top: 0.25rem;
+}
+
+.chartContainer {
+    position: relative;
+    width: 100%;
+    min-height: 300px;
+}
+
+/* Custom Tooltip Styles */
+.customTooltip {
+    background: rgba(255, 255, 255, 0.98);
+    border: 2px solid var(--primary-color);
+    border-radius: 0.75rem;
+    padding: 1rem 1.5rem;
+    box-shadow: 0 4px 12px rgba(149, 101, 232, 0.2);
+}
+
+.tooltipDay {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin: 0 0 0.5rem 0;
+    text-align: center;
+}
+
+.tooltipVolume,
+.tooltipSales {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin: 0.25rem 0;
+    font-size: 0.9rem;
+}
+
+.tooltipLabel {
+    color: var(--border-color);
+    font-weight: 500;
+}
+
+.tooltipValue {
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .areaChart {
+        padding: 1.5rem;
+        margin: 1rem;
+    }
+
+    .chartHeader {
+        flex-direction: column;
+    }
+
+    .stats {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .statItem {
+        align-items: flex-start;
+    }
+
+    .title {
+        font-size: 1.5rem;
+    }
+
+    .statValue {
+        font-size: 1.25rem;
+    }
+
+    .chartContainer {
+        min-height: 250px;
+    }
+}

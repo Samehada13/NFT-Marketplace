@@ -1,66 +1,260 @@
-/* DropZone.module.css */
+/* ==================== DROPZONE CONTAINER ==================== */
 .dropZone {
-  width: 100%;
-  margin-block: 3rem;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 3rem;
+    border: 3px dashed var(--primary-color);
+    border-radius: 16px;
+    background: linear-gradient(135deg, #f9f9ff, #fff);
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.dropZone:hover {
+    border-color: var(--primary-accent);
+    background: linear-gradient(135deg, #f5f5ff, #fefefe);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(149, 101, 232, 0.15);
 }
 
 .dropZoneBox {
-  border: 5px dotted var(--primary-color);
-  border-radius: 1rem;
-  text-align: center;
-  cursor: pointer;
-  padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
 }
 
 .dropZoneBoxInput {
-  line-height: 0;
+    display: none;
+}
+
+/* ==================== UPLOAD ICON & TEXT ==================== */
+.dropZoneBoxIcon {
+    font-size: 4rem;
+    color: var(--primary-color);
+    animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
 }
 
 .dropZoneBoxTitle {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
-}
-
-.dropZoneBoxImage {
-  border-radius: 1rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #333;
+    margin: 0;
 }
 
 .dropZoneBoxHeading {
-  font-size: 1.2rem;
-  font-weight: bold;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin: 0;
 }
 
 .dropZoneBoxSubHeading {
-  font-size: 1rem;
-  color: var(--text-secondary);
+    font-size: 0.9rem;
+    color: #999;
+    margin: 0;
 }
 
-.dropZoneAside {
-  padding: 2rem;
-  border: 3px dotted var(--primary-color);
-  margin-top: 3rem;
-  border-radius: 1rem;
+/* ==================== LOADING STATE ==================== */
+.loadingContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 2rem;
+    width: 100%;
+    text-align: center;
 }
 
-.dropZoneAsideBox {
-  display: grid;
-  grid-template-columns: 1.5fr 4fr;
-  gap: 3rem;
+.dropZoneLoading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 2rem;
+    width: 100%;
+    text-align: center;
 }
 
-.dropZoneAsideBoxPreview {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
+.loadingAnimation {
+    width: 150px;
+    height: 150px;
 }
 
-.dropZoneAsideBoxPreviewItem {
-  flex: 1 1 100%;
+.loadingText {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    animation: pulse 1.5s ease-in-out infinite;
 }
 
-@media screen and (max-width: 35em) {
-  .dropZoneAsideBox {
-    grid-template-columns: 1fr;
-  }
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* ==================== SUCCESS PREVIEW ==================== */
+.dropZonePreview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 2rem;
+}
+
+.previewSuccess {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #4caf50;
+}
+
+.successContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 2rem;
+}
+
+.successIcon {
+    font-size: 3rem;
+    color: #4caf50;
+    animation: scaleIn 0.5s ease;
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.successMessage {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #4caf50;
+    margin: 0;
+}
+
+.previewImage {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    max-height: 400px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media screen and (max-width: 768px) {
+    .dropZone {
+        padding: 2rem;
+    }
+
+    .dropZoneBoxIcon {
+        font-size: 3rem;
+    }
+
+    .dropZoneBoxTitle {
+        font-size: 1.2rem;
+    }
+
+    .dropZoneBoxHeading {
+        font-size: 1rem;
+    }
+
+    .loadingAnimation {
+        width: 120px;
+        height: 120px;
+    }
+
+    .previewImage {
+        max-height: 300px;
+    }
+
+    .dropZonePreview {
+        padding: 1rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .dropZone {
+        padding: 1.5rem;
+    }
+
+    .dropZoneBoxIcon {
+        font-size: 2.5rem;
+    }
+
+    .dropZoneBoxTitle {
+        font-size: 1.1rem;
+    }
+
+    .loadingAnimation {
+        width: 100px;
+        height: 100px;
+    }
+
+    .previewImage {
+        max-height: 250px;
+    }
+
+    .dropZone {
+        padding: 1rem;
+        border-width: 2px;
+    }
+
+    .dropZonePreview {
+        padding: 0.75rem;
+    }
+
+    .previewSuccess {
+        font-size: 0.9rem;
+    }
 }

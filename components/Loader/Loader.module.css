@@ -11,6 +11,9 @@
     margin-bottom: 14rem;
     margin-top: -2rem;
     animation: anim 4s infinite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 @keyframes anim {

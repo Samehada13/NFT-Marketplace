@@ -19,7 +19,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 1.5rem;
-    padding: 1.6rem;
+    padding: 0 1.6rem 1.6rem 1.6rem;
 }
 
 .gridItem {
@@ -159,7 +159,7 @@
     left: 0;
     right: 0;
     padding: 1.5rem 1.25rem 1.25rem;
-    background: linear-gradient(0deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.7) 50%, rgba(0,0,0,0) 100%);
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.7) 50%, rgba(0, 0, 0, 0) 100%);
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -381,11 +381,11 @@
     .gridContainer {
         grid-template-columns: 1fr 1fr;
     }
-    
+
     .nftName {
         font-size: 0.8125rem;
     }
-    
+
     .priceValue,
     .likeCounter {
         font-size: 0.8125rem;
