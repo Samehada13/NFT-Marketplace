@@ -17,16 +17,16 @@ const Profile = ({ currentAccount }) => {
           image
         </span>
       ),
-      text: t('navbar.profile.creator.myNfts'),
+      text: t('navbar.profile.creator.myProfile'),
       href: '/author',
     },
-    {
+    /* {
       icon: (
         <span className='material-symbol material-symbol--md'>person_edit</span>
       ),
       text: t('navbar.profile.creator.editProfile'),
       href: '/account',
-    },
+    },*/
     { type: 'divider' },
     {
       icon: <span className='material-symbol material-symbol--md'>help</span>,

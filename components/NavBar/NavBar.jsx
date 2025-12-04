@@ -19,7 +19,7 @@ const NavBar = () => {
   const [profile, setProfile] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const router = useRouter();
-  const { currentAccount, connectWallet, openError } = useContext(
+  const { currentAccount, connectWallet } = useContext(
     NFTMarketplaceContext
   );
   const { t } = useTranslation();
@@ -63,9 +63,8 @@ const NavBar = () => {
                       <Menu.Button className='inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-md transition-colors'>
                         {t('navbar.discover')}
                         <ChevronDownIcon
-                          className={`ml-1 h-4 w-4 transition-transform ${
-                            open ? 'rotate-180' : ''
-                          }`}
+                          className={`ml-1 h-4 w-4 transition-transform ${open ? 'rotate-180' : ''
+                            }`}
                         />
                       </Menu.Button>
                       <Transition
@@ -95,9 +94,8 @@ const NavBar = () => {
                       <Menu.Button className='inline-flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-md transition-colors'>
                         {t('navbar.helpCenter')}
                         <ChevronDownIcon
-                          className={`ml-1 h-4 w-4 transition-transform ${
-                            open ? 'rotate-180' : ''
-                          }`}
+                          className={`ml-1 h-4 w-4 transition-transform ${open ? 'rotate-180' : ''
+                            }`}
                         />
                       </Menu.Button>
                       <Transition
@@ -177,9 +175,9 @@ const NavBar = () => {
               </Menu>
 
               {/* Language Switcher */}
-              <div>
+              {/*<div>
                 <LanguageSwitcher />
-              </div>
+              </div> */}
             </div>
 
             {/* Mobile menu button */}
@@ -228,9 +226,8 @@ const NavBar = () => {
                     <Disclosure.Button className='flex justify-between w-auto px-4 py-2 text-sm font-medium text-left text-gray-700 bg-gray-50 rounded-lg hover:bg-gray-100'>
                       <span>{t('navbar.discover')}</span>
                       <ChevronDownIcon
-                        className={`${
-                          open ? 'rotate-180 transform' : ''
-                        } h-5 w-5 text-gray-500`}
+                        className={`${open ? 'rotate-180 transform' : ''
+                          } h-5 w-5 text-gray-500`}
                       />
                     </Disclosure.Button>
                     <Transition
@@ -261,9 +258,8 @@ const NavBar = () => {
                     <Disclosure.Button className='flex justify-between w-auto px-4 py-2 text-sm font-medium text-left text-gray-700 bg-gray-50 rounded-lg hover:bg-gray-100'>
                       <span>{t('navbar.helpCenter')}</span>
                       <ChevronDownIcon
-                        className={`${
-                          open ? 'rotate-180 transform' : ''
-                        } h-5 w-5 text-gray-500`}
+                        className={`${open ? 'rotate-180 transform' : ''
+                          } h-5 w-5 text-gray-500`}
                       />
                     </Disclosure.Button>
                     <Transition
@@ -327,16 +323,16 @@ const NavBar = () => {
               </div>
 
               {/* Language Switcher Mobile */}
-              <div className='px-4 py-2'>
+              {/* <div className='px-4 py-2'>
                 <LanguageSwitcher />
-              </div>
+              </div> */}
             </div>
           </div>
         </Transition>
       </nav>
 
-      {/* Error Modal */}
-      {openError && <Error />}
+      {/* Error Modal - REMOVED: Using toast notifications instead */}
+      {/* {openError && <Error />} */}
     </div>
   );
 };

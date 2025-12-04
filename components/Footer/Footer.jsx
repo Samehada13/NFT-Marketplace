@@ -26,7 +26,7 @@ const Footer = () => {
           {/* Brand Section */}
           <div className='space-y-4'>
             <div className='relative w-24 h-24'>
-              <h1 className='text-white text-4xl font-semibold'>GABR</h1>
+              <h1 className='text-white text-4xl font-semibold'>PIXEL SPACE</h1>
             </div>
             {/* <p className='text-white leading-relaxed text-sm'>
               {t('pages.home.footer.paragraph')}
@@ -67,7 +67,7 @@ const Footer = () => {
                 className='w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all'
               />
               <button className='absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-amber-500 hover:bg-amber-600 rounded-md transition-colors'>
-                <RiSendPlaneFill className='text-white text-lg' />
+                <RiSendPlaneFill className='text-lg text-gray-900' />
               </button>
             </div>
 
@@ -130,13 +130,13 @@ const Footer = () => {
           {/* Copyright */}
           <div className='text-center lg:text-left'>
             <p className='text-white text-sm'>
-              &copy; {new Date().getFullYear()} GABR. All rights reserved.
+              &copy; {new Date().getFullYear()} PIXEL SPACE. All rights reserved.
             </p>
           </div>
 
           {/* Legal Links */}
           <div className='flex items-center gap-4 text-sm'>
-            <a
+            {/*} <a
               href='#'
               onClick={(e) => {
                 e.preventDefault();
@@ -145,7 +145,7 @@ const Footer = () => {
               className='text-white hover:text-violet-600 transition-colors'
             >
               Privacy Policy
-            </a>
+            </a>*/}
             <span className='text-white'>|</span>
             <a
               href='#'

@@ -16,7 +16,7 @@ const Subscription = () => {
         <div className={Style.subscription_box_info}>
           <h1>Privacy and Policy</h1>
           <p>
-            Thus, by submitting to us your personal data in the framework of An NFT Marketplace for Graphic Artists in Bicol Region (as a part of our “An NFT marketplace platform and related services”), you also agree upon the practices described here as well as what I have mentioned before this part. As your personal data and privacy guardian we are 120% committed to the protection and sanctity of any information that passes through us.
+            Thus, by submitting to us your personal data in the framework of An NFT Marketplace for Graphic Artists in Camarines Norte (as a part of our “An NFT marketplace platform and related services”), you also agree upon the practices described here as well as what I have mentioned before this part. As your personal data and privacy guardian we are 120% committed to the protection and sanctity of any information that passes through us.
           </p>
           <p>
             Your use of this NFT platform is your acknowledgment that your information will be collected, used, and disclosed as set out in this Privacy Policy. If the users do not want to be a party to any policies, then it is advised not to avail the service.

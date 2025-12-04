@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react'
-import Image from 'next/image'
+import Lottie from 'lottie-react'
 
 import Style from './Error.module.css'
 import image from '../../img'
@@ -12,9 +12,9 @@ const Error = () => {
     <div className={Style.error} onClick={() => setOpenError(false)}>
         <div className={Style.error_box}>
             <div className={Style.error_box_info}>
-                <Image alt="error" src={image.error} width={200} height={200} 
+                <Lottie animationData={image.error} loop={true} style={{width: 250, height: 250}} 
                 className={Style.error_box_info_img}/>
-                <p>{error}</p>
+                <p className='!text-2xl'>{error}</p>
             </div>
         </div>
     </div>

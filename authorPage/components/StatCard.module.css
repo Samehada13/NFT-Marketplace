@@ -1,0 +1,114 @@
+.statCard {
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    min-height: 120px;
+    display: flex;
+    align-items: center;
+}
+
+.statCard:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+.cardContent {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+}
+
+.iconWrapper {
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.icon {
+    font-size: 24px;
+    color: white;
+}
+
+.textContent {
+    flex: 1;
+}
+
+.title {
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0 0 4px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.value {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.change {
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 4px;
+    display: inline-block;
+}
+
+.change.positive {
+    color: #10b981;
+}
+
+.change.negative {
+    color: #ef4444;
+}
+
+/* Gradient variants */
+.gradientBlue {
+    --gradient-start: #3b82f6;
+    --gradient-end: #1d4ed8;
+}
+
+.gradientGreen {
+    --gradient-start: #10b981;
+    --gradient-end: #059669;
+}
+
+.gradientPurple {
+    --gradient-start: #9565e8;
+    --gradient-end: #7c3aed;
+}
+
+.gradientOrange {
+    --gradient-start: #f59e0b;
+    --gradient-end: #d97706;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+    .statCard {
+        padding: 16px;
+        min-height: 100px;
+    }
+
+    .icon {
+        font-size: 20px;
+    }
+
+    .value {
+        font-size: 20px;
+    }
+
+    .title {
+        font-size: 11px;
+    }
+}

@@ -57,13 +57,13 @@ import provider1 from './provider1.png';
 import provider2 from './provider2.png';
 import provider3 from './provider3.png';
 import provider4 from './provider4.png';
-import Loader from './Loading_2.gif';
-import error from './error.gif';
+import loader from './loading.json';
+import errorAnimation from './error.json';
 
 
 export default {
-  error,
-  Loader,
+  error: errorAnimation,
+  Loader: loader,
   provider1,
   provider2,
   provider3,

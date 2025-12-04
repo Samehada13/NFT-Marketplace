@@ -12,7 +12,7 @@ const terms = () => {
         <div className={Style.subscription_box_info}>
           <h1>Terms of Service</h1>
           <p>
-            Welcome to An NFT Marketplace for Graphic Artists in Bicol Region. These Terms of Service govern your access to and use of our NFT marketplace platform and related services. By accessing or using our platform, you agree to be bound by these Terms. If you do not agree to these Terms, please do not use our services.
+            Welcome to An NFT Marketplace for Graphic Artists in Camarines Norte. These Terms of Service govern your access to and use of our NFT marketplace platform and related services. By accessing or using our platform, you agree to be bound by these Terms. If you do not agree to these Terms, please do not use our services.
           </p>
           <h2>1. Acceptance of Terms:</h2>
           <p>

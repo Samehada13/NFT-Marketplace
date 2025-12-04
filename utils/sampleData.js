@@ -14,7 +14,7 @@ const nftsaleImages = [nftsale1, nftsale2, nftsale3, nftsale4, nftsale5, nftsale
 
 // Generate sample NFT data for testing charts
 export const generateSampleNFTs = (count = 20) => {
-  const categories = ['Art', 'Photography', 'Collectibles', 'Music', 'Trading Cards'];
+  const categories = ['Painting', 'Drawing', 'Sculpture', 'Printmaking', 'Photography', 'Digital Art'];
   const names = [
     'Digital Dream', 'Crypto Art #', 'Pixel Punks ', 'Ethereal ', 'Blockchain Beauty ',
     'NFT Masterpiece ', 'Digital Wonder ', 'Crypto Gem ', 'Art Block ', 'Tokenized Art '

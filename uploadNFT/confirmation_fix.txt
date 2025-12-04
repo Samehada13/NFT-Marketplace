@@ -1,0 +1,54 @@
+.confirmationItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.confirmationLabel {
+  font-weight: 600;
+  color: #666;
+}
+
+.confirmationValue {
+  font-weight: 700;
+  color: #333;
+}
+
+.confirmationActions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.confirmationBtnYes {
+  flex: 1;
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-accent)) !important;
+  color: white !important;
+  padding: 1rem !important;
+  border-radius: 10px !important;
+  font-weight: 700 !important;
+  border: none !important;
+  transition: all 0.3s ease !important;
+}
+
+.confirmationBtnYes:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 24px rgba(149, 101, 232, 0.4) !important;
+}
+
+.confirmationBtnNo {
+  flex: 1;
+  background: white !important;
+  color: #666 !important;
+  padding: 1rem !important;
+  border-radius: 10px !important;
+  font-weight: 700 !important;
+  border: 2px solid #e0e0e0 !important;
+  transition: all 0.3s ease !important;
+}
+
+.confirmationBtnNo:hover {
+  border-color: #ff5252 !important;
+  color: #ff5252 !important;
+}

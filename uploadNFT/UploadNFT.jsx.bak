@@ -1,0 +1,667 @@
+// React & Next.js Imports
+import React, { useState } from 'react';
+import { useRouter } from 'next/router';
+import Image from 'next/image';
+
+// Icons
+import { TiTick } from 'react-icons/ti';
+import { MdCloudUpload, MdInfo, MdDescription, MdCheckCircle } from 'react-icons/md';
+
+// Styles
+import Style from './UploadNFT.module.css';
+
+// Assets
+import images from '../img';
+
+// Components
+import { Button } from '../components/componentIndex';
+import { DropZone } from '../uploadNFT/UploadNFTIndex';
+import { FormInput, FormTextarea } from './FormComponents/FormInput';
+
+const UploadNFT = ({ uploadIPFS, createNFT }) => {
+  const router = useRouter();
+
+  // Stepper State
+  const [currentStep, setCurrentStep] = useState(1);
+  const totalSteps = 4;
+
+  // Form State
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState("");
+  const [website, setWebsite] = useState("");
+  const [description, setDescription] = useState("");
+  const [properties, setProperties] = useState("");
+  const [errorRoyalties, setErrorRoyalties] = useState("");
+
+  // Category Data
+  const categoryArray = [
+    { image: images.nftsale1, category: "Painting" },
+    { image: images.nftsale2, category: "Drawing" },
+    { image: images.nftsale3, category: "Sculpture" },
+    { image: images.nftsale4, category: "Printmaking" },
+    { image: images.nftsale8, category: "Photography" },
+    { image: images.nftsale6, category: "Digital Art" },
+  ];
+
+  // Step Configuration
+  const steps = [
+    { number: 1, label: 'Upload Image', icon: MdCloudUpload },
+    { number: 2, label: 'Basic Info', icon: MdInfo },
+    { number: 3, label: 'Details', icon: MdDescription },
+    { number: 4, label: 'Review & Mint', icon: MdCheckCircle },
+  ];
+
+  // Validation Functions
+  const validateStep = (step) => {
+    switch (step) {
+      case 1:
+        return image !== null;
+      case 2:
+        return name.length > 0 && name.length <= 32 && price && !isNaN(price) && active > 0;
+      case 3:
+        return true;
+      default:
+        return true;
+    }
+  };
+
+  // Navigation Functions
+  const nextStep = () => {
+    if (currentStep < totalSteps && validateStep(currentStep)) {
+      setCurrentStep(currentStep + 1);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      if (currentStep === 2) {
+        if (!name) setErrorName("NFT name is required");
+        if (!price || isNaN(price)) setErrorPrice("Valid price is required");
+      }
+    }
+  };
+
+  const previousStep = () => {
+    if (currentStep > 1) {
+      setCurrentStep(currentStep - 1);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  const goToStep = (step) => {
+    {/* Stepper Header */ }
+        <div className={Style.stepperHeader}>
+          <div className={Style.stepperProgress}>
+            {steps.map((step, index) => {
+              const Icon = step.icon;
+              const isCompleted = currentStep > step.number;
+              const isActive = currentStep === step.number;
+
+              return (
+                <React.Fragment key={step.number}>
+                  <div
+                    className={`${Style.stepItem} ${isActive ? Style.active : ''} ${isCompleted ? Style.completed : ''}`}
+                    onClick={() => goToStep(step.number)}
+                  >
+                    <div className={Style.stepCircle}>
+                      {isCompleted ? (
+                        <TiTick className={Style.stepIcon} />
+                      ) : (
+                        <Icon className={Style.stepIcon} />
+                      )}
+                    </div>
+                    <div className={Style.stepLabel}>
+                      <span className={Style.stepNumber}>Step {step.number}</span>
+                      <span className={Style.stepTitle}>{step.label}</span>
+                    </div>
+                  </div>
+                  {index < steps.length - 1 && (
+                    <div className={`${Style.stepConnector} ${isCompleted ? Style.completed : ''}`} />
+                  )}
+                </React.Fragment>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className={Style.stepperBody}>
+          {/* STEP 1: Upload Image */}
+          {currentStep === 1 && (
+            <div className={Style.stepContent} key="step1">
+              <div className={Style.stepHeader}>
+                <h2>Upload Your NFT Artwork</h2>
+                <p>Select the digital file you want to mint as an NFT</p>
+              </div>
+              <div className={Style.uploadSection}>
+                <DropZone
+                  title="Drag and drop your file"
+                  heading="or click to browse"
+                  subHeading="PNG, JPG, GIF, WEBP. Max 100MB"
+                  setImage={setImage}
+                  uploadIPFS={uploadIPFS}
+                />
+              </div>
+            </div>
+          )}
+
+          {/* STEP 2: Basic Info */}
+          {currentStep === 2 && (
+            <div className={Style.stepContent} key="step2">
+              <div className={Style.stepHeader}>
+                <h2>Basic Information</h2>
+                <p>Provide essential details about your NFT</p>
+              </div>
+
+              <div className={Style.formSection}>
+                <div className={Style.formRow}>
+                  <FormInput
+                    label="NFT Name"
+                    id="nftName"
+                    type="text"
+                    placeholder="Enter your NFT name"
+                    value={name}
+                    onChange={(e) => {
+                      setName(e.target.value);
+                      setErrorName("");
+                    }}
+                    error={errorName}
+                  />
+
+                  <FormInput
+                    label="Price (MATIC)"
+                    id="price"
+                    type="text"
+                    placeholder="0.00"
+                    value={price}
+                    onChange={(e) => {
+                      setPrice(e.target.value);
+                      setErrorPrice("");
+                    }}
+                    onBlur={() => {
+                      if (price && isNaN(price)) {
+                        setErrorPrice("Please enter a valid number");
+                      }
+                    }}
+                    error={errorPrice}
+                  />
+                </div>
+
+                <div className={Style.categorySection}>
+                  <h3>Choose Category</h3>
+                  <div className={Style.categoryGrid}>
+                    {categoryArray.map((el, i) => (
+                      <div
+                        key={i}
+                        className={`${Style.categoryCard} ${active === i + 1 ? Style.active : ""}`}
+                        onClick={() => {
+                          setActive(i + 1);
+                          setCategory(el.category);
+                        }}
+                      >
+                        <div className={Style.categoryImageWrapper}>
+                          <Image
+                            src={el.image}
+                            alt={el.category}
+                            width={80}
+                            height={80}
+                            className={Style.categoryImage}
+                          />
+                          <div className={Style.categoryCheckmark}>
+                            <TiTick />
+                          </div>
+                        </div>
+                        <p className={Style.categoryLabel}>{el.category}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* STEP 3: Details */}
+          {currentStep === 3 && (
+            <div className={Style.stepContent} key="step3">
+              <div className={Style.stepHeader}>
+                <h2>Additional Details</h2>
+                <p>Add more information about your NFT (optional)</p>
+              </div>
+
+              <div className={Style.formSection}>
+                <div className={Style.formRow}>
+                  <FormInput
+                    label="Royalties (%)"
+                    id="royalties"
+                    type="text"
+                    placeholder="e.g., 10"
+                    value={royalties}
+                    onChange={(e) => {
+                      setRoyalties(e.target.value);
+                      setErrorRoyalties("");
+                    }}
+                    onBlur={() => {
+                      if (royalties && isNaN(royalties)) {
+                        setErrorRoyalties("Please enter a valid number");
+                      }
+                    }}
+                    error={errorRoyalties}
+                  />
+
+                  <FormInput
+                    label="File Size (MB)"
+                    id="size"
+                    type="text"
+                    placeholder="e.g., 5.2"
+                    value={fileSize}
+                    onChange={(e) => {
+                      setFileSize(e.target.value);
+                      setErrorSize("");
+                    }}
+                    onBlur={() => {
+                      if (fileSize && isNaN(fileSize)) {
+                        setErrorSize("Please enter a valid number");
+                      }
+                    }}
+                    error={errorSize}
+                  />
+                </div>
+
+                <div className={Style.formRow}>
+                  <FormInput
+                    label="Properties"
+                    id="properties"
+                    type="text"
+                    placeholder="e.g., Rarity: Legendary"
+                    value={properties}
+                    onChange={(e) => setProperties(e.target.value)}
+                  />
+
+                  <FormInput
+                    label="Website"
+                    id="website"
+                    type="text"
+                    placeholder="https://example.com"
+                    value={website}
+                    onChange={(e) => setWebsite(e.target.value)}
+                  />
+                </div>
+
+                <FormTextarea
+                  label="Description"
+                  id="description"
+                  rows={6}
+                  placeholder="Tell us about your NFT..."
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                />
+              </div>
+            </div>
+          )}
+
+          {/* STEP 4: Review & Mint */}
+          {currentStep === 4 && (
+            <div className={Style.stepContent} key="step4">
+              <div className={Style.stepHeader}>
+                <h2>Review Your NFT</h2>
+                <p>Double-check all details before minting</p>
+              </div>
+
+              <div className={Style.reviewSection}>
+                <div className={Style.reviewCard}>
+                  <div className={Style.reviewImage}>
+                    {image && (
+                      <img src={image} alt="NFT Preview" />
+                    )}
+                  </div>
+
+                  <div className={Style.reviewDetails}>
+                    <div className={Style.reviewGroup}>
+                      <h3>Basic Information</h3>
+                      <div className={Style.reviewItem}>
+                        <span className={Style.reviewLabel}>Name:</span>
+                        <span className={Style.reviewValue}>{name}</span>
+                      </div>
+                      <div className={Style.reviewItem}>
+                        <span className={Style.reviewLabel}>Price:</span>
+                        <span className={Style.reviewValue}>{price} MATIC</span>
+                      </div>
+                      <div className={Style.reviewItem}>
+                        <span className={Style.reviewLabel}>Category:</span>
+                        <span className={Style.reviewValue}>{category || 'Not selected'}</span>
+                      </div>
+                    </div>
+
+                    {(description || website || royalties || fileSize || properties) && (
+                      <div className={Style.reviewGroup}>
+                        <h3>Additional Details</h3>
+                        {description && (
+                          <div className={Style.reviewItem}>
+                            <span className={Style.reviewLabel}>Description:</span>
+                            <span className={Style.reviewValue}>{description}</span>
+                          </div>
+                        )}
+                        {website && (
+                          <div className={Style.reviewItem}>
+                            <span className={Style.reviewLabel}>Website:</span>
+                            <span className={Style.reviewValue}>{website}</span>
+                          </div>
+                        )}
+                        {royalties && (
+                          <div className={Style.reviewItem}>
+                            <span className={Style.reviewLabel}>Royalties:</span>
+                            <span className={Style.reviewValue}>{royalties}%</span>
+                          </div>
+                        )}
+                        {fileSize && (
+                          <div className={Style.reviewItem}>
+                            <span className={Style.reviewLabel}>File Size:</span>
+                            <span className={Style.reviewValue}>{fileSize} MB</span>
+                          </div>
+                        )}
+                        {properties && (
+                          <div className={Style.reviewItem}>
+                            <span className={Style.reviewLabel}>Properties:</span>
+                            <span className={Style.reviewValue}>{properties}</span>
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Navigation Buttons */}
+          <div className={Style.stepperActions}>
+            {currentStep > 1 && (
+              <Button
+                btnName="Previous"
+                handleClick={previousStep}
+                classStyle={Style.btnSecondary}
+              />
+            )}
+
+            <div className={Style.actionSpacer} />
+
+            {currentStep < totalSteps ? (
+              <Button
+                btnName="Next Step"
+                        className={`${Style.categoryCard} ${active === i + 1 ? Style.active : ""}`}
+                        onClick={() => {
+                          setActive(i + 1);
+                          setCategory(el.category);
+                        }}
+                      >
+                        <div className={Style.categoryImageWrapper}>
+                          <Image
+                            src={el.image}
+                            alt={el.category}
+                            width={80}
+                            height={80}
+                            className={Style.categoryImage}
+                          />
+                          <div className={Style.categoryCheckmark}>
+                            <TiTick />
+                          </div>
+                        </div>
+                        <p className={Style.categoryLabel}>{el.category}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div >
+            </div >
+          )}
+
+{/* STEP 3: Details */ }
+{
+  currentStep === 3 && (
+    <div className={Style.stepContent} key="step3">
+      <div className={Style.stepHeader}>
+        <h2>Additional Details</h2>
+        <p>Add more information about your NFT (optional)</p>
+      </div>
+
+      <div className={Style.formSection}>
+        <div className={Style.formRow}>
+          <FormInput
+            label="Royalties (%)"
+            id="royalties"
+            type="text"
+            placeholder="e.g., 10"
+            value={royalties}
+            onChange={(e) => {
+              setRoyalties(e.target.value);
+              setErrorRoyalties("");
+            }}
+            onBlur={() => {
+              if (royalties && isNaN(royalties)) {
+                setErrorRoyalties("Please enter a valid number");
+              }
+            }}
+            error={errorRoyalties}
+          />
+
+          <FormInput
+            label="File Size (MB)"
+            id="size"
+            type="text"
+            placeholder="e.g., 5.2"
+            value={fileSize}
+            onChange={(e) => {
+              setFileSize(e.target.value);
+              setErrorSize("");
+            }}
+            onBlur={() => {
+              if (fileSize && isNaN(fileSize)) {
+                setErrorSize("Please enter a valid number");
+              }
+            }}
+            error={errorSize}
+          />
+        </div>
+
+        <div className={Style.formRow}>
+          <FormInput
+            label="Properties"
+            id="properties"
+            type="text"
+            placeholder="e.g., Rarity: Legendary"
+            value={properties}
+            onChange={(e) => setProperties(e.target.value)}
+          />
+
+          <FormInput
+            label="Website"
+            id="website"
+            type="text"
+            placeholder="https://example.com"
+            value={website}
+            onChange={(e) => setWebsite(e.target.value)}
+          />
+        </div>
+
+        <FormTextarea
+          label="Description"
+          id="description"
+          rows={6}
+          placeholder="Tell us about your NFT..."
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
+      </div>
+    </div>
+  )
+}
+
+{/* STEP 4: Review & Mint */ }
+{
+  currentStep === 4 && (
+    <div className={Style.stepContent} key="step4">
+      <div className={Style.stepHeader}>
+        <h2>Review Your NFT</h2>
+        <p>Double-check all details before minting</p>
+      </div>
+
+      <div className={Style.reviewSection}>
+        <div className={Style.reviewCard}>
+          <div className={Style.reviewImage}>
+            {image && (
+              <img src={image} alt="NFT Preview" />
+            )}
+          </div>
+
+          <div className={Style.reviewDetails}>
+            <div className={Style.reviewGroup}>
+              <h3>Basic Information</h3>
+              <div className={Style.reviewItem}>
+                <span className={Style.reviewLabel}>Name:</span>
+                <span className={Style.reviewValue}>{name}</span>
+              </div>
+              <div className={Style.reviewItem}>
+                <span className={Style.reviewLabel}>Price:</span>
+                <span className={Style.reviewValue}>{price} MATIC</span>
+              </div>
+              <div className={Style.reviewItem}>
+                <span className={Style.reviewLabel}>Category:</span>
+                <span className={Style.reviewValue}>{category || 'Not selected'}</span>
+              </div>
+            </div>
+
+            {(description || website || royalties || fileSize || properties) && (
+              <div className={Style.reviewGroup}>
+                <h3>Additional Details</h3>
+                {description && (
+                  <div className={Style.reviewItem}>
+                    <span className={Style.reviewLabel}>Description:</span>
+                    <span className={Style.reviewValue}>{description}</span>
+                  </div>
+                )}
+                {website && (
+                  <div className={Style.reviewItem}>
+                    <span className={Style.reviewLabel}>Website:</span>
+                    <span className={Style.reviewValue}>{website}</span>
+                  </div>
+                )}
+                {royalties && (
+                  <div className={Style.reviewItem}>
+                    <span className={Style.reviewLabel}>Royalties:</span>
+                    <span className={Style.reviewValue}>{royalties}%</span>
+                  </div>
+                )}
+                {fileSize && (
+                  <div className={Style.reviewItem}>
+                    <span className={Style.reviewLabel}>File Size:</span>
+                    <span className={Style.reviewValue}>{fileSize} MB</span>
+                  </div>
+                )}
+                {properties && (
+                  <div className={Style.reviewItem}>
+                    <span className={Style.reviewLabel}>Properties:</span>
+                    <span className={Style.reviewValue}>{properties}</span>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+{/* Navigation Buttons */ }
+<div className={Style.stepperActions}>
+  {currentStep > 1 && (
+    <Button
+      btnName="Previous"
+      handleClick={previousStep}
+      classStyle={Style.btnSecondary}
+    />
+  )}
+
+  <div className={Style.actionSpacer} />
+
+  {currentStep < totalSteps ? (
+    <Button
+      btnName="Next Step"
+      handleClick={nextStep}
+      classStyle={Style.btnPrimary}
+    />
+  ) : (
+    <Button
+      btnName="Mint NFT"
+      handleClick={() => setShowConfirmation(true)}
+      classStyle={Style.btnPrimary}
+    />
+  )}
+</div>
+
+{/* Confirmation Modal */ }
+{
+  showConfirmation && (
+    <div className={Style.confirmationOverlay}>
+      <div className={Style.confirmationDialog}>
+        <div className={Style.confirmationHeader}>
+          <h2>Confirm Minting</h2>
+        </div>
+        <div className={Style.confirmationContent}>
+          <p>Are you sure you want to mint this NFT?</p>
+          <div className={Style.confirmationItem}>
+            <span className={Style.confirmationLabel}>Name:</span>
+            <span className={Style.confirmationValue}>{name}</span>
+          </div>
+          <div className={Style.confirmationItem}>
+            <span className={Style.confirmationLabel}>Price:</span>
+            <span className={Style.confirmationValue}>{price} MATIC</span>
+          </div>
+        </div>
+        <div className={Style.confirmationActions}>
+          <Button
+            btnName="Yes, Mint Now"
+            handleClick={() => handleConfirmation(true)}
+            classStyle={Style.confirmationBtnYes}
+          />
+          <Button
+            btnName="Cancel"
+            handleClick={() => handleConfirmation(false)}
+            classStyle={Style.confirmationBtnNo}
+          />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+{/* Cancel Confirmation Modal */ }
+{
+  showCancelConfirmation && (
+    <div className={Style.confirmationOverlay}>
+      <div className={Style.confirmationDialog}>
+        <div className={Style.confirmationHeader}>
+          <h2>⚠️ Cancel Upload?</h2>
+        </div>
+        <div className={Style.confirmationContent}>
+          <p>Are you sure you want to cancel? All your progress will be lost and you'll return to Step 1.</p>
+        </div>
+        <div className={Style.confirmationActions}>
+          <Button
+            btnName="Yes, Cancel"
+            handleClick={() => handleCancelConfirmation(true)}
+            classStyle={Style.confirmationBtnNo}
+          />
+          <Button
+            btnName="No, Keep Working"
+            handleClick={() => handleCancelConfirmation(false)}
+            classStyle={Style.confirmationBtnYes}
+          />
+        </div>
+      </div>
+    </div>
+  )
+}
+        </div >
+      </div >
+    </div >
+  );
+};
+
+export default UploadNFT;

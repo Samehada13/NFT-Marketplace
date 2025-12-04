@@ -9,9 +9,11 @@ import {
   AuthorTaps,
   AuthorNFTCardBox,
 } from '../authorPage/authorIndex';
+import HeroSection from '../authorPage/HeroSection/HeroSection';
+import RecentActivity from '../authorPage/RecentActivity/RecentActivity';
+import Filter from '../components/Filter/Filter';
 import FollowerTabCard from '../components/FollowerTab/FollowerTabCard/FollowerTabCard';
 import { useRouter } from 'next/router';
-import { useLocation } from 'react-router-dom';
 import { getVolumeOfUser } from '../TopCreators/TopCreators';
 import Scatter from '../TopCreators/ScatterPlot';
 import { NFTMarketplaceContext } from '../context/NFTMarketplaceContext';
@@ -22,6 +24,7 @@ import NFTReviewDialogConfirmation from './NFTReviewDialogConfirmation';
 import { useTranslation } from 'react-i18next';
 import { generateSampleNFTs } from '../utils/sampleData';
 import NFTScatterChart from '../TopCreators/NFTScatterChart';
+import AreaChart from '../components/AreaChart/AreaChart';
 
 const author = ({ creators }) => {
   const [collectibles, setCollectibles] = useState(true);
@@ -29,6 +32,8 @@ const author = ({ creators }) => {
   const [like, setLike] = useState(false);
   const [follower, setFollower] = useState(false);
   const [following, setFollowing] = useState(false);
+  const [about, setAbout] = useState(false);
+  const [sortBy, setSortBy] = useState('recent');
   const [seller, setSeller] = useState('');
 
   const {
@@ -37,12 +42,8 @@ const author = ({ creators }) => {
     currentAccount,
     leaveSellerReview,
     tokenId,
-    fetchReviewsForAddress,
     fetchNFTsWithBids,
   } = useContext(NFTMarketplaceContext);
-
-  const [error, setError] = useState('');
-  const [openError, setOpenError] = useState(false);
 
   const [nfts, setNfts] = useState([]);
   const [myNFTs, setMyNFTs] = useState([]);
@@ -192,75 +193,78 @@ const author = ({ creators }) => {
 
     fetchNFTsWithBidsByBidder();
   }, [currentAccount, fetchNFTsWithBids]);
-  
-  console.log("NFTs", nfts);
-  return (
-    <div className='bg-body'>
-      <section className='flex flex-col bg-body rounded-lg p-6'>
-        <div className='bg-main p-6 rounded-lg'>
-          <NFTReviewDialogConfirmation
-            handleClose={handleCloseReviewDialog}
-            open={openReviewDialog}
-            seller={seller}
-            leaveSellerReview={leaveSellerReview}
-            setError={setError}
-            setOpenError={setOpenError}
-            tokenId={tokenId}
-          />
-          <AuthorProfileCard currentAccount={currentAccount} />
-          <AuthorTaps
-            setCollectibles={setCollectibles}
-            setCreated={setCreated}
-            setLike={setLike}
-            setFollower={setFollower}
-            setFollowing={setFollowing}
-          />
-          <AuthorNFTCardBox
-            collectibles={collectibles}
-            created={created}
-            like={like}
-            follower={follower}
-            following={following}
-            nfts={nfts}
-            myNFTs={myNFTs}
-            addressNFTs={addressNFTs}
-            nftsWithBids={nftsWithBids}
-            nftsWithBidsBidder={nftsWithBidsBidder}
-          />
-          {/* <div className={Style.author_scatter}>
-            </div> */}
 
-          <div className="flex flex-col">
-            <Title heading={t('pages.author.title')} />
-            <div className={Style.author_box}>
-              {currentAccount ? (
-                getSellVolume && getSellVolume.length > 0 ? (
-                  <div>
-                    
-                  </div>
-                ) : (
-                  <p>{t('pages.author.error.paragraph1')} </p>
-                )
-              ) : (
-                <p>{t('pages.author.error.paragraph2')} </p>
-              )}
-            </div>
-            <div className={Style.author_scatter}>
-                <NFTScatterChart nfts={nfts} />
-            </div>
-          </div>
-          {/* <div className={Style.rightContainer}>
-            <Title
-              style={{ fontSize: '5px' }}
-              heading='Feedback and Reviews'
+  // Calculate stats for hero section
+  const userStats = {
+    totalNFTs: nfts.length || 0,
+    totalSales: nfts.filter(nft => nft.sold).length || 0,
+    followers: 0, // TODO: Implement followers count
+    collectionValue: nfts.reduce((acc, nft) => acc + (parseFloat(nft.price) || 0), 0).toFixed(2) || '0'
+  };
+
+  console.log("NFTs", nfts);
+
+  return (
+    <div className='bg-body' style={{ background: 'var(--bg-body)' }}>
+      <NFTReviewDialogConfirmation
+        handleClose={handleCloseReviewDialog}
+        open={openReviewDialog}
+        seller={seller}
+        leaveSellerReview={leaveSellerReview}
+        tokenId={tokenId}
+      />
+
+      {/* New Hero Section */}
+      <HeroSection
+        currentAccount={currentAccount}
+        stats={userStats}
+        isOwnProfile={!router.query.address || router.query.address === currentAccount}
+      />
+
+      {/* Navigation Tabs */}
+      <div className="mx-auto px-4 sm:px-6 lg:px-8">
+        <AuthorTaps
+          setCollectibles={setCollectibles}
+          setCreated={setCreated}
+          setLike={setLike}
+          setFollower={setFollower}
+          setFollowing={setFollowing}
+          setAbout={setAbout}
+          sortBy={sortBy}
+          setSortBy={setSortBy}
+        />
+
+        {/* Main Content Area */}
+        <div className="grid grid-cols-1 lg:grid-cols-[70%_30%] gap-4 sm:gap-6 lg:gap-8 mb-6 sm:mb-8">
+          {/* Primary Content */}
+          <div>
+            <AuthorNFTCardBox
+              collectibles={collectibles}
+              created={created}
+              like={like}
+              follower={follower}
+              following={following}
+              nfts={nfts}
+              myNFTs={myNFTs}
+              addressNFTs={addressNFTs}
+              nftsWithBids={nftsWithBids}
+              nftsWithBidsBidder={nftsWithBidsBidder}
             />
-            <ReviewList
-              fetchReviewsForAddress={fetchReviewsForAddress}
-              currentAccount={currentAccount}
-            /> 
-          </div>*/}
+          </div>
+
+          {/* Sidebar */}
+          <div>
+            {/* Analytics Section */}
+            <div className="bg-white rounded-2xl p-3 sm:p-4 mb-4 sm:mb-6">
+              <AreaChart />
+            </div>
+
+            {/* Recent Activity Timeline */}
+            <RecentActivity activities={[]} />
+          </div>
         </div>
-      </section>
+      </div>
+
       <Brand />
     </div>
   );
