@@ -3,11 +3,11 @@ import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
 
 
-const Discover = () => {
+const Discover = ({ variant = 'light' }) => {
 
   const { t } = useTranslation();
 
-  const discover =[
+  const discover = [
     {
       name: t('pages.home.footer.discover.search'),
       link: "searchPage"
@@ -28,9 +28,9 @@ const Discover = () => {
 
   return (
     <div>
-      {discover.map((el, i)=> (
-        <div key = {i + 1} className="menu-item">
-          <Link href={{pathname: `${el.link}`}}>{el.name}</Link>
+      {discover.map((el, i) => (
+        <div key={i + 1} className={`menu-item menu-item--${variant}`}>
+          <Link href={{ pathname: `${el.link}` }}>{el.name}</Link>
         </div>
       ))}
     </div>

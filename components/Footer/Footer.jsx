@@ -39,7 +39,7 @@ const Footer = () => {
               {t('pages.home.footer.discover')}
             </h3>
             <div className='text-white'>
-              <Discover />
+              <Discover variant='dark' />
             </div>
           </div>
 
@@ -49,7 +49,7 @@ const Footer = () => {
               {t('pages.home.footer.helpCenter')}
             </h3>
             <div className='text-white'>
-              <HelpCenter />
+              <HelpCenter variant='dark' />
             </div>
           </div>
 
@@ -64,10 +64,10 @@ const Footer = () => {
               <input
                 type='email'
                 placeholder={t('pages.home.footer.eye')}
-                className='w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all'
+                className='w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg bg-white text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all'
               />
               <button className='absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-amber-500 hover:bg-amber-600 rounded-md transition-colors'>
-                <RiSendPlaneFill className='text-lg text-gray-900' />
+                <RiSendPlaneFill className='text-lg text-gray-900 text-white' />
               </button>
             </div>
 
