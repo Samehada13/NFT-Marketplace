@@ -18,7 +18,7 @@
   --primary-accent: #fbc64c;
   --primary-accent-hover: darken(#fddd95, 10%);
   --primary-accent-opacity: #fddd95cc;
-  --icons-opacity-light: oklch(93% 0.034 272.788);
+  --icons-opacity-light: #a087cbcc;
   --icons-light-color: #fdf5df;
   --icons-bg-color: #9565e8cc;
   --shadow-dark-color: #efefef;

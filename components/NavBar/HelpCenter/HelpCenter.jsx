@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 import { useTranslation } from 'react-i18next';
 
-const HelpCenter = () => {
+const HelpCenter = ({ variant = 'light' }) => {
   const { t } = useTranslation();
 
   const helpCenter = [
@@ -20,7 +20,7 @@ const HelpCenter = () => {
     <div>
       {helpCenter.map((el, i) => (
         <div
-          className='menu-item'
+          className={`menu-item menu-item--${variant}`}
           key={i + 1}
         >
           <Link href={{ pathname: `${el.link}` }}>{el.name}</Link>

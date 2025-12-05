@@ -58,12 +58,13 @@
 .stepIndicator {
     display: inline-block;
     padding: 0.5rem 1.5rem;
-    background: var(--icons-opacity-light);
+    background: var(--primary-accent);
     border-radius: 2rem;
     font-size: 0.9rem;
     font-weight: 600;
     color: var(--primary-color);
     margin-top: 0.5rem;
+    color: #fff;
     box-shadow: 0 2px 8px rgba(149, 101, 232, 0.2);
 }
 

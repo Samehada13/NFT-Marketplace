@@ -42,21 +42,22 @@ const NavBar = () => {
             {/* Left side - Logo and Desktop Menu */}
             <div className='flex items-center space-x-2'>
               {/* Logo */}
-              <div className='flex items-center'>
               <Link
                 href='/'
-                className='flex-shrink-0 flex items-center space-x-2'
+                className='flex-shrink-0 flex items-center space-x-2 cursor-pointer'
               >
-                <Image
-                  src={logo}
-                  alt='logo'
-                  width={23}
-                  height={23}
-                />
-                
+                <div className='flex items-center cursor-pointer'>
+
+                  <Image
+                    src={logo}
+                    alt='logo'
+                    width={23}
+                    height={23}
+                  />
+
+                  <p className='text-xl font-bold text-[var(--primary-color)]'>ixel Space</p>
+                </div>
               </Link>
-              <p className='text-xl font-bold text-[var(--primary-color)]'>ixel Space</p>
-              </div>
 
               {/* Desktop Navigation */}
               <div className='hidden md:flex md:space-x-4'>
@@ -83,7 +84,7 @@ const NavBar = () => {
                       >
                         <Menu.Items static className='absolute left-0 mt-2 origin-top-left rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50'>
                           <div className='p-2' onClick={close}>
-                            <Discover />
+                            <Discover variant='light' />
                           </div>
                         </Menu.Items>
                       </Transition>
@@ -114,7 +115,7 @@ const NavBar = () => {
                       >
                         <Menu.Items static className='absolute left-0 mt-2 origin-top-left rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50'>
                           <div className='p-2' onClick={close}>
-                            <HelpCenter />
+                            <HelpCenter variant='light' />
                           </div>
                         </Menu.Items>
                       </Transition>
@@ -172,7 +173,7 @@ const NavBar = () => {
                 >
                   <Menu.Items className='absolute right-0 mt-2 w-64 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50'>
                     <div className=''>
-                      <Profile currentAccount={currentAccount} />
+                      <Profile currentAccount={currentAccount} variant='light' />
                     </div>
                   </Menu.Items>
                 </Transition>
@@ -247,7 +248,7 @@ const NavBar = () => {
                         role='menu'
                       >
                         <div className='py-1'>
-                          <Discover />
+                          <Discover variant='light' />
                         </div>
                       </Disclosure.Panel>
                     </Transition>
@@ -279,7 +280,7 @@ const NavBar = () => {
                         role='menu'
                       >
                         <div className='py-1'>
-                          <HelpCenter />
+                          <HelpCenter variant='light' />
                         </div>
                       </Disclosure.Panel>
                     </Transition>
@@ -300,7 +301,7 @@ const NavBar = () => {
                     />
                   </div>
                   <div className='flex-1'>
-                    <Profile currentAccount={currentAccount} />
+                    <Profile currentAccount={currentAccount} variant='light' />
                   </div>
                 </div>
               </div>
@@ -333,11 +334,11 @@ const NavBar = () => {
             </div>
           </div>
         </Transition>
-      </nav>
+      </nav >
 
       {/* Error Modal - REMOVED: Using toast notifications instead */}
       {/* {openError && <Error />} */}
-    </div>
+    </div >
   );
 };
 
