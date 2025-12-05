@@ -72,7 +72,7 @@ const Profile = ({ currentAccount }) => {
                 href={item.href}
                 className='menu-item'
               >
-                <span className='flex items-center rounded-md hover:bg-indigo-100 px-4 py-2 text-sm h-[40px] space-x-3 text-gray-700'>
+                <span className='flex items-center rounded-md hover:bg-[var(--icons-opacity-light)] hover:text-white px-4 py-2 text-sm h-[40px] space-x-3 text-gray-700'>
                   <span className='flex items-center justify-center'>
                     {item.icon}
                   </span>
