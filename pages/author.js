@@ -222,7 +222,7 @@ const author = ({ creators }) => {
       />
 
       {/* Navigation Tabs */}
-      <div className="mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto px-4">
         <AuthorTaps
           setCollectibles={setCollectibles}
           setCreated={setCreated}
@@ -235,7 +235,7 @@ const author = ({ creators }) => {
         />
 
         {/* Main Content Area */}
-        <div className="grid grid-cols-1 lg:grid-cols-[70%_30%] gap-4 sm:gap-6 lg:gap-8 mb-6 sm:mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[70%_30%] gap-4 mb-6 mr-4">
           {/* Primary Content */}
           <div>
             <AuthorNFTCardBox
@@ -253,9 +253,9 @@ const author = ({ creators }) => {
           </div>
 
           {/* Sidebar */}
-          <div>
+          <div className=''>
             {/* Analytics Section */}
-            <div className="bg-white rounded-2xl p-3 sm:p-4 mb-4 sm:mb-6">
+            <div className="bg-white rounded-2xl p-4 mb-4">
               <AreaChart />
             </div>
 

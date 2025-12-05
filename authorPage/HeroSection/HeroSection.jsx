@@ -80,7 +80,8 @@ const HeroSection = ({
                         <div className={styles.walletAddress}>
                             <input
                                 type="text"
-                                value={currentAccount || ''}
+                                value={currentAccount || 'No wallet connected'}
+                                placeholder="Connect your wallet to view address"
                                 id="walletInput"
                                 className={styles.addressInput}
                                 readOnly
