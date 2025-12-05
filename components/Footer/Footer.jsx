@@ -11,7 +11,7 @@ import {
 import { RiSendPlaneFill } from 'react-icons/ri';
 import { Discover, HelpCenter } from '../NavBar/index';
 import { useTranslation } from 'react-i18next';
-import logo from '../../public/GABR-Logo.png';
+import logo from '../../public/PixelSpace.png';
 
 const Footer = () => {
   const router = useRouter();

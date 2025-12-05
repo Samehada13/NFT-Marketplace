@@ -13,7 +13,7 @@ import { NFTMarketplaceContext } from '../../context/NFTMarketplaceContext';
 import { Menu, Disclosure, Transition } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import image from '../../img';
-import logo from '../../public/GABR-Logo.png';
+import logo from '../../public/PixelSpace.png';
 const NavBar = () => {
   const [notification, setNotification] = useState(false);
   const [profile, setProfile] = useState(false);
@@ -40,8 +40,9 @@ const NavBar = () => {
         <div className=' mx-auto px-4 sm:px-6'>
           <div className='flex justify-between items-center h-16'>
             {/* Left side - Logo and Desktop Menu */}
-            <div className='flex items-center space-x-4'>
+            <div className='flex items-center space-x-2'>
               {/* Logo */}
+              <div className='flex items-center'>
               <Link
                 href='/'
                 className='flex-shrink-0 flex items-center space-x-2'
@@ -49,10 +50,13 @@ const NavBar = () => {
                 <Image
                   src={logo}
                   alt='logo'
-                  width={120}
-                  height={40}
+                  width={23}
+                  height={23}
                 />
+                
               </Link>
+              <p className='text-xl font-bold text-[var(--primary-color)]'>ixel Space</p>
+              </div>
 
               {/* Desktop Navigation */}
               <div className='hidden md:flex md:space-x-4'>
