@@ -14,25 +14,25 @@ const nftsaleImages = [nftsale1, nftsale2, nftsale3, nftsale4, nftsale5, nftsale
 
 // Generate sample NFT data for testing charts
 export const generateSampleNFTs = (count = 20) => {
-  const categories = ['Painting', 'Drawing', 'Sculpture', 'Printmaking', 'Photography', 'Digital Art'];
+  const categories = ['Digital Painting', 'Digital Photography', 'CGI Art', 'Anime Art', 'Digital Collage', 'Pixel Art', 'Concept Art', 'AI-Generated Art', 'Photobashing', 'Vector Art'];
   const names = [
     'Digital Dream', 'Crypto Art #', 'Pixel Punks ', 'Ethereal ', 'Blockchain Beauty ',
     'NFT Masterpiece ', 'Digital Wonder ', 'Crypto Gem ', 'Art Block ', 'Tokenized Art '
   ];
-  
+
   const now = new Date();
   const oneYearAgo = new Date();
   oneYearAgo.setFullYear(now.getFullYear() - 1);
 
   const sampleNFTs = [];
-  
+
   for (let i = 0; i < count; i++) {
     const basePrice = Math.random() * 5 + 0.1; // Between 0.1 and 5.1 ETH
     const price = basePrice.toFixed(4);
     const randomDaysAgo = Math.floor(Math.random() * 365); // Random day in the past year
     const timestamp = new Date(oneYearAgo);
     timestamp.setDate(timestamp.getDate() + randomDaysAgo);
-    
+
     sampleNFTs.push({
       price: ethers.utils.parseEther(price.toString()).toString(), // Convert to wei string
       tokenId: i + 1,
@@ -54,7 +54,7 @@ export const generateSampleNFTs = (count = 20) => {
       tokenURI: `ipfs://QmXx...${Math.random().toString(16).substr(2, 10)}`
     });
   }
-  
+
   // Sort by timestamp
   return sampleNFTs.sort((a, b) => a.timestamp - b.timestamp);
 };

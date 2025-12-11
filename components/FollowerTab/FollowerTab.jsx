@@ -177,17 +177,7 @@ const FollowerTab = ({ TopCreators }) => {
                 }`}
               onClick={openPopular}
             >
-              <RiUserFollowFill /> {t('pages.home.followerTab.popular')}
-            </button>
-            <button
-              className={`flex items-center gap-2 px-6 py-2 rounded-full font-medium transition-colors ${news
-                  ? 'bg-white text-primary'
-                  : 'bg-transparent text-white hover:bg-white/10'
-                }`}
-              onClick={openNews}
-            >
-              <RiAwardLine className="w-5 h-5" />
-              <span className="whitespace-nowrap">{t('pages.home.followerTab.news')}</span>
+              <RiUserFollowFill /> {t('Popular')}
             </button>
           </div>
         </div>

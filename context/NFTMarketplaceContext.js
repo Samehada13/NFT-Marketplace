@@ -139,6 +139,12 @@ export const NFTMarketplaceProvider = ({ children }) => {
         properties,
         router
     ) => {
+        // Check if wallet is connected first
+        if (!currentAccount) {
+            addToast("Please connect your wallet before creating an NFT", "warning", 5000);
+            return;
+        }
+
         if (
             !name ||
             !description ||

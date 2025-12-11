@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 // Icons
 import { TiTick } from 'react-icons/ti';
-import { MdCloudUpload, MdInfo, MdDescription, MdCheckCircle } from 'react-icons/md';
+import { MdCloudUpload, MdInfo, MdDescription, MdCheckCircle, MdRadioButtonUnchecked, MdRadioButtonChecked } from 'react-icons/md';
 
 // Styles
 import Style from './UploadNFT.module.css';
@@ -40,7 +40,7 @@ const UploadNFT = ({ uploadIPFS, createNFT }) => {
     // UI State
     const [showConfirmation, setShowConfirmation] = useState(false);
     const [showCancelConfirmation, setShowCancelConfirmation] = useState(false);
-    
+
     // Error States
     const [errorName, setErrorName] = useState("");
     const [errorPrice, setErrorPrice] = useState("");
@@ -49,12 +49,16 @@ const UploadNFT = ({ uploadIPFS, createNFT }) => {
 
     // Category Data
     const categoryArray = [
-        { image: images.nftsale1, category: "Painting" },
-        { image: images.nftsale2, category: "Drawing" },
-        { image: images.nftsale3, category: "Sculpture" },
-        { image: images.nftsale4, category: "Printmaking" },
-        { image: images.nftsale8, category: "Photography" },
-        { image: images.nftsale6, category: "Digital Art" },
+        { image: images.nftsale1, category: "Digital Painting" },
+        { image: images.nftsale2, category: "Digital Photography" },
+        { image: images.nftsale3, category: "CGI Art" },
+        { image: images.nftsale4, category: "Anime Art" },
+        { image: images.nftsale8, category: "Digital Collage" },
+        { image: images.nftsale6, category: "Pixel Art" },
+        { image: images.nftsale7, category: "Concept Art" },
+        { image: images.nftsale5, category: "AI-Generated Art" },
+        { image: images.nftsale1, category: "Photobashing" },
+        { image: images.nftsale2, category: "Vector Art" },
     ];
 
     // Step Configuration
@@ -134,20 +138,20 @@ const UploadNFT = ({ uploadIPFS, createNFT }) => {
     };
 
     const handleReset = () => {
-        setName(""); 
-        setPrice(""); 
-        setWebsite(""); 
-        setDescription(""); 
-        setProperties(""); 
-        setFileSize(""); 
-        setRoyalties(""); 
-        setCategory(0); 
-        setActive(0); 
-        setImage(null); 
-        setCurrentStep(1); 
-        setErrorName(""); 
-        setErrorPrice(""); 
-        setErrorSize(""); 
+        setName("");
+        setPrice("");
+        setWebsite("");
+        setDescription("");
+        setProperties("");
+        setFileSize("");
+        setRoyalties("");
+        setCategory(0);
+        setActive(0);
+        setImage(null);
+        setCurrentStep(1);
+        setErrorName("");
+        setErrorPrice("");
+        setErrorSize("");
         setErrorRoyalties("");
     };
 
@@ -156,7 +160,7 @@ const UploadNFT = ({ uploadIPFS, createNFT }) => {
             setShowCancelConfirmation(false);
             return;
         }
-        
+
         // Reset all form fields and return to step 1
         handleReset();
         setShowCancelConfirmation(false);
@@ -275,19 +279,19 @@ const UploadNFT = ({ uploadIPFS, createNFT }) => {
                                                     setCategory(el.category);
                                                 }}
                                             >
+                                                <p className={Style.categoryLabel}>{el.category}</p>
                                                 <div className={Style.categoryImageWrapper}>
-                                                    <Image
-                                                        src={   el.image}
+                                                    {/*<Image
+                                                        src={el.image}
                                                         alt={el.category}
                                                         width={80}
                                                         height={80}
                                                         className={Style.categoryImage}
-                                                    />
+                                                    />*/}
                                                     <div className={Style.categoryCheckmark}>
-                                                        <TiTick />
+                                                        {active === i + 1 ? <MdRadioButtonChecked /> : <MdRadioButtonUnchecked />}
                                                     </div>
                                                 </div>
-                                                <p className={Style.categoryLabel}>{el.category}</p>
                                             </div>
                                         ))}
                                     </div>
@@ -456,7 +460,7 @@ const UploadNFT = ({ uploadIPFS, createNFT }) => {
                             handleClick={() => setShowCancelConfirmation(true)}
                             variant="danger"
                         />
-    
+
                         <div className={Style.actionSpacer} />
 
                         {currentStep > 1 && (
@@ -503,7 +507,7 @@ const UploadNFT = ({ uploadIPFS, createNFT }) => {
                             </div>
                             <div className={Style.confirmationActions}>
                                 <Button
-                                    btnName="Yes, Mint Now"
+                                    btnName="Yes"
                                     handleClick={() => handleConfirmation(true)}
                                     classStyle={Style.confirmationBtnYes}
                                 />
@@ -529,7 +533,7 @@ const UploadNFT = ({ uploadIPFS, createNFT }) => {
                             </div>
                             <div className={Style.confirmationActions}>
                                 <Button
-                                    btnName="Yes, Cancel"
+                                    btnName="Yes"
                                     handleClick={() => handleCancelConfirmation(true)}
                                     classStyle={Style.confirmationBtnNo}
                                 />

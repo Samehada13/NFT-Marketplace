@@ -29,7 +29,7 @@ const NFTScatterChart = ({ nfts = [] }) => {
       const price = weiToMatic(nft.price);
       const timestamp = nft.timestamp ? nft.timestamp * 1000 : Date.now();
       const date = new Date(timestamp);
-      
+
       // Calculate days since listing
       const daysSinceListing = (Date.now() - timestamp) / (1000 * 60 * 60 * 24);
 
@@ -40,10 +40,10 @@ const NFTScatterChart = ({ nfts = [] }) => {
         tokenId: nft.tokenId,
         category: nft.category || 'Unknown',
         rarity: nft.properties?.rarity || 'Common',
-        date: date.toLocaleDateString('en-US', { 
-          month: 'short', 
-          day: 'numeric', 
-          year: 'numeric' 
+        date: date.toLocaleDateString('en-US', {
+          month: 'short',
+          day: 'numeric',
+          year: 'numeric'
         }),
         royalties: nft.royalties || '0',
         seller: nft.seller,
@@ -55,13 +55,16 @@ const NFTScatterChart = ({ nfts = [] }) => {
   // Get color based on category
   const getCategoryColor = (category) => {
     const colors = {
-      'Art': '#ef4444',
-      'Music': '#8b5cf6',
-      'Gaming': '#3b82f6',
-      'Photography': '#10b981',
-      'Sports': '#f59e0b',
-      'Collectibles': '#ec4899',
-      'Utility': '#06b6d4',
+      'Digital Painting': '#ef4444',
+      'Digital Photography': '#10b981',
+      'CGI Art': '#3b82f6',
+      'Anime Art': '#ec4899',
+      'Digital Collage': '#f59e0b',
+      'Pixel Art': '#8b5cf6',
+      'Concept Art': '#06b6d4',
+      'AI-Generated Art': '#a855f7',
+      'Photobashing': '#84cc16',
+      'Vector Art': '#f97316',
       'Unknown': '#6b7280'
     };
     return colors[category] || colors['Unknown'];
@@ -87,7 +90,7 @@ const NFTScatterChart = ({ nfts = [] }) => {
 
     try {
       const processed = processScatterData(nfts);
-      
+
       if (processed.length === 0) {
         setError('No valid NFT data available');
         setIsLoading(false);
@@ -146,7 +149,7 @@ const NFTScatterChart = ({ nfts = [] }) => {
     // Draw grid lines
     ctx.strokeStyle = 'rgba(75, 85, 99, 0.3)';
     ctx.lineWidth = 1;
-    
+
     // Horizontal grid lines
     for (let i = 0; i <= 5; i++) {
       const y = padding.top + (chartHeight / 5) * i;
@@ -217,7 +220,7 @@ const NFTScatterChart = ({ nfts = [] }) => {
     // Axis labels
     ctx.fillStyle = '#9ca3af';
     ctx.font = '14px sans-serif';
-    
+
     // Y-axis label
     ctx.textAlign = 'center';
     ctx.save();
@@ -234,20 +237,20 @@ const NFTScatterChart = ({ nfts = [] }) => {
     const categories = [...new Set(chartData.map(d => d.category))];
     const legendX = width - padding.right + 10;
     let legendY = padding.top;
-    
+
     ctx.font = '12px sans-serif';
     ctx.textAlign = 'left';
-    
+
     categories.forEach((category, i) => {
       const color = getCategoryColor(category);
       const y = legendY + i * 25;
-      
+
       // Draw color circle
       ctx.fillStyle = color;
       ctx.beginPath();
       ctx.arc(legendX, y, 5, 0, Math.PI * 2);
       ctx.fill();
-      
+
       // Draw text
       ctx.fillStyle = '#9ca3af';
       ctx.fillText(category, legendX + 15, y + 4);
@@ -285,7 +288,7 @@ const NFTScatterChart = ({ nfts = [] }) => {
       const radius = getRaritySize(point.rarity);
 
       const distance = Math.sqrt(Math.pow(mouseX - x, 2) + Math.pow(mouseY - y, 2));
-      
+
       if (distance <= radius + 5) {
         foundPoint = point;
         foundIndex = index;
@@ -352,17 +355,17 @@ const NFTScatterChart = ({ nfts = [] }) => {
   return (
     <div className="w-full bg-gray-900 rounded-lg shadow-xl relative">
       <div className="relative" style={{ height: '500px' }}>
-        <canvas 
-          ref={canvasRef} 
+        <canvas
+          ref={canvasRef}
           style={{ width: '100%', height: '100%', cursor: 'pointer' }}
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
         />
       </div>
-      
+
       {/* Tooltip */}
       {tooltip.show && tooltip.data && (
-        <div 
+        <div
           style={{
             position: 'fixed',
             left: tooltip.x + 10,

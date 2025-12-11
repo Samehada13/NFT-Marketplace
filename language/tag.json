@@ -10,21 +10,15 @@
   "navbar.profile.creator.editProfile": "I-edit ang Profil",
   "navbar.profile.creator.help": "Tulong",
   "navbar.profile.creator.aboutUs": "Tungkol Sa Amin",
-
-
   "common.search": "Maghanap",
   "common.startSearch": "Simulan ang iyong paghahanap",
-
   "pages.home.title": "Tuklasin, Kolektahin, at Ibenta ang NFT",
   "pages.home.subtitle": "Pamilihan ng NFT para sa mga Grafikong Artist sa Rehiyon ng Bicol",
-
   "pages.home.price.title": "Presyo ng Kripto",
   "pages.home.price.subtitle": "Live na Araw-araw na Update",
-
   "pages.home.heroSection.h1": "Isang Pamilihan ng NFT para sa mga Graphic Artist sa Rehiyon ng Bicol",
   "pages.home.heroSection.h2": "Pamilihan ng NFT para sa mga Grafikong Artist sa Rehiyon ng Bicol",
   "pages.home.heroSection.search": "Simulan ang iyong paghahanap",
-
   "pages.home.service.box1": "I-filter at Hanapin",
   "pages.home.service.step1": "Hakbang 1",
   "pages.home.service.wallet1": "Gumawa ng Account para sa Wallet",
@@ -41,31 +35,30 @@
   "pages.home.service.step4": "Hakbang 4",
   "pages.home.service.wallet4": "Simulan ang Pagtitingi",
   "pages.home.service.para4": "Simulan ang paggawa, pag-lista, at pagbibilí ng NFTs na nais mo.",
-
   "pages.home.filter.all": "Lahat",
-  "pages.home.filter.painting": "Pintura",
-  "pages.home.filter.drawing": "Pagguhit",
-  "pages.home.filter.sculpture": "Eskultura",
-  "pages.home.filter.printMaking": "Paggawa ng Imprenta",
-  "pages.home.filter.photography": "Pagsusuri",
-  "pages.home.filter.digitalArt": "Sining na Digital",
+  "pages.home.filter.digitalPainting": "Digital na Pintura",
+  "pages.home.filter.digitalPhotography": "Digital Photography",
+  "pages.home.filter.cgiArt": "CGI Art",
+  "pages.home.filter.animeArt": "Anime Art",
+  "pages.home.filter.digitalCollage": "Digital Collage",
+  "pages.home.filter.pixelArt": "Pixel Art",
+  "pages.home.filter.conceptArt": "Concept Art",
+  "pages.home.filter.aiGeneratedArt": "AI-Generated Art",
+  "pages.home.filter.photobashing": "Photobashing",
+  "pages.home.filter.vectorArt": "Vector Art",
   "pages.home.filter.filter": "Salain",
-
   "pages.home.followerTab.tcl": "Listahan ng mga Top na Gumagawa",
   "pages.home.followerTab.news": "Balita",
   "pages.home.followerTab.smm": "Ipakita pa sa akin",
   "pages.home.followerTab.ba": "Maging may-akda",
-
   "pages.home.brand.efc": "Kumita ng libreng kripto",
   "pages.home.brand.acreweb": "Isang malikhaing website na nangunguna at nag-iinspire.",
   "pages.home.brand.mint": "Gumawa",
   "pages.home.brand.discover": "Tuklasin",
-
   "pages.home.video.tv": "Ang Video",
   "pages.home.video.checkOut": "Tingnan ang aming pinakamainit na video Tingnan ang aming pinakamainit na video Tingnan ang aming pinakamainit na video Tingnan ang aming pinakamainit na video Tingnan ang aming pinakamainit na video Tingnan ang aming pinakamainit na video",
-
   "pages.home.footer.paragraph": "Maligayang pagdating sa aming NFT marketplace, isang buhay na sentro para sa mga graphic artist sa rehiyon ng Bicol. Tuklasin, kolektahin, at ibenta ang kakaibang digital artworks. Makipag-ugnayan sa kapwa likhang-sining, kilalanin ang kayamanang diversity ng talento, at makiisa sa isang umuunlad na komunidad na bumubuo ng hinaharap ng digital art sa Bicol.",
-  "pages.home.footer.statement": "Palakasin ang mga artistang Bicolano sa pamamagitan ng aming masiglang NFT marketplace, ipinapakita ang kanilang kahusayan at konektado sa pandaigdigang manonood. Umuunlad ng sama-sama!", 
+  "pages.home.footer.statement": "Palakasin ang mga artistang Bicolano sa pamamagitan ng aming masiglang NFT marketplace, ipinapakita ang kanilang kahusayan at konektado sa pandaigdigang manonood. Umuunlad ng sama-sama!",
   "pages.home.footer.discover": "Tuklasin",
   "pages.home.footer.discover.search": "Maghanap",
   "pages.home.footer.discover.mintNft": "Gumawa ng NFT",
@@ -76,17 +69,14 @@
   "pages.home.footer.helpCenter.contactUs": "Makipag-ugnayan sa Amin",
   "pages.home.footer.subscribe": "Mag-subscribe",
   "pages.home.footer.eye": "Ilagay ang iyong email",
-  
   "pages.searchPage.cryptoPrice.heading": "Presyo ng Kripto",
   "pages.searchPage.cryptoPrice.paragraph": "Live na Araw-araw na Update ng 24 Oras",
   "pages.searchPage.earnFreeCyrpto.heading": "Kumita ng libreng kripto",
   "pages.searchPage.searchBar.input": "Ilagay ang iyong mga keyword dito...",
-
   "pages.uploadNft.h1": "Gumawa ng NFT",
   "pages.uploadNft.h1.paragraph": "Pagkatapos mabuo ang iyong item, hindi mo na magagampanang baguhin ang anumang impormasyon nito.",
   "pages.uploadNft.image.h2": "Larawan",
   "pages.uploadNft.image.paragraph": "Mga suportadong file: JPG, PNG, GIF, SVG Pinakamataas na sukat: 100 MB",
-
   "pages.uploadNft.uploadNft.dropZone.title": "JPG, PNG, WEBN, HANGGANG 100 MB",
   "pages.uploadNft.uploadNft.dropZone.heading": "Pumili ng file",
   "pages.uploadNft.uploadNft.dropZone.subHeading": "o I-drag ito sa aparato",
@@ -97,7 +87,7 @@
   "pages.uploadNft.uploadNft.nft.description.placeholder": "Isulat ang tungkol sa iyong NFT",
   "pages.uploadNft.uploadNft.nft.description.paragraph": "Ang deskripsyon ay kasama sa pahina ng detalye ng item sa ilalim ng larawan nito. Suportado ang syntax ng Markdown.",
   "pages.uploadNft.uploadNft.nft.category.label": "Pumili ng kategorya",
-  "pages.uploadNft.uploadNft.nft.category.paragraph": "Pumili ng isang kategorya", 
+  "pages.uploadNft.uploadNft.nft.category.paragraph": "Pumili ng isang kategorya",
   "pages.uploadNft.uploadNft.nft.royalties.label": "Royalties",
   "pages.uploadNft.uploadNft.nft.royalties.placeholder": "20%",
   "pages.uploadNft.uploadNft.nft.royalties.error": "Ang Royalties ay dapat na isang numero",
@@ -124,10 +114,8 @@
   "pages.uploadNft.uploadNft.dropZone.dropZone.fileSize": "Laki ng File:",
   "pages.uploadNft.uploadNft.dropZone.dropZone.properties": "Mga Katangian:",
   "pages.uploadNft.uploadNft.dropZone.dropZone.price": "Presyo:",
- 
   "pages.connectWallet.h1": "Kumonekta sa iyong wallet",
   "pages.connectWallet.paragraph": "Kumonekta gamit ang isa sa iyong mga available na wallet o lumikha ng bago",
-
   "pages.author.title": "Damdamin ang Bolyum ng Inilista na NFTs",
   "pages.author.paragraph": "Live na impormasyon tungkol sa volume ng pagbebenta ng iyong mga token ng NFT",
   "pages.author.error.paragraph1": "Hindi maipakita ang volume ng pagbebenta. Mangyaring suriin ang data",
@@ -138,8 +126,7 @@
   "pages.author.authorTaps.owned": "Akin NFTs",
   "pages.author.authorTaps.myBid": "May mga bid na ang aking mga NFT",
   "pages.author.authorTaps.nftBid": "Aking mga Bid",
-
-  "pages.nftDetails.earn": "Kumita ng libreng crypto", 
+  "pages.nftDetails.earn": "Kumita ng libreng crypto",
   "pages.nftDetails.nftDetailsImg.description": "Paglalarawan",
   "pages.nftDetails.nftDetailsImg.details": "Detalye",
   "pages.nftDetails.nftDetailsImg.sellerAddress": "Address ng Nagbebenta",
@@ -169,14 +156,13 @@
   "pages.nftDetails.nftDetailsImg.dialogBox.chooseImageFormat": "Pumili ng Format ng Larawan:",
   "pages.nftDetails.nftDetailsImg.dialogBox.cancel": "Kanselahin",
   "pages.nftDetails.nftDetailsImg.dialogBox.acceptHighestBid": "Tanggapin ang Pinakamataas na Bid",
-  "pages.nftDetails.nftDetailsImg.dialogBox.topBid": "Top 7 Pinakamataas na Bid", 
+  "pages.nftDetails.nftDetailsImg.dialogBox.topBid": "Top 7 Pinakamataas na Bid",
   "pages.nftDetails.nftDetailsImg.nftTabs.bidder": "Tagabid:",
   "pages.nftDetails.nftDetailsImg.nftTabs.amount": "Halaga:",
   "pages.nftDetails.nftDetailsImg.nftTabs.acceptBid": "Tanggapin ang Bid",
   "pages.nftDetails.nftDetailsImg.nftTabs.h2": "Sigurado ka bang gusto mong tanggapin ang bid?",
   "pages.nftDetails.nftDetailsImg.nftTabs.yes": "Oo",
   "pages.nftDetails.nftDetailsImg.nftTabs.no": "Hindi",
-
   "pages.reSellToken.h1": "Ibenta ang iyong NFT",
   "pages.reSellToken.price": "Presyo",
   "pages.reSellToken.sellYourNft": "Ibenta ang iyong NFT",
@@ -185,6 +171,4 @@
   "pages.reSellToken.sellingPrice": "Presyo sa Pagbebenta:",
   "pages.reSellToken.yes": "Oo",
   "pages.reSellToken.no": "Hindi"
-
-
 }
