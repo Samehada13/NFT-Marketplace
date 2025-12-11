@@ -65,7 +65,7 @@ const searchPage = () => {
 
   return (
     <div className={Style.searchPage}>
-      <AreaChart />
+      <AreaChart nftData={nfts} activeCategory={activeCategory} />
       <div className="px-6 pt-6">
         <div className="flex items-center gap-3">
           <div className="w-1 h-12 bg-gradient-to-b from-violet-500 to-pink-500 rounded-full" />
