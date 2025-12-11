@@ -616,7 +616,7 @@ const UploadNFT = ({ uploadIPFS, createNFT }) => {
         </div>
         <div className={Style.confirmationActions}>
           <Button
-            btnName="Yes, Mint Now"
+            btnName="Yes"
             handleClick={() => handleConfirmation(true)}
             classStyle={Style.confirmationBtnYes}
           />
@@ -644,7 +644,7 @@ const UploadNFT = ({ uploadIPFS, createNFT }) => {
         </div>
         <div className={Style.confirmationActions}>
           <Button
-            btnName="Yes, Cancel"
+            btnName="Yes"
             handleClick={() => handleCancelConfirmation(true)}
             classStyle={Style.confirmationBtnNo}
           />

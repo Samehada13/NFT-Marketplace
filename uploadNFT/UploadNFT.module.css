@@ -255,12 +255,13 @@
 
 .categoryCheckmark {
   position: absolute;
+  margin-top: 8px;
   top: -8px;
   right: -8px;
-  width: 28px;
-  height: 28px;
+  width: 20px;
+  height: 20px;
   background: var(--primary-color);
-  border-radius: 50%;
+  border-radius: 100%;
   display: flex;
   align-items: center;
   justify-content: center;

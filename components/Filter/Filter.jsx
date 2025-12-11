@@ -10,12 +10,16 @@ const Filter = ({ onCategoryFilter, activeCategory = 'All' }) => {
 
   const categories = [
     { name: 'All', label: t('pages.home.filter.all') },
-    { name: 'Painting', label: t('pages.home.filter.painting') },
-    { name: 'Drawing', label: t('pages.home.filter.drawing') },
-    { name: 'Sculpture', label: t('pages.home.filter.sculpture') },
-    { name: 'Printmaking', label: t('pages.home.filter.printMaking') },
-    { name: 'Photography', label: t('pages.home.filter.photography') },
-    { name: 'Digital Art', label: t('pages.home.filter.digitalArt') },
+    { name: 'Digital Painting', label: t('pages.home.filter.digitalPainting') },
+    { name: 'Digital Photography', label: t('pages.home.filter.digitalPhotography') },
+    { name: 'CGI Art', label: t('pages.home.filter.cgiArt') },
+    { name: 'Anime Art', label: t('pages.home.filter.animeArt') },
+    { name: 'Digital Collage', label: t('pages.home.filter.digitalCollage') },
+    { name: 'Pixel Art', label: t('pages.home.filter.pixelArt') },
+    { name: 'Concept Art', label: t('pages.home.filter.conceptArt') },
+    { name: 'AI-Generated Art', label: t('pages.home.filter.aiGeneratedArt') },
+    { name: 'Photobashing', label: t('pages.home.filter.photobashing') },
+    { name: 'Vector Art', label: t('pages.home.filter.vectorArt') },
   ];
 
   useEffect(() => {
@@ -45,10 +49,9 @@ const Filter = ({ onCategoryFilter, activeCategory = 'All' }) => {
                 <Tab
                   key={category.name}
                   className={({ selected }) =>
-                    `flex-shrink-0 px-4 py-2 rounded-lg font-medium text-sm transition-all duration-200 focus:outline-none ${
-                      selected
-                        ? 'bg-violet-600 text-white shadow-md'
-                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200 focus:ring-gray-400'
+                    `flex-shrink-0 px-4 py-2 rounded-lg font-medium text-sm transition-all duration-200 focus:outline-none ${selected
+                      ? 'bg-violet-600 text-white shadow-md'
+                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200 focus:ring-gray-400'
                     }`
                   }
                 >
