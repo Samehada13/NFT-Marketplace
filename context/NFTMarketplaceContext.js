@@ -8,9 +8,68 @@ import { create as ipfsHttpClient } from 'ipfs-http-client';
 
 import { NFTMarketplaceAddress, NFTMarketplaceABI } from './constants';
 
+// Polygon Amoy Testnet Chain ID
+const POLYGON_AMOY_CHAIN_ID = 80002;
+
 const fetchContract = (signerOrProvider) => new ethers.Contract(NFTMarketplaceAddress,
     NFTMarketplaceABI, signerOrProvider);
 
+// Helper function to check if user is on correct network
+const checkNetwork = async () => {
+    if (!window.ethereum) return { isCorrect: false, chainId: null };
+
+    try {
+        const chainId = await window.ethereum.request({ method: 'eth_chainId' });
+        const chainIdDecimal = parseInt(chainId, 16);
+        return {
+            isCorrect: chainIdDecimal === POLYGON_AMOY_CHAIN_ID,
+            chainId: chainIdDecimal
+        };
+    } catch (error) {
+        console.error("Error checking network:", error);
+        return { isCorrect: false, chainId: null };
+    }
+};
+
+// Helper function to switch to Polygon Amoy
+const switchToPolygonAmoy = async () => {
+    if (!window.ethereum) {
+        throw new Error("MetaMask not installed");
+    }
+
+    try {
+        await window.ethereum.request({
+            method: 'wallet_switchEthereumChain',
+            params: [{ chainId: `0x${POLYGON_AMOY_CHAIN_ID.toString(16)}` }],
+        });
+        return true;
+    } catch (switchError) {
+        // This error code indicates that the chain has not been added to MetaMask
+        if (switchError.code === 4902) {
+            try {
+                await window.ethereum.request({
+                    method: 'wallet_addEthereumChain',
+                    params: [{
+                        chainId: `0x${POLYGON_AMOY_CHAIN_ID.toString(16)}`,
+                        chainName: 'Polygon Amoy Testnet',
+                        nativeCurrency: {
+                            name: 'MATIC',
+                            symbol: 'MATIC',
+                            decimals: 18
+                        },
+                        rpcUrls: ['https://rpc-amoy.polygon.technology/'],
+                        blockExplorerUrls: ['https://amoy.polygonscan.com/']
+                    }]
+                });
+                return true;
+            } catch (addError) {
+                console.error("Error adding network:", addError);
+                throw addError;
+            }
+        }
+        throw switchError;
+    }
+};
 
 const connectingWithSC = async () => {
     try {
@@ -31,6 +90,8 @@ export const NFTMarketplaceProvider = ({ children }) => {
     const titleData = "Discover, collect, and sell NFTs";
     const [toasts, setToasts] = useState([]);
     const [currentAccount, setCurrentAccount] = useState("");
+    const [isCorrectNetwork, setIsCorrectNetwork] = useState(true);
+    const [currentChainId, setCurrentChainId] = useState(null);
     const router = useRouter();
     const { BigNumber } = ethers;
 
@@ -50,6 +111,38 @@ export const NFTMarketplaceProvider = ({ children }) => {
 
     const removeToast = (id) => {
         setToasts(prev => prev.filter(toast => toast.id !== id));
+    };
+
+    // Network checking function
+    const validateNetwork = async () => {
+        const { isCorrect, chainId } = await checkNetwork();
+        setIsCorrectNetwork(isCorrect);
+        setCurrentChainId(chainId);
+        return isCorrect;
+    };
+
+    // Listen for network changes
+    useEffect(() => {
+        if (window.ethereum) {
+            window.ethereum.on('chainChanged', () => {
+                validateNetwork();
+            });
+        }
+        validateNetwork();
+    }, []);
+
+    // Function to switch network with user feedback
+    const requestNetworkSwitch = async () => {
+        try {
+            await switchToPolygonAmoy();
+            addToast("Successfully switched to Polygon Amoy Testnet!", "success", 3000);
+            await validateNetwork();
+            return true;
+        } catch (error) {
+            addToast("Failed to switch network. Please switch manually in MetaMask.", "error", 5000);
+            console.error("Network switch error:", error);
+            return false;
+        }
     };
 
 
@@ -201,23 +294,73 @@ export const NFTMarketplaceProvider = ({ children }) => {
     }
 
     const createSale = async (url, formInputPrice, isReselling, id) => {
+        console.log("🔵 createSale called - Starting network validation...");
         try {
+            // Validate network first
+            const isOnCorrectNetwork = await validateNetwork();
+            console.log("🔵 Network validation result:", { isOnCorrectNetwork, currentChainId });
+            
+            if (!isOnCorrectNetwork) {
+                console.warn("⚠️ Wrong network detected! Chain ID:", currentChainId);
+                addToast(
+                    `Please switch to Polygon Amoy Testnet. Current network: Chain ID ${currentChainId || 'Unknown'}`,
+                    "error",
+                    8000
+                );
+
+                // Attempt to switch network automatically
+                console.log("🔄 Attempting automatic network switch...");
+                const switched = await requestNetworkSwitch();
+                console.log("🔄 Network switch result:", switched);
+                
+                if (!switched) {
+                    console.error("❌ Network switch failed or was rejected");
+                    throw new Error("Network switch required");
+                }
+                console.log("✅ Network switched successfully!");
+            } else {
+                console.log("✅ Already on correct network - proceeding...");
+            }
+
+            console.log("💰 Parsing price...");
             const price = ethers.utils.parseUnits(formInputPrice, "ether");
+            
+            console.log("🔗 Connecting to smart contract...");
             const contract = await connectingWithSC();
 
+            console.log("📋 Getting listing price from contract...");
             const listingPrice = await contract.getListingPrice();
+            console.log("📋 Listing price:", ethers.utils.formatEther(listingPrice), "MATIC");
 
+            console.log("📝 Creating transaction...");
             const transaction = !isReselling
                 ? await contract.createToken(url, price, { value: listingPrice.toString() })
                 : await contract.resellToken(id, price, { value: listingPrice.toString() });
 
+            console.log("⏳ Waiting for transaction confirmation...");
             await transaction.wait();
 
-            console.log(transaction);
+            console.log("✅ Transaction successful!", transaction);
 
         } catch (error) {
-            addToast("Error while creating sale. Please try again.", "error", 5000);
-            console.error("Create sale error:", error);
+            console.error("❌ ERROR in createSale:", error);
+            
+            // More specific error handling
+            if (error.code === 'CALL_EXCEPTION') {
+                console.error("❌ CALL_EXCEPTION - Contract call failed");
+                addToast("Contract call failed. Please ensure you're on Polygon Amoy Testnet.", "error", 6000);
+            } else if (error.message?.includes("user rejected")) {
+                console.log("ℹ️ User rejected transaction");
+                addToast("Transaction cancelled by user.", "info", 4000);
+            } else if (error.message?.includes("Network switch required")) {
+                console.log("ℹ️ Network switch was required but not completed");
+                // Already handled above
+            } else {
+                console.error("❌ Unknown error:", error.message);
+                addToast("Error while creating sale. Please try again.", "error", 5000);
+            }
+            console.error("Full error details:", error);
+            throw error; // Re-throw so createNFT can handle it
         }
     };
 
@@ -658,6 +801,11 @@ export const NFTMarketplaceProvider = ({ children }) => {
             toasts,
             addToast,
             removeToast,
+            // Network-related exports
+            isCorrectNetwork,
+            currentChainId,
+            validateNetwork,
+            requestNetworkSwitch,
         }}>
             {children}
         </NFTMarketplaceContext.Provider>

@@ -106,7 +106,7 @@ const ContactUs = () => {
                     </a>
                   </p>
                   <p className='mt-3'>JUUN.J MARKETPLACE DAY CORPORATION</p>
-                  <p>Santa Cruz, Labo, Camarines Norte</p>
+                  <p>Labo, Camarines Norte</p>
                   <p>Republic of Philippines</p>
                   <p className='mt-3'>
                     <a href='tel:+63907095520' className='hover:text-purple-600 transition-colors'>
