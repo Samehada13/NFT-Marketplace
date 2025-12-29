@@ -299,7 +299,7 @@ export const NFTMarketplaceProvider = ({ children }) => {
             // Validate network first
             const isOnCorrectNetwork = await validateNetwork();
             console.log("🔵 Network validation result:", { isOnCorrectNetwork, currentChainId });
-            
+
             if (!isOnCorrectNetwork) {
                 console.warn("⚠️ Wrong network detected! Chain ID:", currentChainId);
                 addToast(
@@ -312,7 +312,7 @@ export const NFTMarketplaceProvider = ({ children }) => {
                 console.log("🔄 Attempting automatic network switch...");
                 const switched = await requestNetworkSwitch();
                 console.log("🔄 Network switch result:", switched);
-                
+
                 if (!switched) {
                     console.error("❌ Network switch failed or was rejected");
                     throw new Error("Network switch required");
@@ -324,7 +324,7 @@ export const NFTMarketplaceProvider = ({ children }) => {
 
             console.log("💰 Parsing price...");
             const price = ethers.utils.parseUnits(formInputPrice, "ether");
-            
+
             console.log("🔗 Connecting to smart contract...");
             const contract = await connectingWithSC();
 
@@ -344,7 +344,7 @@ export const NFTMarketplaceProvider = ({ children }) => {
 
         } catch (error) {
             console.error("❌ ERROR in createSale:", error);
-            
+
             // More specific error handling
             if (error.code === 'CALL_EXCEPTION') {
                 console.error("❌ CALL_EXCEPTION - Contract call failed");
@@ -562,17 +562,53 @@ export const NFTMarketplaceProvider = ({ children }) => {
     const buyNFT = async (nft) => {
         console.log("buyNFT function called");
         try {
+            // Check if wallet is connected first
+            if (!currentAccount) {
+                addToast("Please connect your wallet before buying an NFT", "warning", 5000);
+                throw new Error("Wallet not connected");
+            }
+
+            // Validate network
+            const isOnCorrectNetwork = await validateNetwork();
+            if (!isOnCorrectNetwork) {
+                addToast(
+                    `Please switch to Polygon Amoy Testnet. Current network: Chain ID ${currentChainId || 'Unknown'}`,
+                    "error",
+                    8000
+                );
+                const switched = await requestNetworkSwitch();
+                if (!switched) {
+                    throw new Error("Network switch required");
+                }
+            }
+
             const contract = await connectingWithSC();
+            if (!contract) {
+                addToast("Failed to connect to smart contract. Please try again.", "error", 5000);
+                throw new Error("Contract connection failed");
+            }
+
             const price = ethers.utils.parseUnits(nft.price.toString(), "ether");
 
             const transaction = await contract.createMarketSale(nft.tokenId, {
                 value: price,
             });
             await transaction.wait();
+            addToast("NFT purchased successfully!", "success", 5000);
             router.push("/author");
         } catch (error) {
             console.error("Error while buying NFT:", error);
-            addToast("Error while buying NFT. Please try again.", "error", 5000);
+
+            // More specific error handling
+            if (error.message?.includes("user rejected")) {
+                addToast("Transaction cancelled by user.", "info", 4000);
+            } else if (error.message?.includes("insufficient funds")) {
+                addToast("Insufficient funds to complete the purchase.", "error", 5000);
+            } else if (error.message?.includes("Wallet not connected") || error.message?.includes("Network switch required")) {
+                // Already handled above
+            } else {
+                addToast("Error while buying NFT. Please try again.", "error", 5000);
+            }
             throw error;
         }
     }

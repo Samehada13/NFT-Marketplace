@@ -123,32 +123,29 @@ const author = ({ creators }) => {
 
   const { t } = useTranslation();
   const [openReviewDialog, setOpenReviewDialog] = useState(false);
+  const reviewDialogShownRef = useRef(false);
 
   useEffect(() => {
     const { purchased, seller: sellerAddress } = router.query;
-    if (purchased === 'success' && sellerAddress) {
+
+    // Only show review dialog once per session and only if it hasn't been shown yet
+    if (purchased === 'success' && sellerAddress && !reviewDialogShownRef.current) {
+      reviewDialogShownRef.current = true; // Mark as shown
       setSeller(sellerAddress); // Update seller state
       setOpenReviewDialog(true);
-      // router.replace(router.pathname, router.pathname, { scroll: false });
+
+      // Immediately clear the query params to prevent re-triggering
+      window.history.replaceState({}, document.title, window.location.pathname);
     } else if (purchased === 'failure') {
       setOpenReviewDialog(false);
+      window.history.replaceState({}, document.title, window.location.pathname);
     }
   }, [router.query]);
 
   const handleCloseReviewDialog = () => {
     setOpenReviewDialog(false);
+    reviewDialogShownRef.current = false; // Reset for future purchases
   };
-
-  useEffect(() => {
-    const clearQueryParams = () => {
-      window.history.replaceState({}, document.title, window.location.pathname);
-    };
-    clearQueryParams();
-
-    return () => {
-      window.removeEventListener('beforeunload', clearQueryParams);
-    };
-  }, []);
 
   const [nftsWithBids, setNftsWithBids] = useState([]);
   useEffect(() => {
