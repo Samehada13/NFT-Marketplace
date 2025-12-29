@@ -4,7 +4,7 @@ import Style from './AreaChart.module.css';
 
 const AreaChart = ({ nftData = [], activeCategory = 'All' }) => {
     const [activeIndex, setActiveIndex] = useState(null);
-    const [timeFilter, setTimeFilter] = useState('yearly'); // 'today', 'month', 'yearly'
+    const [timeFilter, setTimeFilter] = useState('today'); // 'today', 'month', 'yearly'
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
@@ -195,7 +195,7 @@ const AreaChart = ({ nftData = [], activeCategory = 'All' }) => {
                     <p className={Style.tooltipDay}>{getLabel()}</p>
                     <p className={Style.tooltipVolume}>
                         <span className={Style.tooltipLabel}>Floor Price:</span>
-                        <span className={Style.tooltipValue}>{payload[0].value} MATIC</span>
+                        <span className={Style.tooltipValue}>{payload[0].value} ETH</span>
                     </p>
                 </div>
             );

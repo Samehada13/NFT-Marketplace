@@ -101,11 +101,10 @@ const ContactUs = () => {
                 </h2>
                 <div className='text-sm text-gray-700 space-y-1'>
                   <p>
-                    <a href='mailto:rlb_nft.support@gmail.com' className='hover:text-purple-600 transition-colors'>
-                      RLB_NFT.SUPPORT@GMAIL.COM
+                    <a href='mailto:nft.market.support@gmail.com' className='hover:text-purple-600 transition-colors'>
+                      NFT.MARKET.SUPPORT@GMAIL.COM
                     </a>
                   </p>
-                  <p className='mt-3'>JUUN.J MARKETPLACE DAY CORPORATION</p>
                   <p>Labo, Camarines Norte</p>
                   <p>Republic of Philippines</p>
                   <p className='mt-3'>
