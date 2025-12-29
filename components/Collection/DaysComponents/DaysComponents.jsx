@@ -25,7 +25,7 @@ const DaysComponents = ({el, i}) => {
               <p>Creator<span>Ruben Balon<small><MdVerified/></small></span></p>
             </div>
             <div className={Style.daysComponent_box_title_info_price}>
-              <small>1.4 ETH</small>
+              <small>1.4 MATIC</small>
             </div>
           </div>
         </div>

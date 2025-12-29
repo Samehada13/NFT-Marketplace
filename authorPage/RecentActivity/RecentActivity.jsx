@@ -15,7 +15,7 @@ const RecentActivity = ({ activities = [] }) => {
             type: 'listed',
             title: 'NFT Listed',
             nftName: 'Cool NFT #123',
-            price: '2.5 ETH',
+            price: '2.5 MATIC',
             timestamp: '2 hours ago',
             icon: MdSell,
             color: '#9565e8'
@@ -24,7 +24,7 @@ const RecentActivity = ({ activities = [] }) => {
             type: 'sale',
             title: 'Sale Completed',
             nftName: 'Awesome Art #456',
-            price: '5.0 ETH',
+            price: '5.0 MATIC',
             timestamp: '5 hours ago',
             icon: MdShoppingCart,
             color: '#10b981'
@@ -33,7 +33,7 @@ const RecentActivity = ({ activities = [] }) => {
             type: 'bid',
             title: 'Bid Received',
             nftName: 'Digital Piece #789',
-            price: '3.2 ETH',
+            price: '3.2 MATIC',
             timestamp: '1 day ago',
             icon: MdGavel,
             color: '#fbc64c'

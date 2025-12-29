@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import { MdVerified, MdShare } from 'react-icons/md';
 import { FiCopy } from 'react-icons/fi';
@@ -16,7 +16,6 @@ import {
 } from 'react-icons/hi';
 import image from '../../img';
 import StatCard from '../components/StatCard';
-import { Button } from '../../components/componentIndex';
 import styles from './HeroSection.module.css';
 
 const HeroSection = ({
@@ -58,7 +57,7 @@ const HeroSection = ({
                     {/* Profile Picture */}
                     <div className={styles.profilePictureWrapper}>
                         <Image
-                            src={image.nft_image_1}
+                            src={image.user1}
                             alt="Profile"
                             width={200}
                             height={200}

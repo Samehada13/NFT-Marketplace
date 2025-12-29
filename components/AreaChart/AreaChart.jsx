@@ -4,7 +4,7 @@ import Style from './AreaChart.module.css';
 
 const AreaChart = ({ nftData = [], activeCategory = 'All' }) => {
     const [activeIndex, setActiveIndex] = useState(null);
-    const [timeFilter, setTimeFilter] = useState('yearly'); // 'today', 'month', 'yearly'
+    const [timeFilter, setTimeFilter] = useState('today'); // 'today', 'month', 'yearly'
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
@@ -310,7 +310,7 @@ const AreaChart = ({ nftData = [], activeCategory = 'All' }) => {
             <div className={Style.stats}>
                 <div className={Style.statItem}>
                     <span className={Style.statLabel}>Average Floor Price</span>
-                    <span className={Style.statValue}>{averageFloorPrice} ETH</span>
+                    <span className={Style.statValue}>{averageFloorPrice} MATIC</span>
                 </div>
                 <div className={Style.statItem}>
                     <span className={Style.statLabel}>Peak {getTimeFilterLabel()}</span>
@@ -318,7 +318,7 @@ const AreaChart = ({ nftData = [], activeCategory = 'All' }) => {
                 </div>
                 <div className={Style.statItem}>
                     <span className={Style.statLabel}>Highest Price</span>
-                    <span className={Style.statValue}>{parseFloat(peakData.floorPrice).toFixed(4)} ETH</span>
+                    <span className={Style.statValue}>{parseFloat(peakData.floorPrice).toFixed(4)} MATIC</span>
                 </div>
             </div>
 
