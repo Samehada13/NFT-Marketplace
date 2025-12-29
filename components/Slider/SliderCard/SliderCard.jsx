@@ -23,7 +23,7 @@ const SliderCard = ({el, i}) => {
           <div className={Style.sliderCard_box_price}>
             <div className={Style.sliderCard_box_price_box}>
               <small>Current Bid</small>
-              <p>1.000 ETH</p>
+              <p>1.000 MATIC</p>
             </div>
             <div className={Style.sliderCard_box_price_time}>
               <small>Remaining Time</small>

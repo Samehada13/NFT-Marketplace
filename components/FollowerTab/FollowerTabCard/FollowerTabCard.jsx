@@ -69,7 +69,7 @@ const FollowerTabCard = ({ i, el }) => {
                 <span className='text-white font-bold text-lg'>
                   {el.price || '0.172'}
                 </span>
-                <span className='text-gray-400 text-xs'>ETH</span>
+                <span className='text-gray-400 text-xs'>MATIC</span>
                 <span className='text-green-400 text-xs font-semibold'>
                   {el.change || '+72.1%'}
                 </span>
@@ -102,7 +102,7 @@ const FollowerTabCard = ({ i, el }) => {
           {el.total && (
             <div className='mt-3 text-center'>
               <p className='text-gray-400 text-xs'>Total Volume</p>
-              <p className='text-white font-bold text-lg'>{el.total} ETH</p>
+              <p className='text-white font-bold text-lg'>{el.total} MATIC</p>
             </div>
           )}
         </div>

@@ -79,7 +79,7 @@ const account = () => {
               <div className='flex justify-between items-center'>
                 <span className='text-gray-600 dark:text-gray-300'>Total Sales</span>
                 <span className='font-medium flex items-center'>
-                  <FiDollarSign className='mr-1' /> 1.24 ETH
+                  <FiDollarSign className='mr-1' /> 1.24 MATIC
                 </span>
               </div>
               <div className='flex justify-between items-center'>

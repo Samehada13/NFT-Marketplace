@@ -195,7 +195,7 @@ const AreaChart = ({ nftData = [], activeCategory = 'All' }) => {
                     <p className={Style.tooltipDay}>{getLabel()}</p>
                     <p className={Style.tooltipVolume}>
                         <span className={Style.tooltipLabel}>Floor Price:</span>
-                        <span className={Style.tooltipValue}>{payload[0].value} ETH</span>
+                        <span className={Style.tooltipValue}>{payload[0].value} MATIC</span>
                     </p>
                 </div>
             );
@@ -310,7 +310,7 @@ const AreaChart = ({ nftData = [], activeCategory = 'All' }) => {
             <div className={Style.stats}>
                 <div className={Style.statItem}>
                     <span className={Style.statLabel}>Average Floor Price</span>
-                    <span className={Style.statValue}>{averageFloorPrice} ETH</span>
+                    <span className={Style.statValue}>{averageFloorPrice} MATIC</span>
                 </div>
                 <div className={Style.statItem}>
                     <span className={Style.statLabel}>Peak {getTimeFilterLabel()}</span>
@@ -318,7 +318,7 @@ const AreaChart = ({ nftData = [], activeCategory = 'All' }) => {
                 </div>
                 <div className={Style.statItem}>
                     <span className={Style.statLabel}>Highest Price</span>
-                    <span className={Style.statValue}>{parseFloat(peakData.floorPrice).toFixed(4)} ETH</span>
+                    <span className={Style.statValue}>{parseFloat(peakData.floorPrice).toFixed(4)} MATIC</span>
                 </div>
             </div>
 
