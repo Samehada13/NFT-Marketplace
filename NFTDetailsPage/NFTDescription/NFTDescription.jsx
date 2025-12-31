@@ -38,6 +38,7 @@ const NFTDescription = ({ nft, placeBid, acceptBid, fetchBidsForNFT }) => {
   const [isNFTOwnedByCurrentUser, setIsNFTOwnedByCurrentUser] = useState(/* Add your logic here */);
   const [showFormatModal, setShowFormatModal] = useState(false);
   const [openReviewDialog, setOpenReviewDialog] = useState(false);
+  const [isBuying, setIsBuying] = useState(false);
 
   const router = useRouter();
 
@@ -216,13 +217,16 @@ const NFTDescription = ({ nft, placeBid, acceptBid, fetchBidsForNFT }) => {
   const handleConfirmation = async (confirm) => {
     try {
       if (confirm) {
+        setIsBuying(true);
         await buyNFT(nft);
+        setIsBuying(false);
         router.push(`/author?purchased=success&seller=${nft.seller}`);
       } else {
         router.push(`/author?purchased=failure`);
       }
     } catch (error) {
       console.error('Error during purchase:', error);
+      setIsBuying(false);
       router.push(`/author?purchased=failure`);
     }
     setShowConfirmation(false);
@@ -367,10 +371,17 @@ const NFTDescription = ({ nft, placeBid, acceptBid, fetchBidsForNFT }) => {
               <div className={Style.confirmationDialog}>
                 <h2>{t('pages.nftDetails.nftDetailsImg.dialogBox.h2')}</h2>
                 <p><b>{t('pages.nftDetails.nftDetailsImg.dialogBox.price')} {nft.price} Matic</b></p>
-                <div className={Style.buttonContainer}>
-                  <Button btnName={t('pages.nftDetails.nftDetailsImg.dialogBox.yes')} handleClick={() => handleConfirmation(true)} />
-                  <Button btnName={t('pages.nftDetails.nftDetailsImg.dialogBox.no')} handleClick={() => handleConfirmation(false)} />
-                </div>
+                {isBuying ? (
+                  <div className={Style.loadingContainer}>
+                    <div className={Style.loadingSpinner}></div>
+                    <p>Processing transaction...</p>
+                  </div>
+                ) : (
+                  <div className={Style.buttonContainer}>
+                    <Button btnName={t('pages.nftDetails.nftDetailsImg.dialogBox.yes')} handleClick={() => handleConfirmation(true)} />
+                    <Button btnName={t('pages.nftDetails.nftDetailsImg.dialogBox.no')} handleClick={() => handleConfirmation(false)} />
+                  </div>
+                )}
               </div>
             )}
             {showBidForm && currentAccount !== nft.seller.toLowerCase() && currentAccount !== nft.owner.toLowerCase() && (

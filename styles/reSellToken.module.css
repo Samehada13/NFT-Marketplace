@@ -1,70 +1,97 @@
 .reSellToken {
   width: 100%;
-  margin-block: 0rem;
+  margin-block: 4rem;
 }
+
 .reSellToken_box {
   margin: 0 auto;
-  width: 60%;
+  width: 40%;
 }
+
 .reSellToken_box h1 {
   font-size: 3rem;
+  font-weight: 800;
+  font-family: var(--font-headings);
+  margin-bottom: 2rem;
+  line-height: normal;
 }
+
 .reSellToken_box_image {
   margin-block: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.confirmationDialog {
-  background-color: #f8f9fa;
-  border: 2px solid var(--icons-bg-color);
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  padding: 20px;
-  text-align: center;
+
+/* Dialog Overlay */
+.confirmationOverlay {
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent backdrop */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.confirmationDialog {
+  background-color: var(--main-bg-color);
+  border: 1px solid var(--shadow-dark-color);
+  border-radius: 1rem;
+  box-shadow: var(--box-shadow);
+  padding: 3rem;
+  text-align: center;
+  position: relative;
   z-index: 1000;
-  max-width: 500px; /* Set a maximum width for better readability */
+  width: 90%;
+  max-width: 500px;
 }
 
 .confirmationDialog h2 {
-  font-size: 1.8rem;
-  color: var(--primary-color);
-  margin-bottom: 20px;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
 }
 
 .confirmationDialog p {
   font-size: 1.2rem;
-  color: #495057;
-  margin-bottom: 15px;
-  text-align: center; /* Center-align the text */
-  display: flex; /* Add display flex */
-  align-items: center; /* Align items in the center */
-  justify-content: center; /* Center the content horizontally */
-}
-
-.confirmationDialog button {
-  font-size: 1rem;
-  padding: 0.8rem 1.2rem;
-  margin: 5px;
-}
-
-/* Style for Yes button */
-.confirmationDialog button.btnYes {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  margin-right: 5px;
-}
-
-/* Style for No button */
-.confirmationDialog button.btnNo {
-  background-color: #dc3545;
-  color: white;
-  border: none;
-  margin-left: 5px;
-}
-.confirmationDialog .buttonContainer {
+  margin-bottom: 2rem;
   display: flex;
   justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+@media screen and (max-width: 55em) {
+  .reSellToken_box {
+    width: 70%;
+  }
+
+  .reSellToken_box h1 {
+    font-size: 2.5rem;
+  }
+}
+
+@media screen and (max-width: 35em) {
+  .reSellToken_box {
+    width: 90%;
+  }
+
+  .reSellToken_box h1 {
+    font-size: 2rem;
+  }
+  
+  .confirmationDialog {
+    padding: 2rem;
+  }
 }

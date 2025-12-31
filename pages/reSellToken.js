@@ -48,7 +48,7 @@ const ResellToken = () => {
     setShowConfirmation(false);
   };
 
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <div className={Style.reSellToken}>
@@ -72,12 +72,14 @@ const ResellToken = () => {
         </div>
 
         {showConfirmation && (
-          <div className={Style.confirmationDialog}>
-            <h2>{t('pages.reSellToken.areYouSure')}</h2>
-            <p><b>{t('pages.reSellToken.sellingPrice')} {price} Matic</b></p>
-            <div className={Style.buttonContainer}>
-              <Button btnName={t('pages.reSellToken.yes')} handleClick={() => handleConfirmation(true)} />
-              <Button btnName={t('pages.reSellToken.no')} handleClick={() => handleConfirmation(false)} />
+          <div className={Style.confirmationOverlay}>
+            <div className={Style.confirmationDialog}>
+              <h2>{t('pages.reSellToken.areYouSure')}</h2>
+              <p><b>{t('pages.reSellToken.sellingPrice')} {price} Matic</b></p>
+              <div className={Style.buttonContainer}>
+                <Button btnName={t('pages.reSellToken.yes')} handleClick={() => handleConfirmation(true)} />
+                <Button btnName={t('pages.reSellToken.no')} handleClick={() => handleConfirmation(false)} />
+              </div>
             </div>
           </div>
         )}
