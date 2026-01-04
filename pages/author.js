@@ -19,7 +19,7 @@ import Scatter from '../TopCreators/ScatterPlot';
 import { NFTMarketplaceContext } from '../context/NFTMarketplaceContext';
 import ScatterPlot from '../TopCreators/ScatterPlot';
 import ReviewList from './review';
-import NFTReviewDialogConfirmation from './NFTReviewDialogConfirmation';
+
 
 import { useTranslation } from 'react-i18next';
 import { generateSampleNFTs } from '../utils/sampleData';
@@ -122,30 +122,6 @@ const author = ({ creators }) => {
   }, [currentAccount]);
 
   const { t } = useTranslation();
-  const [openReviewDialog, setOpenReviewDialog] = useState(false);
-  const reviewDialogShownRef = useRef(false);
-
-  useEffect(() => {
-    const { purchased, seller: sellerAddress } = router.query;
-
-    // Only show review dialog once per session and only if it hasn't been shown yet
-    if (purchased === 'success' && sellerAddress && !reviewDialogShownRef.current) {
-      reviewDialogShownRef.current = true; // Mark as shown
-      setSeller(sellerAddress); // Update seller state
-      setOpenReviewDialog(true);
-
-      // Immediately clear the query params to prevent re-triggering
-      window.history.replaceState({}, document.title, window.location.pathname);
-    } else if (purchased === 'failure') {
-      setOpenReviewDialog(false);
-      window.history.replaceState({}, document.title, window.location.pathname);
-    }
-  }, [router.query]);
-
-  const handleCloseReviewDialog = () => {
-    setOpenReviewDialog(false);
-    reviewDialogShownRef.current = false; // Reset for future purchases
-  };
 
   const [nftsWithBids, setNftsWithBids] = useState([]);
   useEffect(() => {
@@ -203,13 +179,6 @@ const author = ({ creators }) => {
 
   return (
     <div className='bg-body' style={{ background: 'var(--bg-body)' }}>
-      <NFTReviewDialogConfirmation
-        handleClose={handleCloseReviewDialog}
-        open={openReviewDialog}
-        seller={seller}
-        leaveSellerReview={leaveSellerReview}
-        tokenId={tokenId}
-      />
 
       {/* New Hero Section */}
       <HeroSection
@@ -253,7 +222,7 @@ const author = ({ creators }) => {
           <div className=''>
             {/* Analytics Section */}
             <div className="bg-white rounded-2xl p-4 mb-4">
-              <AreaChart />
+              <AreaChart nftData={nfts} />
             </div>
 
             {/* Recent Activity Timeline */}
