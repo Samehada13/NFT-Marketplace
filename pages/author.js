@@ -253,7 +253,7 @@ const author = ({ creators }) => {
           <div className=''>
             {/* Analytics Section */}
             <div className="bg-white rounded-2xl p-4 mb-4">
-              <AreaChart />
+              <AreaChart nftData={nfts} />
             </div>
 
             {/* Recent Activity Timeline */}
