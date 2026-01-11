@@ -110,7 +110,7 @@ const AreaChart = ({ nftData = [], activeCategory = 'All' }) => {
                             {payload[0].payload.name ? 'Price:' : 'MATIC Price:'}
                         </span>
                         <span className={Style.tooltipValue}>
-                            {payload[0].value} {payload[0].payload.name ? 'MATIC' : 'USD'}
+                            {payload[0].value} {payload[0].payload.name ? 'MATIC' : 'PHP'}
                         </span>
                     </p>
                 </div>
@@ -179,11 +179,11 @@ const AreaChart = ({ nftData = [], activeCategory = 'All' }) => {
             <div className={Style.stats}>
                 <div className={Style.statItem}>
                     <span className={Style.statLabel}>Average Price</span>
-                    <span className={Style.statValue}>{averageFloorPrice} {nftData && nftData.length > 0 ? 'MATIC' : 'USD'}</span>
+                    <span className={Style.statValue}>{averageFloorPrice} {nftData && nftData.length > 0 ? 'MATIC' : 'PHP'}</span>
                 </div>
                 <div className={Style.statItem}>
                     <span className={Style.statLabel}>Floor Price</span>
-                    <span className={Style.statValue}>{parseFloat(floorStatData.floorPrice).toFixed(4)} {nftData && nftData.length > 0 ? 'MATIC' : 'USD'}</span>
+                    <span className={Style.statValue}>{parseFloat(floorStatData.floorPrice).toFixed(4)} {nftData && nftData.length > 0 ? 'MATIC' : 'PHP'}</span>
                 </div>
             </div>
 
