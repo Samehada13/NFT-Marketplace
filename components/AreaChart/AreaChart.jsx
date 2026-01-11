@@ -125,8 +125,8 @@ const AreaChart = ({ nftData = [], activeCategory = 'All' }) => {
         ? (validPrices.reduce((sum, d) => sum + parseFloat(d.floorPrice), 0) / validPrices.length).toFixed(4)
         : '0.0000';
 
-    const peakData = validPrices.length > 0
-        ? validPrices.reduce((max, curr) => parseFloat(curr.floorPrice) > parseFloat(max.floorPrice) ? curr : max)
+    const floorStatData = validPrices.length > 0
+        ? validPrices.reduce((min, curr) => parseFloat(curr.floorPrice) < parseFloat(min.floorPrice) ? curr : min)
         : { floorPrice: 0 };
 
     if (!mounted) return null;
@@ -182,8 +182,8 @@ const AreaChart = ({ nftData = [], activeCategory = 'All' }) => {
                     <span className={Style.statValue}>{averageFloorPrice} {nftData && nftData.length > 0 ? 'MATIC' : 'USD'}</span>
                 </div>
                 <div className={Style.statItem}>
-                    <span className={Style.statLabel}>Peak Price</span>
-                    <span className={Style.statValue}>{parseFloat(peakData.floorPrice).toFixed(4)} {nftData && nftData.length > 0 ? 'MATIC' : 'USD'}</span>
+                    <span className={Style.statLabel}>Floor Price</span>
+                    <span className={Style.statValue}>{parseFloat(floorStatData.floorPrice).toFixed(4)} {nftData && nftData.length > 0 ? 'MATIC' : 'USD'}</span>
                 </div>
             </div>
 
