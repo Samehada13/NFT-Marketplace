@@ -172,8 +172,10 @@ export const generateSampleNFTs = (count = 15) => {
             timestamp: Math.floor(timestamp.getTime() / 1000),
             creator: `0x${(3000 + i).toString(16).padStart(40, '0')}`,
             tokenURI: `ipfs://QmSample${i + 1}`,
+            isSampleData: true,
         };
     });
+
 };
 
 // Export static array for direct use

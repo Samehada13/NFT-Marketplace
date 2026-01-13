@@ -104,13 +104,38 @@ export const NFTMarketplaceProvider = ({ children }) => {
     const [currentAccount, setCurrentAccount] = useState('');
     const [isCorrectNetwork, setIsCorrectNetwork] = useState(true);
     const [currentChainId, setCurrentChainId] = useState(null);
+    const [currentNFT, setCurrentNFT] = useState(null);
     const router = useRouter();
 
-    // NFT Caching state
-    const [cachedNFTs, setCachedNFTs] = useState([]);
-    const [lastFetchTime, setLastFetchTime] = useState(null);
+    // NFT Caching state with localStorage persistence
+    const CACHE_KEY = 'nft_marketplace_cache';
+    const CACHE_TIME_KEY = 'nft_marketplace_cache_time';
     const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
     const { BigNumber } = ethers;
+
+    // Initialize cache from localStorage
+    const getInitialCache = () => {
+        if (typeof window === 'undefined') return [];
+        try {
+            const cached = localStorage.getItem(CACHE_KEY);
+            return cached ? JSON.parse(cached) : [];
+        } catch {
+            return [];
+        }
+    };
+
+    const getInitialCacheTime = () => {
+        if (typeof window === 'undefined') return null;
+        try {
+            const time = localStorage.getItem(CACHE_TIME_KEY);
+            return time ? parseInt(time, 10) : null;
+        } catch {
+            return null;
+        }
+    };
+
+    const [cachedNFTs, setCachedNFTs] = useState(getInitialCache);
+    const [lastFetchTime, setLastFetchTime] = useState(getInitialCacheTime);
 
     // Toast management functions
     const addToast = (message, type = 'error', duration = 5000) => {
@@ -147,6 +172,7 @@ export const NFTMarketplaceProvider = ({ children }) => {
         }
         validateNetwork();
     }, []);
+
 
     // Function to switch network with user feedback
     const requestNetworkSwitch = async () => {
@@ -360,8 +386,7 @@ export const NFTMarketplaceProvider = ({ children }) => {
                     currentChainId
                 );
                 addToast(
-                    `Please switch to Polygon Amoy Testnet. Current network: Chain ID ${
-                        currentChainId || 'Unknown'
+                    `Please switch to Polygon Amoy Testnet. Current network: Chain ID ${currentChainId || 'Unknown'
                     }`,
                     'error',
                     8000
@@ -398,11 +423,11 @@ export const NFTMarketplaceProvider = ({ children }) => {
             console.log('📝 Creating transaction...');
             const transaction = !isReselling
                 ? await contract.createToken(url, price, {
-                      value: listingPrice.toString(),
-                  })
+                    value: listingPrice.toString(),
+                })
                 : await contract.resellToken(id, price, {
-                      value: listingPrice.toString(),
-                  });
+                    value: listingPrice.toString(),
+                });
 
             console.log('⏳ Waiting for transaction confirmation...');
             await transaction.wait();
@@ -438,18 +463,37 @@ export const NFTMarketplaceProvider = ({ children }) => {
         }
     };
 
-    // Check if cache is valid
+    // Check if cache is valid (checks both state and localStorage)
     const isCacheValid = () => {
-        if (!lastFetchTime || cachedNFTs.length === 0) return false;
-        return Date.now() - lastFetchTime < CACHE_DURATION;
+        const cacheTime = lastFetchTime || getInitialCacheTime();
+        const cache = cachedNFTs.length > 0 ? cachedNFTs : getInitialCache();
+        if (!cacheTime || cache.length === 0) return false;
+        return Date.now() - cacheTime < CACHE_DURATION;
+    };
+
+    // Save cache to localStorage
+    const saveToLocalStorage = (items, time) => {
+        if (typeof window === 'undefined') return;
+        try {
+            localStorage.setItem(CACHE_KEY, JSON.stringify(items));
+            localStorage.setItem(CACHE_TIME_KEY, time.toString());
+            console.log('Cache saved to localStorage');
+        } catch (error) {
+            console.log('Failed to save cache to localStorage:', error);
+        }
     };
 
     const fetchNFTs = async () => {
+
         try {
             // Return cached data if still valid
             if (isCacheValid()) {
                 console.log('Returning cached NFTs (cache valid)');
-                return cachedNFTs;
+                const cache = cachedNFTs.length > 0 ? cachedNFTs : getInitialCache();
+                if (cachedNFTs.length === 0 && cache.length > 0) {
+                    setCachedNFTs(cache);
+                }
+                return cache;
             }
 
             console.log('Cache expired or empty, fetching from blockchain...');
@@ -512,9 +556,11 @@ export const NFTMarketplaceProvider = ({ children }) => {
                 )
             );
 
-            // Update cache
+            // Update cache in state and localStorage
+            const now = Date.now();
             setCachedNFTs(items);
-            setLastFetchTime(Date.now());
+            setLastFetchTime(now);
+            saveToLocalStorage(items, now);
             console.log('NFTs cached successfully, count:', items.length);
 
             return items;
@@ -527,9 +573,10 @@ export const NFTMarketplaceProvider = ({ children }) => {
             );
             console.log(error);
             // Return cached data if available, even if expired
-            if (cachedNFTs.length > 0) {
+            const cache = cachedNFTs.length > 0 ? cachedNFTs : getInitialCache();
+            if (cache.length > 0) {
                 console.log('Returning stale cached NFTs due to error');
-                return cachedNFTs;
+                return cache;
             }
         }
     };
@@ -539,10 +586,15 @@ export const NFTMarketplaceProvider = ({ children }) => {
         console.log('Force refreshing NFTs (bypassing cache)...');
         setCachedNFTs([]);
         setLastFetchTime(null);
+        if (typeof window !== 'undefined') {
+            localStorage.removeItem(CACHE_KEY);
+            localStorage.removeItem(CACHE_TIME_KEY);
+        }
         return await fetchNFTs();
     };
 
     const fetchMyNFTsOrListedNFTs = async (type) => {
+
         try {
             // if(currentAccount){
             const contract = await connectingWithSC();
@@ -735,8 +787,7 @@ export const NFTMarketplaceProvider = ({ children }) => {
             const isOnCorrectNetwork = await validateNetwork();
             if (!isOnCorrectNetwork) {
                 addToast(
-                    `Please switch to Polygon Amoy Testnet. Current network: Chain ID ${
-                        currentChainId || 'Unknown'
+                    `Please switch to Polygon Amoy Testnet. Current network: Chain ID ${currentChainId || 'Unknown'
                     }`,
                     'error',
                     8000
@@ -1093,6 +1144,8 @@ export const NFTMarketplaceProvider = ({ children }) => {
                 currentChainId,
                 validateNetwork,
                 requestNetworkSwitch,
+                currentNFT,
+                setCurrentNFT,
             }}
         >
             {children}
