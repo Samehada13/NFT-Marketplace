@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { useRouter } from 'next/router';
 import styles from './NFTCardTwo.module.css';
+import { NFTMarketplaceContext } from '../../context/NFTMarketplaceContext';
 
 const NFTCard = ({ nft }) => {
   const [like, setLike] = useState(false);
   const [likeInc, setLikeInc] = useState(21);
   const router = useRouter();
+  const { setCurrentNFT } = useContext(NFTMarketplaceContext);
 
   const likeNFT = (e) => {
     e.stopPropagation();
@@ -20,11 +22,10 @@ const NFTCard = ({ nft }) => {
   };
 
   const handleCardClick = () => {
-    router.push({
-      pathname: '/NFTDetails',
-      query: nft
-    });
+    setCurrentNFT(nft);
+    router.push('/NFTDetails');
   };
+
 
   return (
     <div className={styles.nftCard} onClick={handleCardClick} style={{ cursor: 'pointer' }}>
@@ -93,7 +94,7 @@ const NFTCard = ({ nft }) => {
 
 const NFTCardTwo = ({ NFTData = [], className }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 8;
+  const itemsPerPage = 10;
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;

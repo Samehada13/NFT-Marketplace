@@ -46,8 +46,13 @@ const NFTText = ({ nft }) => {
 
                     <div className={Style.NFTText_box_details_item}>
                         <small>{t('pages.nftDetails.nftDetailsImg.properties')}</small>
-                        <p>{nft.properties}</p>
+                        <p>
+                            {typeof nft.properties === 'object'
+                                ? Object.entries(nft.properties).map(([key, value]) => `${key}: ${value}`).join(', ')
+                                : nft.properties}
+                        </p>
                     </div>
+
 
                     <div className={Style.NFTText_box_details_item}>
                         <small>{t('pages.nftDetails.nftDetailsImg.website')}</small>

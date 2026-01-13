@@ -10,76 +10,173 @@ import nftsale6 from '../img/nftsale6.png';
 import nftsale7 from '../img/nftsale7.png';
 import nftsale8 from '../img/nftsale8.png';
 
-const nftsaleImages = [nftsale1, nftsale2, nftsale3, nftsale4, nftsale5, nftsale6, nftsale7, nftsale8];
+const nftsaleImages = [
+    nftsale1,
+    nftsale2,
+    nftsale3,
+    nftsale4,
+    nftsale5,
+    nftsale6,
+    nftsale7,
+    nftsale8,
+];
 
-// Generate sample NFT data for testing charts
-export const generateSampleNFTs = (count = 20) => {
-  const categories = ['Digital Painting', 'Digital Photography', 'CGI Art', 'Anime Art', 'Digital Collage', 'Pixel Art', 'Concept Art', 'AI-Generated Art', 'Photobashing', 'Vector Art'];
-  const names = [
-    'Digital Dream', 'Crypto Art #', 'Pixel Punks ', 'Ethereal ', 'Blockchain Beauty ',
-    'NFT Masterpiece ', 'Digital Wonder ', 'Crypto Gem ', 'Art Block ', 'Tokenized Art '
-  ];
+// Static sample NFT data for consistent display
+const STATIC_SAMPLE_NFTS = [
+    {
+        name: 'Cosmic Dreamer #1',
+        price: '0.5',
+        category: 'Digital Painting',
+        daysAgo: 1,
+        rarity: 'Epic',
+        color: 'Purple',
+    },
+    {
+        name: 'Neon Genesis #2',
+        price: '1.2',
+        category: 'CGI Art',
+        daysAgo: 2,
+        rarity: 'Legendary',
+        color: 'Blue',
+    },
+    {
+        name: 'Pixel Kingdom #3',
+        price: '0.3',
+        category: 'Pixel Art',
+        daysAgo: 3,
+        rarity: 'Rare',
+        color: 'Green',
+    },
+    {
+        name: 'Abstract Mind #4',
+        price: '0.8',
+        category: 'Digital Collage',
+        daysAgo: 5,
+        rarity: 'Epic',
+        color: 'Red',
+    },
+    {
+        name: 'Cyber Punk #5',
+        price: '2.0',
+        category: 'Concept Art',
+        daysAgo: 6,
+        rarity: 'Legendary',
+        color: 'Yellow',
+    },
+    {
+        name: 'Digital Sunset #6',
+        price: '0.4',
+        category: 'Digital Photography',
+        daysAgo: 8,
+        rarity: 'Common',
+        color: 'Purple',
+    },
+    {
+        name: 'Anime Hero #7',
+        price: '1.5',
+        category: 'Anime Art',
+        daysAgo: 10,
+        rarity: 'Rare',
+        color: 'Blue',
+    },
+    {
+        name: 'AI Vision #8',
+        price: '0.9',
+        category: 'AI-Generated Art',
+        daysAgo: 12,
+        rarity: 'Epic',
+        color: 'Green',
+    },
+    {
+        name: 'Vector Dreams #9',
+        price: '0.6',
+        category: 'Vector Art',
+        daysAgo: 14,
+        rarity: 'Uncommon',
+        color: 'Red',
+    },
+    {
+        name: 'Photo Fusion #10',
+        price: '1.1',
+        category: 'Photobashing',
+        daysAgo: 16,
+        rarity: 'Rare',
+        color: 'Yellow',
+    },
+    {
+        name: 'Galaxy Explorer #11',
+        price: '3.0',
+        category: 'CGI Art',
+        daysAgo: 18,
+        rarity: 'Legendary',
+        color: 'Purple',
+    },
+    {
+        name: 'Retro Wave #12',
+        price: '0.7',
+        category: 'Digital Painting',
+        daysAgo: 20,
+        rarity: 'Epic',
+        color: 'Blue',
+    },
+    {
+        name: 'Nature Spirit #13',
+        price: '0.5',
+        category: 'Digital Photography',
+        daysAgo: 22,
+        rarity: 'Rare',
+        color: 'Green',
+    },
+    {
+        name: 'Mecha Warrior #14',
+        price: '1.8',
+        category: 'Anime Art',
+        daysAgo: 24,
+        rarity: 'Epic',
+        color: 'Red',
+    },
+    {
+        name: 'Digital Eden #15',
+        price: '2.5',
+        category: 'Concept Art',
+        daysAgo: 26,
+        rarity: 'Legendary',
+        color: 'Yellow',
+    },
+];
 
-  const now = new Date();
-  const oneYearAgo = new Date();
-  oneYearAgo.setFullYear(now.getFullYear() - 1);
+// Generate static sample NFT data
+export const generateSampleNFTs = (count = 15) => {
+    const now = new Date();
 
-  const sampleNFTs = [];
+    return STATIC_SAMPLE_NFTS.slice(0, count).map((item, i) => {
+        const timestamp = new Date(now);
+        timestamp.setDate(timestamp.getDate() - item.daysAgo);
 
-  for (let i = 0; i < count; i++) {
-    const basePrice = Math.random() * 5 + 0.1; // Between 0.1 and 5.1 ETH
-    const price = basePrice.toFixed(4);
-    const randomDaysAgo = Math.floor(Math.random() * 365); // Random day in the past year
-    const timestamp = new Date(oneYearAgo);
-    timestamp.setDate(timestamp.getDate() + randomDaysAgo);
-
-    sampleNFTs.push({
-      price: ethers.utils.parseEther(price.toString()).toString(), // Convert to wei string
-      tokenId: i + 1,
-      seller: `0x${Math.random().toString(16).substr(2, 40)}`,
-      owner: `0x${Math.random().toString(16).substr(2, 40)}`,
-      image: nftsaleImages[i % 8],
-      name: `${names[i % names.length]}${i + 1}`,
-      description: `A beautiful NFT created on ${timestamp.toLocaleDateString()}`,
-      website: 'https://example.com',
-      category: categories[Math.floor(Math.random() * categories.length)],
-      royalties: (Math.random() * 10).toFixed(2),
-      fileSize: `${(Math.random() * 10 + 1).toFixed(2)} MB`,
-      properties: {
-        rarity: ['Common', 'Uncommon', 'Rare', 'Epic', 'Legendary'][Math.floor(Math.random() * 5)],
-        color: ['Red', 'Blue', 'Green', 'Yellow', 'Purple'][Math.floor(Math.random() * 5)],
-      },
-      timestamp: Math.floor(timestamp.getTime() / 1000), // Convert to Unix timestamp (seconds)
-      creator: `0x${Math.random().toString(16).substr(2, 40)}`,
-      tokenURI: `ipfs://QmXx...${Math.random().toString(16).substr(2, 10)}`
+        return {
+            price: ethers.utils.parseEther(item.price).toString(),
+            tokenId: i + 1,
+            seller: `0x${(1000 + i).toString(16).padStart(40, '0')}`,
+            owner: `0x${(2000 + i).toString(16).padStart(40, '0')}`,
+            image: nftsaleImages[i % 8],
+            name: item.name,
+            description: `A beautiful NFT from the collection`,
+            website: 'https://example.com',
+            category: item.category,
+            royalties: '5.00',
+            fileSize: '2.5 MB',
+            properties: {
+                rarity: item.rarity,
+                color: item.color,
+            },
+            timestamp: Math.floor(timestamp.getTime() / 1000),
+            creator: `0x${(3000 + i).toString(16).padStart(40, '0')}`,
+            tokenURI: `ipfs://QmSample${i + 1}`,
+            isSampleData: true,
+        };
     });
-  }
 
-  // Sort by timestamp
-  return sampleNFTs.sort((a, b) => a.timestamp - b.timestamp);
 };
 
-// Sample data for testing
-export const sampleNFTs = [
-  {
-    price: ethers.utils.parseEther('0.1').toString(),
-    tokenId: 1,
-    seller: '0x1234...',
-    owner: '0x5678...',
-    image: nftsale1,
-    name: 'Digital Dream #1',
-    description: 'A beautiful digital artwork',
-    website: 'https://example.com',
-    category: 'Art',
-    royalties: '5.00',
-    fileSize: '2.5 MB',
-    properties: {
-      rarity: 'Rare',
-      color: 'Blue'
-    },
-    timestamp: Math.floor(new Date('2023-01-15').getTime() / 1000),
-    creator: '0x90ab...',
-    tokenURI: 'ipfs://QmXx...123'
-  },
-  // Add more sample items as needed
-];
+// Export static array for direct use
+export const sampleNFTs = generateSampleNFTs(15);
