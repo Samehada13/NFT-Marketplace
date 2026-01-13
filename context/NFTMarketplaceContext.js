@@ -902,6 +902,12 @@ export const NFTMarketplaceProvider = ({ children }) => {
         try {
             const contract = await connectingWithSC();
 
+            // Guard: if no wallet connected or contract fails, return empty
+            if (!contract) {
+                console.log('No contract connection available for fetching bids');
+                return [];
+            }
+
             // Call the getTop7BidsForNFT function from the smart contract
             const top7Bids = await contract.getTop7BidsForNFT(tokenId);
 
@@ -910,6 +916,7 @@ export const NFTMarketplaceProvider = ({ children }) => {
                 console.log('No top 7 bids found for the specified NFT');
                 return [];
             }
+
 
             // Format the top 7 bids
             const formattedTop7Bids = top7Bids.map((bid) => ({
