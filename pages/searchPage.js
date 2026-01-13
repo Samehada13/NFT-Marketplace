@@ -107,7 +107,6 @@ const searchPage = () => {
     };
 
     const { t } = useTranslation();
-    console.log('nfts', nfts);
     return (
         <div className={Style.searchPage}>
             <AreaChart

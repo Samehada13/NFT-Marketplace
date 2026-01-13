@@ -1,26 +1,16 @@
-import React, { useState, useContext, useEffect } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import Image from 'next/image';
-import {
-  MdVerified, MdCloudUpload, MdTimer,
-  MdReportProblem, MdOutlineDeleteSweep
-} from 'react-icons/md';
+import { MdVerified, MdCloudUpload } from 'react-icons/md';
 import { useRouter } from 'next/router';
-import { BsThreeDots } from 'react-icons/bs';
 import { FaWallet, FaPercentage } from 'react-icons/fa';
 import { BiDownload } from 'react-icons/bi';
-import {
-  TiSocialFacebook, TiSocialTwitter, TiSocialLinkedin,
-  TiSocialInstagram, TiSocialYoutube
-} from 'react-icons/ti';
-import { BiTransferAlt, BiDollar } from 'react-icons/bi';
+import { TiSocialFacebook, TiSocialTwitter, TiSocialLinkedin, TiSocialYoutube } from 'react-icons/ti';
+import { BiDollar } from 'react-icons/bi';
 import Link from 'next/link';
-import Author from '../../pages/author'
-
 import Style from './NFTDescription.module.css';
 import image from '../../img';
 import { NFTTabs } from '../NFTDetailsPageIndex';
 import { Button } from '../../components/componentIndex';
-import formStyle from '../../accountPage/Form/Form';
 
 import { useTranslation } from 'react-i18next';
 
@@ -35,9 +25,8 @@ const NFTDescription = ({ nft, placeBid, acceptBid, fetchBidsForNFT }) => {
   const [owner, setOwner] = useState(false);
   const [showBidForm, setShowBidForm] = useState(false);
   const [bidAmount, setBidAmount] = useState('');
-  const [isNFTOwnedByCurrentUser, setIsNFTOwnedByCurrentUser] = useState(/* Add your logic here */);
+  const [isNFTOwnedByCurrentUser, setIsNFTOwnedByCurrentUser] = useState(false);
   const [showFormatModal, setShowFormatModal] = useState(false);
-  const [openReviewDialog, setOpenReviewDialog] = useState(false);
   const [isBuying, setIsBuying] = useState(false);
 
   const router = useRouter();
@@ -48,30 +37,6 @@ const NFTDescription = ({ nft, placeBid, acceptBid, fetchBidsForNFT }) => {
     setShowFormatModal(true);
   };
 
-
-  const historyArray = [
-    image.user1,
-    image.user2,
-    image.user3,
-    image.user4,
-    image.user5,
-  ]
-
-  const provenanceArray = [
-    image.user5,
-    image.user8,
-    image.user3,
-    image.user10,
-    image.user7,
-  ]
-
-  const ownerArray = [
-    image.user9,
-    image.user7,
-    image.user3,
-    image.user5,
-    image.user1,
-  ]
 
   const openSocial = () => {
     if (!social) {
@@ -175,6 +140,10 @@ const NFTDescription = ({ nft, placeBid, acceptBid, fetchBidsForNFT }) => {
   useEffect(() => {
     const fetchBids = async () => {
       try {
+        if (nft.isSampleData) {
+          console.log('Skipping bid fetch for sample data');
+          return;
+        }
         if (fetchBidsForNFT && nft.tokenId) {
           const fetchedBids = await fetchBidsForNFT(nft.tokenId);
           setBids(fetchedBids || []);
@@ -189,7 +158,8 @@ const NFTDescription = ({ nft, placeBid, acceptBid, fetchBidsForNFT }) => {
       fetchBids();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [nft.tokenId]);
+  }, [nft.tokenId, nft.isSampleData]);
+
 
 
   const {
